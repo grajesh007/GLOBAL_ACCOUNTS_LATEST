@@ -1,0 +1,13 @@
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.deps.json
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.dll
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.pdb
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.AssemblyReference.cache
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.GeneratedMSBuildEditorConfig.editorconfig
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.dll
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\refint\Kapil_Group_Repository.dll
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.pdb
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\ref\Kapil_Group_Repository.dll
+F:\2026\KapilGroupERP\KapilGroupERP\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
