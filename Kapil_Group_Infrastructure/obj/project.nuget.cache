@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "4L2igT3jZ/JKCUFW/zawZo5Cm/uu+n09MBl29pyUd7ENDTSMns2G/SXqk4yN2pjbmO5DVLTRU6TM74+00U4uKg==",
   "success": true,
   "projectFilePath": "E:\\karthik\\GLOBAL_ACCOUNTS_WEB\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
+=======
+  "dgSpecHash": "lEP7eIECIt3Ugr2BX2nbJRXbreMkvOM3JlkwD77DBmPdnL2am2d8dza61kGF24DMTKWocXt8B03RdiKX8YeVxQ==",
+  "success": true,
+  "projectFilePath": "E:\\karthik\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
+>>>>>>> 7bbdd72059d8fc3b6aca42781796b8afdf63dbfa
   "expectedPackageFiles": [],
   "logs": []
 }

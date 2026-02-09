@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "X7aBxfjHTCQv1HKzm0edmnHGBV/dWZC24gVss3pYLeFboyJhb4oamyKmWtnjw5WxDwzPxERuKbYxgFUh2F5BiA==",
   "success": true,
   "projectFilePath": "E:\\karthik\\GLOBAL_ACCOUNTS_WEB\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+=======
+  "dgSpecHash": "0Y825saCOjX5tTlr7Ov57tXpniMLZkzmztrK2mmuJcY1TYVJTBtF28iwYWiWdIsTmznUghsG6BWDV0UJqGPq/Q==",
+  "success": true,
+  "projectFilePath": "E:\\karthik\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+>>>>>>> 7bbdd72059d8fc3b6aca42781796b8afdf63dbfa
   "expectedPackageFiles": [],
   "logs": []
 }
