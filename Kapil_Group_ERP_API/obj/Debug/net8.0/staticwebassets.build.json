@@ -1,1 +1,11 @@
-{"Version":1,"Hash":"yRkqtOnTamtDVTzUs4UtLNHYE4NzgwT4WpG1iqMn/Oo=","Source":"Kapil_Group_ERP_API","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "uqaOC6BrBscJgzePk4GCegRk6F7txz7owOZBu7x/PtE=",
+  "Source": "Kapil_Group_ERP_API",
+  "BasePath": "_content/Kapil_Group_ERP_API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

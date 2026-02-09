@@ -52,6 +52,20 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("banks1")]
+        public IActionResult GetBanks1(string? globalSchema = null, string? accountsSchema = null,string? BranchCode = null, string? CompanyName = null)
+        {
+            try
+            {
+                // use configured schemas by default; override by query parameters if needed later
+                var banks = _accountDal.GetBankDetails1(_con, globalSchema ?? _globalSchema, accountsSchema ?? _accountsSchema,  BranchCode ?? BranchCode,CompanyName ?? CompanyName);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
     }
 }
