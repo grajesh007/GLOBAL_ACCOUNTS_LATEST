@@ -38,7 +38,7 @@ namespace Kapil_Group_ERP_API.Controllers
        
 
 
-[HttpGet("banks")]
+        [HttpGet("GetBanks")]
         public IActionResult GetBanks(string? globalSchema = null, string? accountsSchema = null)
         {
             try
@@ -52,6 +52,5 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
     }
 }
