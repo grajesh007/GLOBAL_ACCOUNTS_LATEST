@@ -524,6 +524,67 @@ public class AccountsDAL : IAccounts
 
     #endregion ExistingChequeCount
 
+    #region BankUPIDetails......
+    public List<BankUPIDetails> GetBankUPIDetails(string connectionString, string GlobalSchema, string CompanyCode, string BranchCode)
+    {
+        List<BankUPIDetails> upiList = new List<BankUPIDetails>();
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+        try
+        {
+            NpgsqlConnectionStringBuilder builder;
+            try
+            {
+                builder = new NpgsqlConnectionStringBuilder(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+            }
+
+            using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+            {
+                con.Open();
+
+                using var cmd = con.CreateCommand();
+                cmd.CommandText =
+                    "select tbl_mst_bank_upi_names_id as recordid, upi_name " +
+                    "from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank_upi_names " +
+                    "where status = true " +
+                    "and company_code = '" + CompanyCode + "' " +
+                    "and branch_code = '" + BranchCode + "';";
+
+                cmd.CommandType = CommandType.Text;
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    BankUPIDetails obj = new BankUPIDetails();
+
+                    obj.recordid =
+                        reader.IsDBNull(0) ? 0 : (int)reader.GetInt64(0);
+
+                    obj.upiname =
+                        reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+
+                    upiList.Add(obj);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Failed to retrieve UPI names (schema={GlobalSchema}). See inner exception for details.",
+                ex);
+        }
+
+        return upiList;
+    }
+
+    #endregion BankUPIDetails...
+
 
 
 }

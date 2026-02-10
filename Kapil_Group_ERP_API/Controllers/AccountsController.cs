@@ -214,6 +214,25 @@ namespace Kapil_Group_ERP_API.Controllers
         #endregion ExistingChequeCount
 
 
+        #region BankUPIDetails...
+        [HttpGet("GetBankUPIDetails")]
+
+        public IActionResult GetBankUPIDetails(string? GlobalSchema = null, string? BranchCode = null, string? CompanyCode = null)
+        {
+            try
+            {
+                var banks = _accountDal.GetBankUPIDetails(_con, GlobalSchema, CompanyCode, BranchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion BankUPIDetails...
+
+
 
 
 

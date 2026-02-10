@@ -60,6 +60,12 @@ string? branchCode
   #endregion GetExistingChequeCount
 
 
+  #region BankUPIDetails...
+ List<BankUPIDetails> GetBankUPIDetails(string connectionString, string GlobalSchema, string CompanyCode, string BranchCode);
+
+ #endregion BankUPIDetails...
+
+
 
 
 

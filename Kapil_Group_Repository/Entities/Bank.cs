@@ -105,3 +105,15 @@ public class ExistingChequeCountDTO : BaseEntity
 #endregion ExistingChequeCount
 
 
+#region BankUPIDetails...
+public class BankUPIDetails : BaseEntity
+{
+    public int recordid {get; set;}
+
+    public string upiname {get;set;} = string.Empty;
+    
+    
+}
+
+#endregion BankUPIDetails....
+
