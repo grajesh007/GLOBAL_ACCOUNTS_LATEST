@@ -65,6 +65,24 @@ string? branchCode
 
  #endregion BankUPIDetails...
 
+ #region ViewBankInformationDetails...
+  List<ViewBankInformationDetails> GetViewBankInformationDetails(string connectionString,string GlobalSchema, string BranchSchema,string BranchCode,string CompanyCode);
+
+#endregion ViewBankInformationDetails...
+
+#region GeneralReceiptsData...
+  List<GeneralReceiptsData> GetGeneralReceiptsData(string connectionString,string GlobalSchema,string BranchSchema,string TaxSchema,string CompanyCode,string BranchCode);
+
+#endregion GeneralReceiptsData...
+
+
+#region ViewBankInformation...
+
+List<ViewBankInformation> GetViewBankInformation(string connectionString,string GlobalSchema,string BranchSchema,string CompanyCode,string BranchCode,string precordid);
+
+
+#endregion ViewBankInformation...
+
 
 
 

@@ -232,6 +232,63 @@ namespace Kapil_Group_ERP_API.Controllers
 
         #endregion BankUPIDetails...
 
+        #region ViewBankInformationDetails....
+
+        [HttpGet("GetViewBankInformationDetails")]
+        public IActionResult GetViewBankInformationDetails(string? GlobalSchema = null, string? BranchSchema = null, string? BranchCode = null, string? CompanyCode = null)
+        {
+            try
+            {
+                var banks = _accountDal.GetViewBankInformationDetails(_con, GlobalSchema, BranchSchema, BranchCode, CompanyCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion ViewBankInformationDetails...
+
+
+    #region GeneralReceiptsData...
+
+        [HttpGet("GetGeneralReceiptsData")]
+        public IActionResult GetGeneralReceiptsData(string? GlobalSchema = null, string? BranchSchema = null, string? TaxSchema = null, string? CompanyCode = null,string? BranchCode = null)
+        {
+            try
+            {  
+                var banks = _accountDal.GetGeneralReceiptsData(_con, GlobalSchema, BranchSchema, TaxSchema,CompanyCode, BranchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+    #endregion GeneralReceiptsData...
+
+    #region  ViewBankInformation...
+
+    [HttpGet("GetViewBankInformation")]
+        public IActionResult GetViewBankInformation(string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null, string? precordid = null)
+        {
+            try
+            {
+                var banks = _accountDal.GetViewBankInformation(_con, GlobalSchema ?? _globalSchema, BranchSchema , CompanyCode , BranchCode , precordid );
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }                                
+    
+        }
+
+
+    #endregion ViewBankInformation...
+
 
 
 

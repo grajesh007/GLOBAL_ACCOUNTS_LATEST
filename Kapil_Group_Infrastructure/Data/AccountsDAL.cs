@@ -586,5 +586,342 @@ public class AccountsDAL : IAccounts
     #endregion BankUPIDetails...
 
 
+     #region  ViewBankInformationDetails...
+    public List<ViewBankInformationDetails> GetViewBankInformationDetails(string connectionString, string GlobalSchema, string BranchSchema, string BranchCode, string CompanyCode)
+    {
+        List<ViewBankInformationDetails> bankList = new List<ViewBankInformationDetails>();
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+        try
+        {
+            NpgsqlConnectionStringBuilder builder;
+            try
+            {
+                builder = new NpgsqlConnectionStringBuilder(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+            }
+
+            using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+            {
+                con.Open();
+
+                using var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    "select tbl_mst_bank_configuration_id, " +
+                    "bank_id, " +
+                    "COALESCE((select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank " +
+                    "where tbl_mst_bank_id = t1.bank_id), '') as bank_name, " +
+                    "account_number, " +
+                    "account_name, " +
+                    "status, " +
+                    "is_debitcard_applicable, " +
+                    "is_upi_applicable, " +
+                    "isprimary, " +
+                    "isformanbank, " +
+                    "is_foreman_payment_bank, " +
+                    "is_interest_payment_bank " +
+                    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t1 " +
+                    "where t1.status = 'true' " +
+                    "and t1.company_code = '" + CompanyCode + "' " +
+                    "and t1.branch_code = '" + BranchCode + "' " +
+                    "order by tbl_mst_bank_configuration_id desc;";
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ViewBankInformationDetails obj = new ViewBankInformationDetails();
+
+                    obj.tbl_mst_bank_configuration_id =
+                        reader.IsDBNull(0) ? 0 : (int)reader.GetInt64(0);
+
+                    obj.bank_id =
+                        reader.IsDBNull(1) ? 0 : (int)reader.GetInt64(1);
+
+                    obj.BankName =
+                        reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+
+                    obj.account_number =
+                        reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+
+                    obj.account_name =
+                        reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                    obj.status =
+                        !reader.IsDBNull(5) && reader.GetBoolean(5);
+
+                    obj.is_debitcard_applicable =
+                        !reader.IsDBNull(6) && reader.GetBoolean(6);
+
+                    obj.is_upi_applicable =
+                        !reader.IsDBNull(7) && reader.GetBoolean(7);
+
+                    obj.isprimary =
+                        !reader.IsDBNull(8) && reader.GetBoolean(8);
+
+                    obj.isformanbank =
+                        !reader.IsDBNull(9) && reader.GetBoolean(9);
+
+                    obj.is_foreman_payment_bank =
+                        !reader.IsDBNull(10) && reader.GetBoolean(10);
+
+                    obj.is_interest_payment_bank =
+                        !reader.IsDBNull(11) && reader.GetBoolean(11);
+
+                    bankList.Add(obj);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Failed to retrieve bank details (schema={BranchSchema}). See inner exception for details.", ex);
+        }
+
+        return bankList;
+    }
+
+    #endregion ViewBankInformationDetails...
+
+
+    #region  GeneralReceiptsData....
+    public List<GeneralReceiptsData> GetGeneralReceiptsData(string connectionString, string GlobalSchema, string BranchSchema, string TaxSchema, string CompanyCode, string BranchCode)
+    {
+        List<GeneralReceiptsData> receiptList = new List<GeneralReceiptsData>();
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+        try
+        {
+            NpgsqlConnectionStringBuilder builder;
+            try
+            {
+                builder = new NpgsqlConnectionStringBuilder(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+            }
+
+            using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+            {
+                con.Open();
+
+                using var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+    "select coalesce(a.receipt_date::text,'') receipt_date, " +
+    "a.receipt_number, " +
+    "a.modeof_receipt, " +
+    "bank_name, " +
+    "reference_number, " +
+    "coalesce(a.total_received_amount,0) totalreceivedamount, " +
+    "narration, " +
+    "upper(contact_mailing_name) contactname, " +
+    "is_tds_applicable, " +
+    "section_name as tdssection, " +
+    "'' as pannumber, " +
+    "tds_calculation_type, " +
+    "0 as tdspercentage, " +
+    "b.modeof_receipt as typeofreceipt, " +
+    "a.file_name, " +
+    "coalesce(b.clear_date::text,'') clear_date, " +
+    "coalesce(b.cheque_date::text,'') cheque_date, " +
+    "coalesce(b.deposited_date::text,'') deposited_date " +
+    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a " +
+    "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference b " +
+    "on a.receipt_number = b.receipt_number " +
+    "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c " +
+    "on b.deposited_bank_id = c.tbl_mst_bank_configuration_id " +
+    "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank f " +
+    "on b.receipt_bank_id = f.tbl_mst_bank_id " +
+    "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact d " +
+    "on a.contact_id = d.tbl_mst_contact_id " +
+    "left join " + AddDoubleQuotes(TaxSchema) + ".tbl_mst_tds e " +
+    "on a.tds_section_id = e.tbl_mst_tds_id " +
+    "where a.receipt_date::date = current_date " +
+    "and a.company_code = '" + CompanyCode + "' " +
+    "and a.branch_code = '" + BranchCode + "';";
+
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    GeneralReceiptsData obj = new GeneralReceiptsData();
+
+                    obj.receipt_date =
+                        reader.IsDBNull(0) ? string.Empty : reader.GetString(0);
+
+                    obj.receipt_number =
+                        reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+
+                    obj.modeof_receipt =
+                        reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+
+                    obj.bank_name =
+                        reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+
+                    obj.reference_number =
+                        reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                    obj.totalreceivedamount =
+                        reader.IsDBNull(5) ? 0 : (int)reader.GetInt64(5);
+
+                    obj.narration =
+                        reader.IsDBNull(6) ? string.Empty : reader.GetString(6);
+
+                    obj.contactname =
+                        reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
+
+                    obj.is_tds_applicable =
+                        !reader.IsDBNull(8) && reader.GetBoolean(8);
+
+                    obj.tdssection =
+                        reader.IsDBNull(9) ? string.Empty : reader.GetString(9);
+
+                    obj.pannumber =
+                        reader.IsDBNull(10) ? string.Empty : reader.GetString(10);
+
+                    obj.tds_calculation_type =
+                        reader.IsDBNull(11) ? string.Empty : reader.GetString(11);
+
+                    obj.tdspercentage =
+                        reader.IsDBNull(12) ? 0 : (int)reader.GetInt64(12);
+
+                    obj.typeofreceipt =
+                        reader.IsDBNull(13) ? string.Empty : reader.GetString(13);
+
+                    obj.file_name =
+                        reader.IsDBNull(14) ? string.Empty : reader.GetString(14);
+
+                    obj.clear_date =
+                        reader.IsDBNull(15) ? string.Empty : reader.GetString(15);
+
+                    obj.cheque_date =
+                        reader.IsDBNull(16) ? string.Empty : reader.GetString(16);
+
+                    obj.deposited_date =
+                        reader.IsDBNull(17) ? string.Empty : reader.GetString(17);
+
+                    receiptList.Add(obj);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Failed to retrieve receipt details (schema={BranchSchema}). See inner exception for details.", ex);
+        }
+
+        return receiptList;
+    }
+
+    #endregion GeneralReceiptsData....
+
+    #region  ViewBankInformation...
+
+    public List<ViewBankInformation> GetViewBankInformation(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode, string precordid)
+    {
+        List<ViewBankInformation> list = new List<ViewBankInformation>();
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+        try
+        {
+            NpgsqlConnectionStringBuilder builder;
+            try
+            {
+                builder = new NpgsqlConnectionStringBuilder(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+            }
+
+            using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+            {
+                con.Open();
+
+                using var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    "select " +
+                    "tbl_mst_bank_configuration_id as recordid, " +
+                    "coalesce(bank_date::text,'') as bank_date, " +
+                    "account_number, " +
+                    "bank_name, " +
+                    "account_name, " +
+                    "bank_branch, " +
+                    "ifsccode, " +
+                    "coalesce(overdraft,0) as overdraft, " +
+                    "coalesce(opening_balance,0) as openingbalance, " +
+                    "is_debitcard_applicable, " +
+                    "is_upi_applicable, " +
+                    "t.status as statusname, " +
+                    "'OLD' as typeofoperation, " +
+                    "account_type, " +
+                    "opening_jvno, " +
+                    "(select account_trans_type from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details b " +
+                    " join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher a " +
+                    "   on a.tbl_trans_journal_voucher_id = b.journal_voucher_id " +
+                    " where journal_voucher_no = t.opening_jvno " +
+                    "   and jv_account_id = t.bank_account_id) as OpeningBalanceType " +
+                    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t " +
+                    "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t1 " +
+                    "  on t.bank_id = t1.tbl_mst_bank_id " +
+                    "where tbl_mst_bank_configuration_id = '" + precordid + "' " +
+                    "  and t.status = true " +
+                    "  and t.company_code = '" + CompanyCode + "' " +
+                    "  and t.branch_code = '" + BranchCode + "'";
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ViewBankInformation obj = new ViewBankInformation();
+
+                    obj.recordid = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                    obj.bank_date = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+                    obj.account_number = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+                    obj.bank_name = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                    obj.account_name = reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+                    obj.bank_branch = reader.IsDBNull(5) ? string.Empty : reader.GetString(5);
+                    obj.ifsccode = reader.IsDBNull(6) ? string.Empty : reader.GetString(6);
+                    obj.overdraft = reader.IsDBNull(7) ? 0 : reader.GetInt32(7);
+                    obj.openingbalance = reader.IsDBNull(8) ? 0 : reader.GetInt32(8);
+                    obj.is_debitcard_applicable = reader.IsDBNull(9) ? false : reader.GetBoolean(9);
+                    obj.is_upi_applicable = reader.IsDBNull(10) ? false : reader.GetBoolean(10);
+                    obj.statusname = reader.IsDBNull(11) ? false : reader.GetBoolean(11);
+                    obj.typeofoperation = reader.IsDBNull(12) ? string.Empty : reader.GetString(12);
+                    obj.account_type = reader.IsDBNull(13) ? string.Empty : reader.GetString(13);
+                    obj.opening_jvno = reader.IsDBNull(14) ? string.Empty : reader.GetString(14);
+                    obj.OpeningBalanceType = reader.IsDBNull(15) ? string.Empty : reader.GetString(15);
+
+                    list.Add(obj);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Failed to retrieve bank configuration details (schema={BranchSchema}). See inner exception for details.",
+                ex);
+        }
+
+        return list;
+    }
+
+
+    #endregion ViewBankInformation...
+
+
+
+
 
 }
