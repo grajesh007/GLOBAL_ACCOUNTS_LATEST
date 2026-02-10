@@ -19,9 +19,11 @@ namespace Kapil_Group_ERP_API.Controllers
         private readonly string _accountsSchema;
         private readonly IConfiguration _configuration;
 
-        private readonly IWebHostEnvironment _hostingEnvironment; 
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         private readonly IAccounts _accountDal;
+
+        public object BranchCode { get; private set; }
 
         public AccountsController(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
@@ -35,7 +37,7 @@ namespace Kapil_Group_ERP_API.Controllers
             // If you prefer DI for AccountsDAL, register it and inject IAccounts instead
             _accountDal = new AccountsDAL();
         }
-       
+
 
 
         [HttpGet("GetBanks")]
@@ -44,7 +46,8 @@ namespace Kapil_Group_ERP_API.Controllers
             try
             {
                 // use configured schemas by default; override by query parameters if needed later
-                var banks = _accountDal.GetBankDetails(_con, globalSchema ?? _globalSchema, accountsSchema ?? _accountsSchema);
+                var banks = _accountDal.GetBankDetails(_con, globalSchema ?? _globalSchema,
+                 accountsSchema ?? _accountsSchema);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -53,12 +56,12 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
         [HttpGet("banks1")]
-        public IActionResult GetBanks1(string? globalSchema = null, string? accountsSchema = null,string? BranchCode = null, string? CompanyName = null)
+        public IActionResult GetBanks1(string? globalSchema = null, string? accountsSchema = null, string? BranchCode = null, string? CompanyName = null)
         {
             try
             {
                 // use configured schemas by default; override by query parameters if needed later
-                var banks = _accountDal.GetBankDetails1(_con, globalSchema ?? _globalSchema, accountsSchema ?? _accountsSchema,  BranchCode ?? BranchCode,CompanyName ?? CompanyName);
+                var banks = _accountDal.GetBankDetails1(_con, globalSchema ?? _globalSchema, accountsSchema ?? _accountsSchema, BranchCode ?? BranchCode, CompanyName ?? CompanyName);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -66,6 +69,156 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        #region BankNames
+
+        [HttpGet("BankNames")]
+        public IActionResult GetBankNames(
+            string? GlobalSchema = null,
+            string? AccountsSchema = null,
+            string? CompanyCode = null,
+            string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetBankNamesDetails(
+                    _con,
+                    GlobalSchema ?? GlobalSchema,
+                    AccountsSchema ?? AccountsSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        #endregion BankNames
+        #region companyNameandaddressDetails
+        [HttpGet("CompanyNameAndAddress")]
+        public IActionResult GetCompanyNameAndAddressDetails(
+   string? GlobalSchema = null,
+   string? CompanyCode = null,
+   string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetCompanyNameAndAddressDetails(
+                    _con,
+                    GlobalSchema ?? GlobalSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        #endregion companyNameandaddressDetails
+        #region BankConfigurationdetails
+        [HttpGet("BankConfigurationDetails")]
+        public IActionResult GetBankConfigurationDetails(
+    string? BranchSchema = null,
+    string? CompanyCode = null,
+    string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetBankConfigurationDetails(
+                    _con,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion BankConfigurationdetails
+
+        #region ViewChequeManagementDetails
+        [HttpGet("ViewChequeManagementDetails")]
+        public IActionResult ViewChequeManagementDetails(
+     string branchSchema,
+     string globalSchema,
+     string companyCode,
+     string branchCode,
+     int pageSize = 10,
+     int pageNo = 0)
+        {
+            try
+            {
+                var result = _accountDal.ViewChequeManagementDetails(
+                    _con,
+                    branchSchema,
+                    globalSchema,
+                    companyCode,
+                    branchCode,
+                    pageSize,
+                    pageNo
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        #endregion ViewChequeManagementDetails
+
+        #region ExistingChequeCount
+        [HttpGet("ExistingChequeCount")]
+        public IActionResult GetExistingChequeCount(
+    int bankId,
+    int chqFromNo,
+    int chqToNo,
+    string? BranchSchema = null,
+    string? CompanyCode = null,
+    string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetExistingChequeCount(
+                    _con,
+                    bankId,
+                    chqFromNo,
+                    chqToNo,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        #endregion ExistingChequeCount
+
+
+
+
+
+
+
 
     }
 }
