@@ -355,6 +355,7 @@ WHERE b.branch_code=@BranchCode AND c.company_code=@CompanyCode;
 
 
     #endregion BankConfigurationdetails
+    
     #region ViewChequeManagementDetails
     public List<ViewChequeManagementDTO> ViewChequeManagementDetails(
     string connectionString,
