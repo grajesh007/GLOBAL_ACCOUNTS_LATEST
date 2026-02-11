@@ -83,9 +83,4 @@ List<ViewBankInformation> GetViewBankInformation(string connectionString,string 
 
 #endregion ViewBankInformation...
 
-
-
-
-
-
 }
