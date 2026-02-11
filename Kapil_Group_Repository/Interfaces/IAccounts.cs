@@ -77,7 +77,17 @@ List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectio
 
 #endregion ProductnamesandHSNcodes..
 
+#region  getReceiptNumber..
+   public List<getReceiptNumber> getReceiptNumber(
+        string connectionString,
+        string? globalSchema,
+        string? branchSchema,
+        string? companyCode,
+        string? branchCode);
 
+
+
+#endregion getReceiptNumber..
 
 
 

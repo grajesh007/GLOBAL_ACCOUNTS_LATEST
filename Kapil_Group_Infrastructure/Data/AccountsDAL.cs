@@ -1052,6 +1052,53 @@ ORDER BY t1.payment_date DESC;
 
     #endregion ProductnamesandHSNcodes..
 
+  #region  getReceiptNumber..
+   
+
+
+    public List<getReceiptNumber> getReceiptNumber(
+        string connectionString,
+        string? globalSchema,
+        string? branchSchema,
+        string? companyCode,
+        string? branchCode)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is required");
+
+        if (string.IsNullOrWhiteSpace(globalSchema))
+            return new List<getReceiptNumber>();
+
+        var productList = new List<getReceiptNumber>();
+
+        using var con = new NpgsqlConnection(connectionString);
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+
+       cmd.CommandText =
+        $"select tbl_trans_pettycash_voucher_id,payment_number from " + AddDoubleQuotes(branchSchema) + ".tbl_trans_pettycash_voucher where case when TO_CHAR(current_date,'YYYY')::int= (select cal_year from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_calendar_period where cal_year = to_char(current_date, 'YYYY')::int) and to_char(current_date,'MM') in('01', '02', '03') then payment_date between(select fin_from_Date from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_calendar_period where cal_year = to_char(current_date - interval '1 year', 'YYYY')::int) and (select fin_to_Date from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_calendar_period where cal_year = to_char(current_date - interval '1 year', 'YYYY')::int) else payment_date between(select fin_from_Date from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_calendar_period where cal_year = to_char(current_date, 'YYYY')::int) and (select fin_to_Date from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_calendar_period where cal_year = to_char(current_date, 'YYYY')::int) end and coalesce(receipt_cancel_reference_number,'')='' and company_code='" +companyCode+ "' and branch_code='" + branchCode + "' order by tbl_trans_pettycash_voucher_id;";
+
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            productList.Add(new getReceiptNumber
+            {
+                
+               
+tbl_trans_pettycash_voucher_id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+ payment_number = reader.GetString(1)
+
+            });
+        }
+
+        return productList;
+    }
+
+    #endregion ProductnamesandHSNcodes..
+
 
 
 

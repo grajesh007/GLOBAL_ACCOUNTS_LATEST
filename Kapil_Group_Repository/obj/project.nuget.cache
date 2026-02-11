@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "5aUc2srK3NA=",
   "success": true,
   "projectFilePath": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
-=======
-  "dgSpecHash": "BQA+h8GF6Lk=",
-  "success": true,
-  "projectFilePath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
->>>>>>> a03b464a82c43373d3159326867eed60e11a6c65
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0\\microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",
@@ -22,5 +16,12 @@
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

@@ -251,6 +251,14 @@ public class ProductNamesAndHSNCodesDetails
 
 
 #endregion ProductnamesandHSNcodes..
+#region getReceiptNumber..
+public class getReceiptNumber
+{
+    public int tbl_trans_pettycash_voucher_id { get; set; }
+    public string payment_number { get; set; } = string.Empty;
+}
 
+
+#endregion getReceiptNumber..
 
 

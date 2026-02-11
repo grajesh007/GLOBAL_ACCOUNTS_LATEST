@@ -53,24 +53,6 @@ D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\D
 D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.genruntimeconfig.cache
 D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\ref\Kapil_Group_Infrastructure.dll
 <<<<<<< HEAD
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.deps.json
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.runtimeconfig.json
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.dll
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.pdb
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Repository.dll
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Repository.pdb
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.csproj.AssemblyReference.cache
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.AssemblyInfoInputs.cache
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.AssemblyInfo.cs
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.csproj.CoreCompileInputs.cache
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.sourcelink.json
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Gr.7A0B2A47.Up2Date
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.dll
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\refint\Kapil_Group_Infrastructure.dll
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.pdb
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.genruntimeconfig.cache
-H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\ref\Kapil_Group_Infrastructure.dll
 =======
 D:\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.deps.json
 D:\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.runtimeconfig.json
@@ -91,3 +73,21 @@ D:\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Deb
 D:\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.genruntimeconfig.cache
 D:\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\ref\Kapil_Group_Infrastructure.dll
 >>>>>>> a03b464a82c43373d3159326867eed60e11a6c65
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.csproj.AssemblyReference.cache
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.AssemblyInfoInputs.cache
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.AssemblyInfo.cs
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.csproj.CoreCompileInputs.cache
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.sourcelink.json
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.deps.json
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.runtimeconfig.json
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.dll
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Infrastructure.pdb
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Repository.dll
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\bin\Debug\net8.0\Kapil_Group_Repository.pdb
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Gr.7A0B2A47.Up2Date
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.dll
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\refint\Kapil_Group_Infrastructure.dll
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.pdb
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\Kapil_Group_Infrastructure.genruntimeconfig.cache
+H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Infrastructure\obj\Debug\net8.0\ref\Kapil_Group_Infrastructure.dll

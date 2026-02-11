@@ -3178,6 +3178,7 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -3831,6 +3832,7 @@
       "path": "system.runtime/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4213,6 +4215,7 @@
       "path": "system.text.encoding/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4536,19 +4539,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
       "projectName": "Kapil_Group_ERP_API",
       "projectPath": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
       "outputPath": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\obj\\",
-=======
-      "projectUniqueName": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
-      "projectName": "Kapil_Group_ERP_API",
-      "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\obj\\",
->>>>>>> a03b464a82c43373d3159326867eed60e11a6c65
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4561,29 +4556,18 @@
         "net8.0"
       ],
       "sources": {
-<<<<<<< HEAD
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-=======
->>>>>>> a03b464a82c43373d3159326867eed60e11a6c65
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-<<<<<<< HEAD
             "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
               "projectPath": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj"
             },
             "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
               "projectPath": "H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
-=======
-            "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
-              "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj"
-            },
-            "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
-              "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
->>>>>>> a03b464a82c43373d3159326867eed60e11a6c65
             }
           }
         }
@@ -4646,6 +4630,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file H:\\ACCOUNTING\\New project\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",

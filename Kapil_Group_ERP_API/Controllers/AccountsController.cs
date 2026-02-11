@@ -391,5 +391,37 @@ namespace Kapil_Group_ERP_API.Controllers
         #endregion ProductnamesandHSNcodes
 
 
+
+
+
+   #region getReceiptNumber..
+        [HttpGet("getReceiptNumber")]
+        public IActionResult getReceiptNumber(
+      string? GlobalSchema = null,
+   string? BranchSchema = null,
+   string? CompanyCode = null,
+   string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.getReceiptNumber(
+                      _con,
+                   GlobalSchema ?? GlobalSchema,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        #endregion ProductnamesandHSNcodes
+
     }
 }
