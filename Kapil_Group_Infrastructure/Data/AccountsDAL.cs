@@ -198,7 +198,6 @@ public class AccountsDAL : IAccounts
     }
 
 
-
     #endregion BankNames
     #region companyNameandaddressDetails
     public List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(
@@ -224,50 +223,26 @@ public class AccountsDAL : IAccounts
         cmd.CommandType = CommandType.Text;
 
         cmd.CommandText = $@"
-        SELECT
-            b.tbl_mst_branch_configuration_id,
-            c.company_name,
-            c.company_code,
-            b.branch_code,
-            b.unique_branch_name,
-            COALESCE(b.gst_number, b.state_code::text) AS gst_number,
-            c.cin_number,
-            c.registration_address,
-            b.branch_name,
-            b.state_code,
-            b.branch_address,
-            b.chit_register_address,
-            COALESCE(b.backdate_enable_enddate >= CURRENT_DATE, FALSE) AS transaction_lock_status,
-            COALESCE(c.application_version_no, '') AS application_version_no,
-            CASE WHEN b.uncommenced_sjv_allow_status = 'Y' THEN TRUE ELSE FALSE END AS uncommenced_sjv_allow_status,
-            CASE WHEN b.incharge_validate_on_subscriber = 'Y' THEN TRUE ELSE FALSE END AS incharge_validate_on_subscriber,
-            COALESCE(b.display_name, '') AS display_name,
-            CASE WHEN b.fin_closing_jv_allow_status = 'Y' THEN TRUE ELSE FALSE END AS fin_closing_jv_allow_status,
-            COALESCE(b.legalcell_name, '') AS legalcell_name,
-            c.receipt_restriction_no_of_dues AS legalcell_dues,
-            CASE WHEN b.islegalgeneral_receipt_allow_status = 'Y' THEN TRUE ELSE FALSE END AS islegalgeneral_receipt_allow_status,
-            c.chitfund_act_number,
-            c.legal_dept_address,
-            CASE WHEN b.isonlyefeereceipt_allow_status = 'Y' THEN TRUE ELSE FALSE END AS isonlyefeereceipt_allow_status,
-            b.kgms_start_time,
-            b.kgms_end_time,
-            c.nonpayment_subscribers_graceperiod,
-            c.receipt_restriction_no_of_dues_daywise AS legalcell_dues_days,
-            c.max_chits_per_contact,
-            CASE WHEN b.daywise_auctions = 'Y' THEN TRUE ELSE FALSE END AS daywise_auctions,
-            CASE WHEN b.lc_calculatedpenalty_editable = 'Y' THEN TRUE ELSE FALSE END AS lc_calculatedpenalty_editable,
-            b.onlineprocess_backdate_days,
-            CASE WHEN b.iscontact_editable_allow_status = 'Y' THEN TRUE ELSE FALSE END AS iscontact_editable_allow_status,
-            CASE WHEN b.fixed_chit_status = 'Y' THEN TRUE ELSE FALSE END AS fixed_chit_status,
-            CASE WHEN b.is_auto_brs_imps_applicable = 'Y' THEN TRUE ELSE FALSE END AS is_auto_brs_imps_applicable,
-            CASE WHEN b.issubscriber_nominee_allocation = 'Y' THEN TRUE ELSE FALSE END AS issubscriber_nominee_allocation,
-            COALESCE(b.biometric_enable_enddate >= CURRENT_DATE, FALSE) AS biometric_date_lock_status
-        FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_branch_configuration b
-        JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_chit_company_configuration c
-            ON c.tbl_mst_chit_company_configuration_id = b.company_configuration_id
-        WHERE b.branch_code = @BranchCode
-          AND c.company_code = @CompanyCode;
-    ";
+SELECT b.tbl_mst_branch_configuration_id, c.company_name, c.company_code, b.branch_code, b.unique_branch_name,
+       COALESCE(b.gst_number, b.state_code::text) AS gst_number, c.cin_number, c.registration_address, b.branch_name,
+       b.state_code, b.branch_address, b.chit_register_address, COALESCE(b.backdate_enable_enddate >= CURRENT_DATE, FALSE) AS transaction_lock_status,
+       COALESCE(c.application_version_no, '') AS application_version_no, CASE WHEN b.uncommenced_sjv_allow_status='Y' THEN TRUE ELSE FALSE END AS uncommenced_sjv_allow_status,
+       CASE WHEN b.incharge_validate_on_subscriber='Y' THEN TRUE ELSE FALSE END AS incharge_validate_on_subscriber, COALESCE(b.display_name,'') AS display_name,
+       CASE WHEN b.fin_closing_jv_allow_status='Y' THEN TRUE ELSE FALSE END AS fin_closing_jv_allow_status, COALESCE(b.legalcell_name,'') AS legalcell_name,
+       c.receipt_restriction_no_of_dues AS legalcell_dues, CASE WHEN b.islegalgeneral_receipt_allow_status='Y' THEN TRUE ELSE FALSE END AS islegalgeneral_receipt_allow_status,
+       c.chitfund_act_number, c.legal_dept_address, CASE WHEN b.isonlyefeereceipt_allow_status='Y' THEN TRUE ELSE FALSE END AS isonlyefeereceipt_allow_status,
+       b.kgms_start_time, b.kgms_end_time, c.nonpayment_subscribers_graceperiod, c.receipt_restriction_no_of_dues_daywise AS legalcell_dues_days,
+       c.max_chits_per_contact, CASE WHEN b.daywise_auctions='Y' THEN TRUE ELSE FALSE END AS daywise_auctions,
+       CASE WHEN b.lc_calculatedpenalty_editable='Y' THEN TRUE ELSE FALSE END AS lc_calculatedpenalty_editable,
+       b.onlineprocess_backdate_days, CASE WHEN b.iscontact_editable_allow_status='Y' THEN TRUE ELSE FALSE END AS iscontact_editable_allow_status,
+       CASE WHEN b.fixed_chit_status='Y' THEN TRUE ELSE FALSE END AS fixed_chit_status,
+       CASE WHEN b.is_auto_brs_imps_applicable='Y' THEN TRUE ELSE FALSE END AS is_auto_brs_imps_applicable,
+       CASE WHEN b.issubscriber_nominee_allocation='Y' THEN TRUE ELSE FALSE END AS issubscriber_nominee_allocation,
+       COALESCE(b.biometric_enable_enddate >= CURRENT_DATE, FALSE) AS biometric_date_lock_status
+FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_branch_configuration b
+JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_chit_company_configuration c ON c.tbl_mst_chit_company_configuration_id = b.company_configuration_id
+WHERE b.branch_code=@BranchCode AND c.company_code=@CompanyCode;
+";
 
         cmd.Parameters.AddWithValue("@BranchCode", branchCode);
         cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
@@ -402,36 +377,18 @@ public class AccountsDAL : IAccounts
         conn.Open();
 
         string query = $@"
-        SELECT 
-            t2.tbl_mst_bank_configuration_id,
-            t1.cheque_book_id,
-            t1.noofcheques,
-            t1.cheque_from_number,
-            t1.cheque_to_number,
-            t1.cheque_generate_status,
-            t3.bank_name,
-            t2.account_number,
-            t1.status,
-            COALESCE(
-                (
-                    SELECT cheque_status
-                    FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques
-                    WHERE cheque_book_id = t1.cheque_book_id
-                      AND status = TRUE
-                    LIMIT 1
-                ), ''
-            ) AS cheque_status
-        FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheque_management t1
-        JOIN {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration t2
-            ON t1.bank_configuration_id = t2.tbl_mst_bank_configuration_id
-        JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_bank t3
-            ON t2.bank_id = t3.tbl_mst_bank_id
-        WHERE t2.status = TRUE
-          AND t1.company_code = @CompanyCode
-          AND t1.branch_code = @BranchCode
-        ORDER BY t1.tbl_mst_cheque_management_id DESC
-        LIMIT @PageSize OFFSET @Offset;
-    ";
+SELECT t2.tbl_mst_bank_configuration_id, t1.cheque_book_id, t1.noofcheques, t1.cheque_from_number, t1.cheque_to_number,
+       t1.cheque_generate_status, t3.bank_name, t2.account_number, t1.status,
+       COALESCE((SELECT cheque_status FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques 
+                 WHERE cheque_book_id = t1.cheque_book_id AND status = TRUE LIMIT 1), '') AS cheque_status
+FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheque_management t1
+JOIN {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration t2 ON t1.bank_configuration_id = t2.tbl_mst_bank_configuration_id
+JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_bank t3 ON t2.bank_id = t3.tbl_mst_bank_id
+WHERE t2.status = TRUE AND t1.company_code = @CompanyCode AND t1.branch_code = @BranchCode
+ORDER BY t1.tbl_mst_cheque_management_id DESC
+LIMIT @PageSize OFFSET @Offset;
+";
+
 
         using var cmd = new Npgsql.NpgsqlCommand(query, conn);
         cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
@@ -613,24 +570,12 @@ public class AccountsDAL : IAccounts
                 using var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText =
-                    "select tbl_mst_bank_configuration_id, " +
-                    "bank_id, " +
-                    "COALESCE((select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank " +
-                    "where tbl_mst_bank_id = t1.bank_id), '') as bank_name, " +
-                    "account_number, " +
-                    "account_name, " +
-                    "status, " +
-                    "is_debitcard_applicable, " +
-                    "is_upi_applicable, " +
-                    "isprimary, " +
-                    "isformanbank, " +
-                    "is_foreman_payment_bank, " +
-                    "is_interest_payment_bank " +
-                    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t1 " +
-                    "where t1.status = 'true' " +
-                    "and t1.company_code = '" + CompanyCode + "' " +
-                    "and t1.branch_code = '" + BranchCode + "' " +
-                    "order by tbl_mst_bank_configuration_id desc;";
+     "SELECT tbl_mst_bank_configuration_id, bank_id, COALESCE((SELECT bank_name FROM " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank " +
+     "WHERE tbl_mst_bank_id = t1.bank_id), '') AS bank_name, account_number, account_name, status, is_debitcard_applicable, " +
+     "is_upi_applicable, isprimary, isformanbank, is_foreman_payment_bank, is_interest_payment_bank " +
+     "FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t1 WHERE t1.status = 'true' " +
+     "AND t1.company_code = '" + CompanyCode + "' AND t1.branch_code = '" + BranchCode + "' ORDER BY tbl_mst_bank_configuration_id DESC;";
+
 
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -716,38 +661,17 @@ public class AccountsDAL : IAccounts
                 using var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText =
-    "select coalesce(a.receipt_date::text,'') receipt_date, " +
-    "a.receipt_number, " +
-    "a.modeof_receipt, " +
-    "bank_name, " +
-    "reference_number, " +
-    "coalesce(a.total_received_amount,0) totalreceivedamount, " +
-    "narration, " +
-    "upper(contact_mailing_name) contactname, " +
-    "is_tds_applicable, " +
-    "section_name as tdssection, " +
-    "'' as pannumber, " +
-    "tds_calculation_type, " +
-    "0 as tdspercentage, " +
-    "b.modeof_receipt as typeofreceipt, " +
-    "a.file_name, " +
-    "coalesce(b.clear_date::text,'') clear_date, " +
-    "coalesce(b.cheque_date::text,'') cheque_date, " +
-    "coalesce(b.deposited_date::text,'') deposited_date " +
-    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a " +
-    "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference b " +
-    "on a.receipt_number = b.receipt_number " +
-    "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c " +
-    "on b.deposited_bank_id = c.tbl_mst_bank_configuration_id " +
-    "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank f " +
-    "on b.receipt_bank_id = f.tbl_mst_bank_id " +
-    "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact d " +
-    "on a.contact_id = d.tbl_mst_contact_id " +
-    "left join " + AddDoubleQuotes(TaxSchema) + ".tbl_mst_tds e " +
-    "on a.tds_section_id = e.tbl_mst_tds_id " +
-    "where a.receipt_date::date = current_date " +
-    "and a.company_code = '" + CompanyCode + "' " +
-    "and a.branch_code = '" + BranchCode + "';";
+     "SELECT COALESCE(a.receipt_date::text,'') receipt_date, a.receipt_number, a.modeof_receipt, bank_name, reference_number, " +
+     "COALESCE(a.total_received_amount,0) totalreceivedamount, narration, UPPER(contact_mailing_name) contactname, is_tds_applicable, section_name AS tdssection, " +
+     "'' AS pannumber, tds_calculation_type, 0 AS tdspercentage, b.modeof_receipt AS typeofreceipt, a.file_name, " +
+     "COALESCE(b.clear_date::text,'') clear_date, COALESCE(b.cheque_date::text,'') cheque_date, COALESCE(b.deposited_date::text,'') deposited_date " +
+     "FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a " +
+     "LEFT JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference b ON a.receipt_number = b.receipt_number " +
+     "LEFT JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c ON b.deposited_bank_id = c.tbl_mst_bank_configuration_id " +
+     "LEFT JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank f ON b.receipt_bank_id = f.tbl_mst_bank_id " +
+     "LEFT JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact d ON a.contact_id = d.tbl_mst_contact_id " +
+     "LEFT JOIN " + AddDoubleQuotes(TaxSchema) + ".tbl_mst_tds e ON a.tds_section_id = e.tbl_mst_tds_id " +
+     "WHERE a.receipt_date::date = CURRENT_DATE AND a.company_code = '" + CompanyCode + "' AND a.branch_code = '" + BranchCode + "';";
 
 
                 using var reader = cmd.ExecuteReader();
@@ -852,34 +776,14 @@ public class AccountsDAL : IAccounts
                 using var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText =
-                    "select " +
-                    "tbl_mst_bank_configuration_id as recordid, " +
-                    "coalesce(bank_date::text,'') as bank_date, " +
-                    "account_number, " +
-                    "bank_name, " +
-                    "account_name, " +
-                    "bank_branch, " +
-                    "ifsccode, " +
-                    "coalesce(overdraft,0) as overdraft, " +
-                    "coalesce(opening_balance,0) as openingbalance, " +
-                    "is_debitcard_applicable, " +
-                    "is_upi_applicable, " +
-                    "t.status as statusname, " +
-                    "'OLD' as typeofoperation, " +
-                    "account_type, " +
-                    "opening_jvno, " +
-                    "(select account_trans_type from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details b " +
-                    " join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher a " +
-                    "   on a.tbl_trans_journal_voucher_id = b.journal_voucher_id " +
-                    " where journal_voucher_no = t.opening_jvno " +
-                    "   and jv_account_id = t.bank_account_id) as OpeningBalanceType " +
-                    "from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t " +
-                    "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t1 " +
-                    "  on t.bank_id = t1.tbl_mst_bank_id " +
-                    "where tbl_mst_bank_configuration_id = '" + precordid + "' " +
-                    "  and t.status = true " +
-                    "  and t.company_code = '" + CompanyCode + "' " +
-                    "  and t.branch_code = '" + BranchCode + "'";
+    "SELECT tbl_mst_bank_configuration_id AS recordid, COALESCE(bank_date::text,'') AS bank_date, account_number, bank_name, account_name, bank_branch, ifsccode, " +
+    "COALESCE(overdraft,0) AS overdraft, COALESCE(opening_balance,0) AS openingbalance, is_debitcard_applicable, is_upi_applicable, t.status AS statusname, 'OLD' AS typeofoperation, " +
+    "account_type, opening_jvno, (SELECT account_trans_type FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details b " +
+    "JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher a ON a.tbl_trans_journal_voucher_id = b.journal_voucher_id " +
+    "WHERE journal_voucher_no = t.opening_jvno AND jv_account_id = t.bank_account_id) AS OpeningBalanceType " +
+    "FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t1 ON t.bank_id = t1.tbl_mst_bank_id " +
+    "WHERE tbl_mst_bank_configuration_id = '" + precordid + "' AND t.status = TRUE AND t.company_code = '" + CompanyCode + "' AND t.branch_code = '" + BranchCode + "';";
+
 
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -922,62 +826,231 @@ public class AccountsDAL : IAccounts
 
     #region AvailableChequeCount...
 
-public List<AvailableChequeCount> GetAvailableChequeCount(
-    string connectionString,
-    int bankId,
-    int chqFromNo,
-    int chqToNo,
-    string branchSchema,
-    string companyCode,
-    string branchCode)
-{
-    if (string.IsNullOrWhiteSpace(connectionString))
-        throw new ArgumentException("Connection string is required");
-
-    if (string.IsNullOrWhiteSpace(branchSchema) ||
-        string.IsNullOrWhiteSpace(companyCode) ||
-        string.IsNullOrWhiteSpace(branchCode))
-        return new List<AvailableChequeCount>();
-
-    var result = new List<AvailableChequeCount>();
-
-    using var con = new NpgsqlConnection(connectionString);
-    con.Open();
-
-    using var cmd = con.CreateCommand();
-    cmd.CommandType = CommandType.Text;
-
-    cmd.CommandText = $@"
-        SELECT COUNT(1) AS count
-        FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques a
-        WHERE a.bank_configuration_id = @BankId
-          AND a.cheque_number BETWEEN @ChqFromNo AND @ChqToNo
-          AND a.cheque_status = 'Un Used'
-          AND a.company_code = @CompanyCode
-          AND a.branch_code = @BranchCode;
-    ";
-
-    cmd.Parameters.AddWithValue("@BankId", bankId);
-    cmd.Parameters.AddWithValue("@ChqFromNo", chqFromNo);
-    cmd.Parameters.AddWithValue("@ChqToNo", chqToNo);
-    cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
-    cmd.Parameters.AddWithValue("@BranchCode", branchCode);
-
-    using var reader = cmd.ExecuteReader();
-    while (reader.Read())
+    public List<AvailableChequeCount> GetAvailableChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode)
     {
-        result.Add(new AvailableChequeCount
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is required");
+
+        if (string.IsNullOrWhiteSpace(branchSchema) ||
+            string.IsNullOrWhiteSpace(companyCode) ||
+            string.IsNullOrWhiteSpace(branchCode))
+            return new List<AvailableChequeCount>();
+
+        var result = new List<AvailableChequeCount>();
+
+        using var con = new NpgsqlConnection(connectionString);
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+
+        cmd.CommandText = $@" SELECT COUNT(1) AS count FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques a WHERE a.bank_configuration_id = @BankId AND a.cheque_number BETWEEN @ChqFromNo AND @ChqToNo AND a.cheque_status = 'Un Used' AND a.company_code = @CompanyCode AND a.branch_code = @BranchCode;";
+
+        cmd.Parameters.AddWithValue("@BankId", bankId);
+        cmd.Parameters.AddWithValue("@ChqFromNo", chqFromNo);
+        cmd.Parameters.AddWithValue("@ChqToNo", chqToNo);
+        cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+        cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
         {
-            Count = reader.IsDBNull(0) ? 0 : reader.GetInt32(0)
-        });
+            result.Add(new AvailableChequeCount
+            {
+                Count = reader.IsDBNull(0) ? 0 : reader.GetInt32(0)
+            });
+        }
+
+        return result;
     }
 
-    return result;
-}
 
-    
     #endregion AvailableChequeCount...
 
+    #region PettyCashExistingData...
+
+
+    public List<PettyCashExistingData> GetPettyCashExistingData(
+        string connectionString,
+        string GlobalSchema,
+        string BranchSchema,
+        string CompanyCode,
+        string Branchcode)
+    {
+        List<PettyCashExistingData> paymentList = new List<PettyCashExistingData>();
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+        try
+        {
+            NpgsqlConnectionStringBuilder builder;
+
+            try
+            {
+                builder = new NpgsqlConnectionStringBuilder(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+            }
+
+            using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+            {
+                con.Open();
+                Console.WriteLine(con.State);
+
+                using var cmd = con.CreateCommand();
+                cmd.CommandText =
+    "SELECT COALESCE(t1.payment_date::text,'') AS paymentdate, t1.payment_number AS paymentid, t1.modeof_payment, t2.modeof_payment AS typeofpayment, " +
+    "bank_name, reference_number, total_paid_amount " +
+    "FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_pettycash_voucher t1 " +
+    "LEFT JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference t2 ON t1.payment_number = t2.payment_number " +
+    "LEFT JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t3 ON t3.tbl_mst_bank_configuration_id = t2.bank_configuration_id " +
+    "LEFT JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t4 ON t4.tbl_mst_bank_id = t3.bank_id " +
+    "WHERE t1.payment_date = CURRENT_DATE AND t1.company_code = '" + CompanyCode + "' AND t1.branch_code = '" + Branchcode + "' " +
+    "ORDER BY t1.payment_date DESC;";
+
+                cmd.CommandType = CommandType.Text;
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    PettyCashExistingData obj = new PettyCashExistingData();
+
+                    obj.PaymentDate =
+                        reader.IsDBNull(0) ? string.Empty : reader.GetString(0);
+
+                    obj.PaymentId =
+                        reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+
+                    obj.ModeOfPayment =
+                        reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+
+                    obj.TypeOfPayment =
+                        reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+
+                    obj.BankName =
+                        reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                    obj.ReferenceNumber =
+                        reader.IsDBNull(5) ? string.Empty : reader.GetString(5);
+
+                    obj.TotalPaidAmount =
+                        reader.IsDBNull(6) ? 0 : (int)reader.GetInt64(6);
+
+                    paymentList.Add(obj);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Failed to retrieve petty cash payment details (schema={BranchSchema}). See inner exception for details.",
+                ex);
+        }
+
+        return paymentList;
+    }
+
+    #endregion PettyCashExistingData...
+
+    #region PaymentVoucherExistingData..
+    public List<PaymentVoucherDetails> GetPaymentVoucherExistingData(
+        string connectionString,
+        string? globalSchema,
+        string? branchSchema,
+        string? companyCode,
+        string? branchCode)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is required");
+
+        if (string.IsNullOrWhiteSpace(globalSchema) ||
+            string.IsNullOrWhiteSpace(branchSchema) ||
+            string.IsNullOrWhiteSpace(companyCode) ||
+            string.IsNullOrWhiteSpace(branchCode))
+            return new List<PaymentVoucherDetails>();
+
+        var paymentList = new List<PaymentVoucherDetails>();
+
+        using var con = new NpgsqlConnection(connectionString);
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+
+        cmd.CommandText = $@"
+SELECT COALESCE(t1.payment_date::text,'') AS paymentdate, t1.payment_number AS paymentid,
+       t1.modeof_payment, t2.modeof_payment AS typeofpayment, t4.bank_name, t2.reference_number, t1.total_paid_amount
+FROM {AddDoubleQuotes(branchSchema)}.tbl_trans_payment_voucher t1
+LEFT JOIN {AddDoubleQuotes(branchSchema)}.tbl_trans_payment_reference t2 ON t1.payment_number = t2.payment_number
+LEFT JOIN {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration t3 ON t3.tbl_mst_bank_configuration_id = t2.bank_configuration_id
+LEFT JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_bank t4 ON t4.tbl_mst_bank_id = t3.bank_id
+WHERE t1.payment_date = CURRENT_DATE AND t1.company_code = @CompanyCode AND t1.branch_code = @BranchCode
+ORDER BY t1.payment_date DESC;
+";
+
+
+        cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+        cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            paymentList.Add(new PaymentVoucherDetails
+            {
+                PaymentDate = reader.GetString(0),
+                PaymentId = reader.GetString(1),
+                ModeOfPayment = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+                TypeOfPayment = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
+                BankName = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
+                ReferenceNumber = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
+                TotalPaidAmount = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6)
+            });
+        }
+
+        return paymentList;
+    }
+
+    #endregion PaymentVoucherExistingData..
+
+    #region  ProductnamesandHSNcodes..
+    public List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(
+    string connectionString,
+    string? globalSchema)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is required");
+
+        if (string.IsNullOrWhiteSpace(globalSchema))
+            return new List<ProductNamesAndHSNCodesDetails>();
+
+        var productList = new List<ProductNamesAndHSNCodesDetails>();
+
+        using var con = new NpgsqlConnection(connectionString);
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+
+       cmd.CommandText = $"SELECT product_name, hsn_code FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_hsncode WHERE status = true ORDER BY product_name;";
+
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            productList.Add(new ProductNamesAndHSNCodesDetails
+            {
+                ProductName = reader.GetString(0),
+                HSNCode = reader.GetString(1)
+            });
+        }
+
+        return productList;
+    }
+
+    #endregion ProductnamesandHSNcodes..
 
 
 

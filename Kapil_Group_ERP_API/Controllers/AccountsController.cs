@@ -319,14 +319,76 @@ namespace Kapil_Group_ERP_API.Controllers
         #endregion AvailableChequeCount...
 
 
+        #region PettyCashExistingData...
+
+        [HttpGet("GetPettyCashExistingData")]
+        public IActionResult GetPettyCashExistingData(string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? Branchcode = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetPettyCashExistingData(_con, GlobalSchema, BranchSchema, CompanyCode, Branchcode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion PettyCashExistingData...
+
+        #region PaymentVoucherExistingData..
+
+        [HttpGet("PaymentVoucherExistingData")]
+        public IActionResult GetPaymentVoucherExistingData(
+   string? GlobalSchema = null,
+   string? BranchSchema = null,
+   string? CompanyCode = null,
+   string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetPaymentVoucherExistingData(
+                    _con,
+                    GlobalSchema ?? GlobalSchema,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion PaymentVoucherExistingData..
+
+        #region ProductnamesandHSNcodes..
+        [HttpGet("ProductNamesAndHSNCodes")]
+        public IActionResult GetProductNamesAndHSNCodes(
+     string? GlobalSchema = null)
+        {
+            try
+            {
+                var result = _accountDal.GetProductNamesAndHSNCodes(
+                    _con,
+                    GlobalSchema ?? GlobalSchema
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
 
-
-
-
-
-
-
+        #endregion ProductnamesandHSNcodes
 
 
     }
