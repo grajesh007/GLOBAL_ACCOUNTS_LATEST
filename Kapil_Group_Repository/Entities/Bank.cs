@@ -195,5 +195,15 @@ public class ViewBankInformation : BaseEntity
 
 #endregion ViewBankInformation...
 
+#region AvailableChequeCount...
 
+public class AvailableChequeCount :BaseEntity
+{
+    
+    public int Count { get; set; }
+
+
+}
+
+#endregion AvailableChequeCount...
 

@@ -460,7 +460,7 @@ public class AccountsDAL : IAccounts
         return chequeList;
     }
 
-   
+
     private string AddDoubleQuotes(string name)
     {
         return $"\"{name.Trim()}\"";
@@ -517,7 +517,7 @@ public class AccountsDAL : IAccounts
             {
                 Count = reader.GetInt32(0)
             });
-        } 
+        }
 
         return result;
     }
@@ -586,7 +586,7 @@ public class AccountsDAL : IAccounts
     #endregion BankUPIDetails...
 
 
-     #region  ViewBankInformationDetails...
+    #region  ViewBankInformationDetails...
     public List<ViewBankInformationDetails> GetViewBankInformationDetails(string connectionString, string GlobalSchema, string BranchSchema, string BranchCode, string CompanyCode)
     {
         List<ViewBankInformationDetails> bankList = new List<ViewBankInformationDetails>();
@@ -919,6 +919,64 @@ public class AccountsDAL : IAccounts
 
 
     #endregion ViewBankInformation...
+
+    #region AvailableChequeCount...
+
+public List<AvailableChequeCount> GetAvailableChequeCount(
+    string connectionString,
+    int bankId,
+    int chqFromNo,
+    int chqToNo,
+    string branchSchema,
+    string companyCode,
+    string branchCode)
+{
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new ArgumentException("Connection string is required");
+
+    if (string.IsNullOrWhiteSpace(branchSchema) ||
+        string.IsNullOrWhiteSpace(companyCode) ||
+        string.IsNullOrWhiteSpace(branchCode))
+        return new List<AvailableChequeCount>();
+
+    var result = new List<AvailableChequeCount>();
+
+    using var con = new NpgsqlConnection(connectionString);
+    con.Open();
+
+    using var cmd = con.CreateCommand();
+    cmd.CommandType = CommandType.Text;
+
+    cmd.CommandText = $@"
+        SELECT COUNT(1) AS count
+        FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques a
+        WHERE a.bank_configuration_id = @BankId
+          AND a.cheque_number BETWEEN @ChqFromNo AND @ChqToNo
+          AND a.cheque_status = 'Un Used'
+          AND a.company_code = @CompanyCode
+          AND a.branch_code = @BranchCode;
+    ";
+
+    cmd.Parameters.AddWithValue("@BankId", bankId);
+    cmd.Parameters.AddWithValue("@ChqFromNo", chqFromNo);
+    cmd.Parameters.AddWithValue("@ChqToNo", chqToNo);
+    cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+    cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+
+    using var reader = cmd.ExecuteReader();
+    while (reader.Read())
+    {
+        result.Add(new AvailableChequeCount
+        {
+            Count = reader.IsDBNull(0) ? 0 : reader.GetInt32(0)
+        });
+    }
+
+    return result;
+}
+
+    
+    #endregion AvailableChequeCount...
 
 
 
