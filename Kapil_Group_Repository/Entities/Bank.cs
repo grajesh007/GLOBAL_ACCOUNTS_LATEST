@@ -108,11 +108,11 @@ public class ExistingChequeCountDTO : BaseEntity
 #region BankUPIDetails...
 public class BankUPIDetails : BaseEntity
 {
-    public int recordid {get; set;}
+    public int recordid { get; set; }
 
-    public string upiname {get;set;} = string.Empty;
-    
-    
+    public string upiname { get; set; } = string.Empty;
+
+
 }
 
 #endregion BankUPIDetails....
@@ -120,50 +120,50 @@ public class BankUPIDetails : BaseEntity
 #region  ViewBankInformationDetails...
 public class ViewBankInformationDetails : BaseEntity
 {
-   public int tbl_mst_bank_configuration_id {get; set;}
+    public int tbl_mst_bank_configuration_id { get; set; }
 
-   public int bank_id {get; set;}
+    public int bank_id { get; set; }
 
-   public string BankName {get; set;}= string.Empty;
+    public string BankName { get; set; } = string.Empty;
 
-   public string account_number {get; set;}=string.Empty;
-   public string account_name {get;set;} = string.Empty;
-   public bool status {get; set;}
-   public bool is_debitcard_applicable {get; set;}
-   public bool is_upi_applicable {get; set;}
-   public bool isprimary {get; set;}
-   public bool isformanbank {get; set;}
-   public bool is_foreman_payment_bank  {get; set;}
+    public string account_number { get; set; } = string.Empty;
+    public string account_name { get; set; } = string.Empty;
+    public bool status { get; set; }
+    public bool is_debitcard_applicable { get; set; }
+    public bool is_upi_applicable { get; set; }
+    public bool isprimary { get; set; }
+    public bool isformanbank { get; set; }
+    public bool is_foreman_payment_bank { get; set; }
 
-   public bool is_interest_payment_bank {get; set;}
+    public bool is_interest_payment_bank { get; set; }
 }
 #endregion ViewBankInformationDetails...
 
 #region GeneralReceiptsData...
-public class GeneralReceiptsData :BaseEntity
+public class GeneralReceiptsData : BaseEntity
 {
-    
-    public string receipt_date {get; set;} = string.Empty;
-    public string receipt_number {get; set;} = string.Empty;
 
-    public string modeof_receipt {get;set;} = string.Empty;
-    public string bank_name {get;set;} =string.Empty;
-    public string reference_number {get; set;} = string.Empty;
-    public int totalreceivedamount {get; set;}
-    public string narration {get;set;}=string.Empty;
-    public string contactname {get; set;} = string.Empty;
-    public bool is_tds_applicable {get;set;}
-    public string tdssection {get;set;} = string.Empty;
-    public string pannumber {get;set;}= string.Empty;
-    public string tds_calculation_type {get;set;}=string.Empty;
-    public int tdspercentage {get;set;}
-    public string typeofreceipt {get; set;} =string.Empty;
-    public string file_name {get;set;} = string.Empty;
+    public string receipt_date { get; set; } = string.Empty;
+    public string receipt_number { get; set; } = string.Empty;
 
-    public string clear_date {get; set;} = string.Empty;
+    public string modeof_receipt { get; set; } = string.Empty;
+    public string bank_name { get; set; } = string.Empty;
+    public string reference_number { get; set; } = string.Empty;
+    public int totalreceivedamount { get; set; }
+    public string narration { get; set; } = string.Empty;
+    public string contactname { get; set; } = string.Empty;
+    public bool is_tds_applicable { get; set; }
+    public string tdssection { get; set; } = string.Empty;
+    public string pannumber { get; set; } = string.Empty;
+    public string tds_calculation_type { get; set; } = string.Empty;
+    public int tdspercentage { get; set; }
+    public string typeofreceipt { get; set; } = string.Empty;
+    public string file_name { get; set; } = string.Empty;
 
-    public string cheque_date {get;set;}= string.Empty;
-    public string deposited_date {get; set;}=string.Empty;
+    public string clear_date { get; set; } = string.Empty;
+
+    public string cheque_date { get; set; } = string.Empty;
+    public string deposited_date { get; set; } = string.Empty;
 }
 #endregion GeneralReceiptsData...
 
@@ -171,39 +171,61 @@ public class GeneralReceiptsData :BaseEntity
 
 public class ViewBankInformation : BaseEntity
 {
-    public int recordid {get; set;}
-    public string bank_date {get;set;} = string.Empty;
-    public string account_number {get;set;} = string.Empty;
-    public string bank_name {get;set;} = string.Empty;
+    public int recordid { get; set; }
+    public string bank_date { get; set; } = string.Empty;
+    public string account_number { get; set; } = string.Empty;
+    public string bank_name { get; set; } = string.Empty;
 
-    public string account_name {get;set;} = string.Empty;
-    public string bank_branch {get;set;} = string.Empty;
-    public string ifsccode {get;set;} = string.Empty;
-    public int overdraft {get;set;}
-    public int openingbalance {get;set;}
-    public bool is_debitcard_applicable {get;set;}
-    public bool is_upi_applicable {get;set;}
-    public bool statusname {get;set;}
-    public string typeofoperation {get;set;} = string.Empty;
+    public string account_name { get; set; } = string.Empty;
+    public string bank_branch { get; set; } = string.Empty;
+    public string ifsccode { get; set; } = string.Empty;
+    public int overdraft { get; set; }
+    public int openingbalance { get; set; }
+    public bool is_debitcard_applicable { get; set; }
+    public bool is_upi_applicable { get; set; }
+    public bool statusname { get; set; }
+    public string typeofoperation { get; set; } = string.Empty;
 
-    public string account_type {get;set;} = string.Empty;
-    public string opening_jvno {get;set;} = string.Empty;
-    public string OpeningBalanceType {get;set;} = string.Empty;
+    public string account_type { get; set; } = string.Empty;
+    public string opening_jvno { get; set; } = string.Empty;
+    public string OpeningBalanceType { get; set; } = string.Empty;
 
-    
+
 }
 
 #endregion ViewBankInformation...
 
 #region AvailableChequeCount...
 
-public class AvailableChequeCount :BaseEntity
+public class AvailableChequeCount : BaseEntity
 {
-    
+
     public int Count { get; set; }
 
 
 }
 
 #endregion AvailableChequeCount...
+
+
+#region PettyCashExistingData...
+
+public class PettyCashExistingData :BaseEntity
+{
+
+    public string PaymentDate {get;set;} = string.Empty;
+    public string PaymentId {get;set;} = string.Empty;
+
+    public string ModeOfPayment {get;set;} = string.Empty;
+    public string TypeOfPayment {get;set;} = string.Empty;
+    public string BankName {get;set;} = string.Empty;
+
+    public string ReferenceNumber {get;set;} = string.Empty;
+
+    public int TotalPaidAmount {get;set;}
+    
+}
+
+#endregion PettyCashExistingData...
+
 

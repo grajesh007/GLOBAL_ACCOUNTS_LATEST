@@ -851,27 +851,7 @@ public class AccountsDAL : IAccounts
 
                 using var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText =
-                    "select " +
-                    "tbl_mst_bank_configuration_id as recordid, " +
-                    "coalesce(bank_date::text,'') as bank_date, " +
-                    "account_number, " +
-                    "bank_name, " +
-                    "account_name, " +
-                    "bank_branch, " +
-                    "ifsccode, " +
-                    "coalesce(overdraft,0) as overdraft, " +
-                    "coalesce(opening_balance,0) as openingbalance, " +
-                    "is_debitcard_applicable, " +
-                    "is_upi_applicable, " +
-                    "t.status as statusname, " +
-                    "'OLD' as typeofoperation, " +
-                    "account_type, " +
-                    "opening_jvno, " +
-                    "(select account_trans_type from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details b " +
-                    " join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher a " +
-                    "   on a.tbl_trans_journal_voucher_id = b.journal_voucher_id " +
-                    " where journal_voucher_no = t.opening_jvno " +
+                cmd.CommandText = "select " +"tbl_mst_bank_configuration_id as recordid, " +"coalesce(bank_date::text,'') as bank_date, " +"account_number, " + "bank_name, " +"account_name, " + "bank_branch, " +"ifsccode, " + "coalesce(overdraft,0) as overdraft, " +"coalesce(opening_balance,0) as openingbalance, " +"is_debitcard_applicable, " +"is_upi_applicable, " + "t.status as statusname, " +"'OLD' as typeofoperation, " + "account_type, " +"opening_jvno, " + "(select account_trans_type from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details b " + " join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher a " + "   on a.tbl_trans_journal_voucher_id = b.journal_voucher_id " + " where journal_voucher_no = t.opening_jvno " +
                     "   and jv_account_id = t.bank_account_id) as OpeningBalanceType " +
                     "from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t " +
                     "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t1 " +
@@ -922,14 +902,7 @@ public class AccountsDAL : IAccounts
 
     #region AvailableChequeCount...
 
-public List<AvailableChequeCount> GetAvailableChequeCount(
-    string connectionString,
-    int bankId,
-    int chqFromNo,
-    int chqToNo,
-    string branchSchema,
-    string companyCode,
-    string branchCode)
+public List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,int bankId,int chqFromNo,int chqToNo,string branchSchema,string companyCode,string branchCode)
 {
     if (string.IsNullOrWhiteSpace(connectionString))
         throw new ArgumentException("Connection string is required");
@@ -947,15 +920,7 @@ public List<AvailableChequeCount> GetAvailableChequeCount(
     using var cmd = con.CreateCommand();
     cmd.CommandType = CommandType.Text;
 
-    cmd.CommandText = $@"
-        SELECT COUNT(1) AS count
-        FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques a
-        WHERE a.bank_configuration_id = @BankId
-          AND a.cheque_number BETWEEN @ChqFromNo AND @ChqToNo
-          AND a.cheque_status = 'Un Used'
-          AND a.company_code = @CompanyCode
-          AND a.branch_code = @BranchCode;
-    ";
+    cmd.CommandText = $@" SELECT COUNT(1) AS count FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_cheques a WHERE a.bank_configuration_id = @BankId AND a.cheque_number BETWEEN @ChqFromNo AND @ChqToNo AND a.cheque_status = 'Un Used' AND a.company_code = @CompanyCode AND a.branch_code = @BranchCode;";
 
     cmd.Parameters.AddWithValue("@BankId", bankId);
     cmd.Parameters.AddWithValue("@ChqFromNo", chqFromNo);
@@ -978,6 +943,106 @@ public List<AvailableChequeCount> GetAvailableChequeCount(
     
     #endregion AvailableChequeCount...
 
+#region PettyCashExistingData...
+
+
+public List<PettyCashExistingData> GetPettyCashExistingData(
+    string connectionString,
+    string GlobalSchema,
+    string BranchSchema,
+    string CompanyCode,
+    string Branchcode)
+{
+    List<PettyCashExistingData> paymentList = new List<PettyCashExistingData>();
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+    try
+    {
+        NpgsqlConnectionStringBuilder builder;
+
+        try
+        {
+            builder = new NpgsqlConnectionStringBuilder(connectionString);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+        {
+            con.Open();
+            Console.WriteLine(con.State);
+
+            using var cmd = con.CreateCommand();
+            cmd.CommandText =
+                "select coalesce(t1.payment_date::text,'') as paymentdate, " +
+                "t1.payment_number as paymentid, " +
+                "t1.modeof_payment, " +
+                "t2.modeof_payment as typeofpayment, " +
+                "bank_name, " +
+                "reference_number, " +
+                "total_paid_amount " +
+                "from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_pettycash_voucher t1 " +
+                "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference t2 " +
+                "on t1.payment_number = t2.payment_number " +
+                "left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t3 " +
+                "on t3.tbl_mst_bank_configuration_id = t2.bank_configuration_id " +
+                "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank t4 " +
+                "on t4.tbl_mst_bank_id = t3.bank_id " +
+                "where t1.payment_date = current_date " +
+                "and t1.company_code = '" + CompanyCode + "' " +
+                "and t1.branch_code = '" + Branchcode + "' " +
+                "order by t1.payment_date desc;";
+
+            cmd.CommandType = CommandType.Text;
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                PettyCashExistingData obj = new PettyCashExistingData();
+
+                obj.PaymentDate =
+                    reader.IsDBNull(0) ? string.Empty : reader.GetString(0);
+
+                obj.PaymentId =
+                    reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+
+                obj.ModeOfPayment =
+                    reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+
+                obj.TypeOfPayment =
+                    reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+
+                obj.BankName =
+                    reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                obj.ReferenceNumber =
+                    reader.IsDBNull(5) ? string.Empty : reader.GetString(5);
+
+                obj.TotalPaidAmount =
+                    reader.IsDBNull(6) ? 0 : (int)reader.GetInt64(6);
+
+                paymentList.Add(obj);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw new InvalidOperationException(
+            $"Failed to retrieve petty cash payment details (schema={BranchSchema}). See inner exception for details.",
+            ex);
+    }
+
+    return paymentList;
+}
+
+
+
+
+#endregion PettyCashExistingData...
 
 
 

@@ -85,14 +85,19 @@ string? branchCode
 
   #region AvailableChequeCount...
 
-  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,  int bankId,
-    int chqFromNo,
-    int chqToNo,
-    string branchSchema,
-    string companyCode,
-    string branchCode);
+  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,  int bankId,int chqFromNo,int chqToNo,string branchSchema,string companyCode,string branchCode);
 
   #endregion AvailableChequeCount...
+
+#region PettyCashExistingData...
+
+List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema,
+    string BranchSchema,
+    string CompanyCode,
+    string Branchcode);
+
+
+#endregion PettyCashExistingData...
 
 
 
