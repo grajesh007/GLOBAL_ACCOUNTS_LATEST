@@ -10,53 +10,27 @@ public interface IAccounts
  string BranchCode, string CompanyName);
 
   #region BankNames
-  List<BankNamesDetails> GetBankNamesDetails(
-    string connectionString,
-    string? globalSchema,
-    string? accountsSchema,
-    string? companyCode,
-    string? branchCode
-);
+  List<BankNamesDetails> GetBankNamesDetails(string connectionString, string? globalSchema, string? accountsSchema, string? companyCode, string? branchCode);
+
   #endregion BankNames
 
   #region CompanyNameAndAddressDetails
-  List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(
-         string connectionString,
-         string globalSchema,
-         string companyCode,
-         string branchCode);
+ List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(string connectionString, string globalSchema, string companyCode, string branchCode);
 
   #endregion CompanyNameAndAddressDetails
   #region  BankConfigurationDetails
-  List<BankConfigurationDetails> GetBankConfigurationDetails(
-string connectionString,
-string? branchSchema,
-string? companyCode,
-string? branchCode
-);
+ List<BankConfigurationDetails> GetBankConfigurationDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
+
   #endregion BankConfigurationDetails
 
   #region ViewChequeManagementDetails
-  List<ViewChequeManagementDTO> ViewChequeManagementDetails(
-      string connectionString,
-      string branchSchema,
-      string globalSchema,
-      string companyCode,
-      string branchCode,
-      int pageSize,
-      int pageNo);
+  List<ViewChequeManagementDTO> ViewChequeManagementDetails(string connectionString, string branchSchema, string globalSchema, string companyCode, string branchCode, int pageSize, int pageNo);
+
   #endregion ViewChequeManagementDetails
 
   #region GetExistingChequeCount
-  List<ExistingChequeCountDTO> GetExistingChequeCount(
-  string connectionString,
-  int bankId,
-  int chqFromNo,
-  int chqToNo,
-  string branchSchema,
-  string companyCode,
-  string branchCode
-);
+  List<ExistingChequeCountDTO> GetExistingChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
+
   #endregion GetExistingChequeCount
 
 
@@ -81,13 +55,30 @@ string? branchCode
   #endregion ViewBankInformation...
 
   #region AvailableChequeCount...
-  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,  int bankId,
-    int chqFromNo,
-    int chqToNo,
-    string branchSchema,
-    string companyCode,
-    string branchCode);
+
+  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,  int bankId,int chqFromNo,int chqToNo,string branchSchema,string companyCode,string branchCode);
 
   #endregion AvailableChequeCount...
+
+#region PettyCashExistingData...
+
+List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string Branchcode);
+
+
+#endregion PettyCashExistingData...
+
+#region  PaymentVoucherExistingData..
+List<PaymentVoucherDetails> GetPaymentVoucherExistingData(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
+
+
+#endregion PaymentVoucherExistingData..
+#region  ProductnamesandHSNcodes..
+List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectionString,string? globalSchema);
+
+#endregion ProductnamesandHSNcodes..
+
+
+
+
 
 }
