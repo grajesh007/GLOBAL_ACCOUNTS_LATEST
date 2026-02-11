@@ -251,14 +251,14 @@ namespace Kapil_Group_ERP_API.Controllers
         #endregion ViewBankInformationDetails...
 
 
-    #region GeneralReceiptsData...
+        #region GeneralReceiptsData...
 
         [HttpGet("GetGeneralReceiptsData")]
-        public IActionResult GetGeneralReceiptsData(string? GlobalSchema = null, string? BranchSchema = null, string? TaxSchema = null, string? CompanyCode = null,string? BranchCode = null)
+        public IActionResult GetGeneralReceiptsData(string? GlobalSchema = null, string? BranchSchema = null, string? TaxSchema = null, string? CompanyCode = null, string? BranchCode = null)
         {
             try
-            {  
-                var banks = _accountDal.GetGeneralReceiptsData(_con, GlobalSchema, BranchSchema, TaxSchema,CompanyCode, BranchCode);
+            {
+                var banks = _accountDal.GetGeneralReceiptsData(_con, GlobalSchema, BranchSchema, TaxSchema, CompanyCode, BranchCode);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -267,27 +267,60 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-    #endregion GeneralReceiptsData...
+        #endregion GeneralReceiptsData...
 
-    #region  ViewBankInformation...
+        #region  ViewBankInformation...
 
-    [HttpGet("GetViewBankInformation")]
+        [HttpGet("GetViewBankInformation")]
         public IActionResult GetViewBankInformation(string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null, string? precordid = null)
         {
             try
             {
-                var banks = _accountDal.GetViewBankInformation(_con, GlobalSchema ?? _globalSchema, BranchSchema , CompanyCode , BranchCode , precordid );
+                var banks = _accountDal.GetViewBankInformation(_con, GlobalSchema ?? _globalSchema, BranchSchema, CompanyCode, BranchCode, precordid);
                 return Ok(banks);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-            }                                
-    
+            }
+
         }
 
 
-    #endregion ViewBankInformation...
+        #endregion ViewBankInformation...
+
+        #region AvailableChequeCount...
+
+        [HttpGet("GetAvailableChequeCount")]
+        public IActionResult GetAvailableChequeCount(int bankId,
+      int chqFromNo,
+      int chqToNo,
+      string? BranchSchema = null,
+      string? CompanyCode = null,
+      string? BranchCode = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetAvailableChequeCount(_con, bankId,
+                    chqFromNo,
+                    chqToNo,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        #endregion AvailableChequeCount...
+
+
+
+
 
 
 
