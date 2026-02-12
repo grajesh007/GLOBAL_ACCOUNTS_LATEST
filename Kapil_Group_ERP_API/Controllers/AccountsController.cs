@@ -55,7 +55,7 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("banks1")]
+        [HttpGet("Getbanks1")]
         public IActionResult GetBanks1(string? globalSchema = null, string? accountsSchema = null, string? BranchCode = null, string? CompanyName = null)
         {
             try
@@ -71,7 +71,7 @@ namespace Kapil_Group_ERP_API.Controllers
         }
         #region BankNames
 
-        [HttpGet("BankNames")]
+        [HttpGet("GetBankNames")]
         public IActionResult GetBankNames(
             string? GlobalSchema = null,
             string? AccountsSchema = null,
@@ -99,7 +99,7 @@ namespace Kapil_Group_ERP_API.Controllers
 
         #endregion BankNames
         #region companyNameandaddressDetails
-        [HttpGet("CompanyNameAndAddress")]
+        [HttpGet("GetCompanyNameAndAddress")]
         public IActionResult GetCompanyNameAndAddressDetails(
    string? GlobalSchema = null,
    string? CompanyCode = null,
@@ -123,7 +123,7 @@ namespace Kapil_Group_ERP_API.Controllers
         }
         #endregion companyNameandaddressDetails
         #region BankConfigurationdetails
-        [HttpGet("BankConfigurationDetails")]
+        [HttpGet("GetBankConfigurationDetails")]
         public IActionResult GetBankConfigurationDetails(
     string? BranchSchema = null,
     string? CompanyCode = null,
@@ -148,27 +148,28 @@ namespace Kapil_Group_ERP_API.Controllers
 
         #endregion BankConfigurationdetails
 
+
         #region ViewChequeManagementDetails
-        [HttpGet("ViewChequeManagementDetails")]
+
+        [HttpGet("GetViewChequeManagementDetails")]
         public IActionResult ViewChequeManagementDetails(
-     string branchSchema,
-     string globalSchema,
-     string companyCode,
-     string branchCode,
-     int pageSize = 10,
-     int pageNo = 0)
+        string BranchSchema,
+        string GlobalSchema,
+        string CompanyCode,
+        string BranchCode,
+        int PageSize,
+        int PageNo)
         {
             try
             {
                 var result = _accountDal.ViewChequeManagementDetails(
                     _con,
-                    branchSchema,
-                    globalSchema,
-                    companyCode,
-                    branchCode,
-                    pageSize,
-                    pageNo
-                );
+                    BranchSchema,
+                    GlobalSchema,
+                    CompanyCode,
+                    BranchCode,
+                    PageSize,
+                    PageNo);
 
                 return Ok(result);
             }
@@ -178,10 +179,11 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+
         #endregion ViewChequeManagementDetails
 
         #region ExistingChequeCount
-        [HttpGet("ExistingChequeCount")]
+        [HttpGet("GetExistingChequeCount")]
         public IActionResult GetExistingChequeCount(
     int bankId,
     int chqFromNo,
@@ -340,7 +342,7 @@ namespace Kapil_Group_ERP_API.Controllers
 
         #region PaymentVoucherExistingData..
 
-        [HttpGet("PaymentVoucherExistingData")]
+        [HttpGet("GetPaymentVoucherExistingData")]
         public IActionResult GetPaymentVoucherExistingData(
    string? GlobalSchema = null,
    string? BranchSchema = null,
@@ -368,7 +370,7 @@ namespace Kapil_Group_ERP_API.Controllers
         #endregion PaymentVoucherExistingData..
 
         #region ProductnamesandHSNcodes..
-        [HttpGet("ProductNamesAndHSNCodes")]
+        [HttpGet("GetProductNamesAndHSNCodes")]
         public IActionResult GetProductNamesAndHSNCodes(
      string? GlobalSchema = null)
         {
@@ -389,6 +391,122 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         #endregion ProductnamesandHSNcodes
+
+
+
+
+
+        #region getReceiptNumber..
+        [HttpGet("GetReceiptNumber")]
+        public IActionResult getReceiptNumber(
+      string? GlobalSchema = null,
+   string? BranchSchema = null,
+   string? CompanyCode = null,
+   string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.getReceiptNumber(
+                      _con,
+                   GlobalSchema ?? GlobalSchema,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        #endregion ProductnamesandHSNcodes
+      
+        #region GetBankUPIList
+        [HttpGet("BankUPIList")]
+public IActionResult GetBankUPIList(
+    string? BranchSchema = null,
+    string? CompanyCode = null,
+    string? BranchCode = null)
+{
+    try
+    {
+        var result = _accountDal.GetBankUPIListDetails(
+            _con,
+            BranchSchema ?? BranchSchema,
+            CompanyCode ?? CompanyCode,
+            BranchCode ?? BranchCode
+        );
+
+        return Ok(result);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);
+    }
+}
+
+        #endregion GetBankUPIList
+
+        #region GetCAOBranchList
+//         [HttpGet("CAOBranchList")]
+// public IActionResult GetCAOBranchList(
+//     string? BranchSchema = null,
+//     string? GlobalSchema = null,
+//     string? CompanyCode = null,
+//     string? BranchCode = null)
+// {
+//     try
+//     {
+//         var result = _accountDal.GetCAOBranchList(
+//             _con,
+//             BranchSchema,
+//             GlobalSchema,
+//             CompanyCode,
+//             BranchCode
+//         );
+
+//         return Ok(result);
+//     }
+//     catch (Exception ex)
+//     {
+//         return StatusCode(500, ex.Message);
+//     }
+// }
+
+        
+        [HttpGet("GetCAOBranchList")]
+public IActionResult GetCAOBranchList(
+    string? GlobalSchema = null,
+    string? BranchSchema = null,
+    string? CompanyCode = null,
+    string? BranchCode = null)
+{
+    try
+    {
+        var result = _accountDal.GetCAOBranchListDetails(
+            _con,
+            GlobalSchema ?? GlobalSchema,
+            BranchSchema ?? BranchSchema,
+            CompanyCode ?? CompanyCode,
+            BranchCode ?? BranchCode
+        );
+
+        return Ok(result);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);
+    }
+}
+
+        #endregion GetCAOBranchList
+
+
+
 
 
     }

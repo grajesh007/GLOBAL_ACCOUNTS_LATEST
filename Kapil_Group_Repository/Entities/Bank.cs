@@ -79,18 +79,20 @@ public class BankConfigurationDetails : BaseEntity
 
 #endregion BankConfigurationdetails
 #region ViewChequeManagementDetails
-public class ViewChequeManagementDTO : BaseEntity
+
+public class ChequeManagementDTO
 {
-    public int BankConfigurationId { get; set; }
-    public int ChequeBookId { get; set; }
-    public int NoOfCheques { get; set; }
-    public int ChequeFromNumber { get; set; }
-    public int ChequeToNumber { get; set; }
-    public bool ChequeGenerateStatus { get; set; }
-    public string BankName { get; set; } = string.Empty;
-    public string AccountNumber { get; set; } = string.Empty;
-    public bool Status { get; set; }
-    public string ChequeStatus { get; set; } = string.Empty;
+    public int ptotalrecords { get; set; }
+    public long pbankconfigurationid { get; set; }
+    public long pchequebookid { get; set; }
+    public int pnoofcheques { get; set; }
+    public long pchequefromnumber { get; set; }
+    public long pchequetonumber { get; set; }
+    public bool pchequegeneratestatus { get; set; }
+    public string pbankname { get; set; }
+    public string paccountnumber { get; set; }
+    public bool pstatus { get; set; }
+    public string pchequestatus { get; set; }
 }
 
 #endregion ViewChequeManagementDetails
@@ -251,6 +253,44 @@ public class ProductNamesAndHSNCodesDetails
 
 
 #endregion ProductnamesandHSNcodes..
+#region getReceiptNumber..
+public class getReceiptNumber
+{
+    public int tbl_trans_pettycash_voucher_id { get; set; }
+    public string payment_number { get; set; } = string.Empty;
+}
 
+
+#endregion getReceiptNumber..
+
+
+#region GetBankUPIList
+public class BankUPIListDetails : BaseEntity
+{
+    public string AccountName { get; set; } = string.Empty;
+    public int AccountId { get; set; }
+    public decimal AccountBalance { get; set; }
+}
+
+#endregion GetBankUPIList
+
+#region GetCAOBranchList
+
+// public class CAOBranchDetails : BaseEntity
+// {
+//     public int BranchConfigurationId { get; set; }
+//     public string BranchCode { get; set; } = string.Empty;
+//     public string BranchName { get; set; } = string.Empty;
+// }
+
+public class CAOBranchListDetails : BaseEntity
+{
+    public int BranchConfigurationId { get; set; }
+    public string BranchCode { get; set; } = string.Empty;
+    public string BranchName { get; set; } = string.Empty;
+}
+
+
+#endregion GetCAOBranchList
 
 

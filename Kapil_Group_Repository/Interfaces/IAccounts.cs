@@ -15,16 +15,16 @@ public interface IAccounts
   #endregion BankNames
 
   #region CompanyNameAndAddressDetails
- List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(string connectionString, string globalSchema, string companyCode, string branchCode);
+  List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(string connectionString, string globalSchema, string companyCode, string branchCode);
 
   #endregion CompanyNameAndAddressDetails
   #region  BankConfigurationDetails
- List<BankConfigurationDetails> GetBankConfigurationDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
+  List<BankConfigurationDetails> GetBankConfigurationDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
 
   #endregion BankConfigurationDetails
 
   #region ViewChequeManagementDetails
-  List<ViewChequeManagementDTO> ViewChequeManagementDetails(string connectionString, string branchSchema, string globalSchema, string companyCode, string branchCode, int pageSize, int pageNo);
+  List<ChequeManagementDTO> ViewChequeManagementDetails(string con, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, int PageSize, int PageNo);
 
   #endregion ViewChequeManagementDetails
 
@@ -56,29 +56,60 @@ public interface IAccounts
 
   #region AvailableChequeCount...
 
-  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString,  int bankId,int chqFromNo,int chqToNo,string branchSchema,string companyCode,string branchCode);
+  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
 
   #endregion AvailableChequeCount...
 
-#region PettyCashExistingData...
+  #region PettyCashExistingData...
 
-List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string Branchcode);
-
-
-#endregion PettyCashExistingData...
-
-#region  PaymentVoucherExistingData..
-List<PaymentVoucherDetails> GetPaymentVoucherExistingData(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
+  List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string Branchcode);
 
 
-#endregion PaymentVoucherExistingData..
-#region  ProductnamesandHSNcodes..
-List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectionString,string? globalSchema);
+  #endregion PettyCashExistingData...
 
-#endregion ProductnamesandHSNcodes..
-
+  #region  PaymentVoucherExistingData..
+  List<PaymentVoucherDetails> GetPaymentVoucherExistingData(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
 
 
+  #endregion PaymentVoucherExistingData..
+  #region  ProductnamesandHSNcodes..
+  List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectionString, string? globalSchema);
+
+  #endregion ProductnamesandHSNcodes..
+
+  #region  getReceiptNumber..
+  public List<getReceiptNumber> getReceiptNumber(
+       string connectionString,
+       string? globalSchema,
+       string? branchSchema,
+       string? companyCode,
+       string? branchCode);
 
 
+
+  #endregion getReceiptNumber..
+
+  #region GetBankUPIList
+
+  List<BankUPIListDetails> GetBankUPIListDetails(
+      string connectionString,
+      string? branchSchema,
+      string? companyCode,
+      string? branchCode);
+
+  #endregion GetBankUPIList
+
+
+  #region GetCAOBranchList
+//List<CAOBranchDetails> GetCAOBranchList(string connectionString, string? branchSchema, string? globalSchema, string? companyCode, string? branchCode);
+
+List<CAOBranchListDetails> GetCAOBranchListDetails(
+    string connectionString,
+    string? globalSchema,
+    string? branchSchema,
+    string? companyCode,
+    string? branchCode);
+
+
+  #endregion GetCAOBranchList
 }
