@@ -4,9 +4,9 @@ using System.Data;
 using Npgsql;
 using Kapil_Group_Repository.Interfaces;
 using Kapil_Group_Repository.Entities;
-
-namespace Kapil_Group_Infrastructure.Data;
-
+using System.Globalization;
+namespace Kapil_Group_Infrastructure.Data
+{ 
 public class AccountsDAL : IAccounts
 {
     /// <summary>
@@ -769,7 +769,7 @@ WHERE b.branch_code=@BranchCode AND c.company_code=@CompanyCode;
 
     #region  ViewBankInformation...
 
-    public List<ViewBankInformation> GetViewBankInformation(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode, string precordid)
+    public List<ViewBankInformation> GetViewBankInformation(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode, int precordid)
     {
         List<ViewBankInformation> list = new List<ViewBankInformation>();
 
@@ -1179,89 +1179,89 @@ ORDER BY t1.payment_date DESC;
     #endregion GetBankUPIList
 
     #region GetCAOBranchList
-//    public List<CAOBranchDetails> GetCAOBranchList(
-//     string connectionString,
-//     string? branchSchema,
-//     string? globalSchema,
-//     string? companyCode,
-//     string? branchCode)
-// {
-//     if (string.IsNullOrWhiteSpace(connectionString))
-//         throw new ArgumentException("Connection string is required");
+    //    public List<CAOBranchDetails> GetCAOBranchList(
+    //     string connectionString,
+    //     string? branchSchema,
+    //     string? globalSchema,
+    //     string? companyCode,
+    //     string? branchCode)
+    // {
+    //     if (string.IsNullOrWhiteSpace(connectionString))
+    //         throw new ArgumentException("Connection string is required");
 
-//     if (string.IsNullOrWhiteSpace(branchSchema) ||
-//         string.IsNullOrWhiteSpace(globalSchema) ||
-//         string.IsNullOrWhiteSpace(companyCode) ||
-//         string.IsNullOrWhiteSpace(branchCode))
-//         return new List<CAOBranchDetails>();
+    //     if (string.IsNullOrWhiteSpace(branchSchema) ||
+    //         string.IsNullOrWhiteSpace(globalSchema) ||
+    //         string.IsNullOrWhiteSpace(companyCode) ||
+    //         string.IsNullOrWhiteSpace(branchCode))
+    //         return new List<CAOBranchDetails>();
 
-//     var branchList = new List<CAOBranchDetails>();
+    //     var branchList = new List<CAOBranchDetails>();
 
-//     using var con = new NpgsqlConnection(connectionString);
-//     con.Open();
+    //     using var con = new NpgsqlConnection(connectionString);
+    //     con.Open();
 
-//     using var cmd = con.CreateCommand();
-//     cmd.CommandType = CommandType.Text;
+    //     using var cmd = con.CreateCommand();
+    //     cmd.CommandType = CommandType.Text;
 
-//     cmd.CommandText = $@"
-//         SELECT DISTINCT 
-//             b.tbl_mst_branch_configuration_id,
-//             b.branch_code,
-//             b.branch_name
-//         FROM {AddDoubleQuotes(branchSchema)}.tbl_trans_interbranch_receipt a
-//         JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_branch_configuration b
-//             ON a.interbranch_id = b.tbl_mst_branch_configuration_id
-//         LEFT JOIN {AddDoubleQuotes(branchSchema)}.tbl_trans_generalreceipt c
-//             ON c.receipt_number = a.general_receipt_number
-//         WHERE a.modeof_receipt = 'C'
-//           AND a.deposited_status = 'N'
-//           AND a.receipt_cancel_reference_number IS NULL
-//           AND a.company_code = @CompanyCode
-//           AND b.branch_code = @BranchCode;
-//     ";
+    //     cmd.CommandText = $@"
+    //         SELECT DISTINCT 
+    //             b.tbl_mst_branch_configuration_id,
+    //             b.branch_code,
+    //             b.branch_name
+    //         FROM {AddDoubleQuotes(branchSchema)}.tbl_trans_interbranch_receipt a
+    //         JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_branch_configuration b
+    //             ON a.interbranch_id = b.tbl_mst_branch_configuration_id
+    //         LEFT JOIN {AddDoubleQuotes(branchSchema)}.tbl_trans_generalreceipt c
+    //             ON c.receipt_number = a.general_receipt_number
+    //         WHERE a.modeof_receipt = 'C'
+    //           AND a.deposited_status = 'N'
+    //           AND a.receipt_cancel_reference_number IS NULL
+    //           AND a.company_code = @CompanyCode
+    //           AND b.branch_code = @BranchCode;
+    //     ";
 
-//     cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
-//     cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+    //     cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+    //     cmd.Parameters.AddWithValue("@BranchCode", branchCode);
 
-//     using var reader = cmd.ExecuteReader();
-//     while (reader.Read())
-//     {
-//         branchList.Add(new CAOBranchDetails
-//         {
-//             BranchConfigurationId = reader.GetInt32(0),
-//             BranchCode = reader.GetString(1),
-//             BranchName = reader.GetString(2)
-//         });
-//     }
+    //     using var reader = cmd.ExecuteReader();
+    //     while (reader.Read())
+    //     {
+    //         branchList.Add(new CAOBranchDetails
+    //         {
+    //             BranchConfigurationId = reader.GetInt32(0),
+    //             BranchCode = reader.GetString(1),
+    //             BranchName = reader.GetString(2)
+    //         });
+    //     }
 
-//     return branchList;
-// }
+    //     return branchList;
+    // }
 
-public List<CAOBranchListDetails> GetCAOBranchListDetails(
-    string connectionString,
-    string? globalSchema,
-    string? branchSchema,
-    string? companyCode,
-    string? branchCode)
-{
-    if (string.IsNullOrWhiteSpace(connectionString))
-        throw new ArgumentException("Connection string is required");
+    public List<CAOBranchListDetails> GetCAOBranchListDetails(
+        string connectionString,
+        string? globalSchema,
+        string? branchSchema,
+        string? companyCode,
+        string? branchCode)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ArgumentException("Connection string is required");
 
-    if (string.IsNullOrWhiteSpace(globalSchema) ||
-        string.IsNullOrWhiteSpace(branchSchema) ||
-        string.IsNullOrWhiteSpace(companyCode) ||
-        string.IsNullOrWhiteSpace(branchCode))
-        return new List<CAOBranchListDetails>();
+        if (string.IsNullOrWhiteSpace(globalSchema) ||
+            string.IsNullOrWhiteSpace(branchSchema) ||
+            string.IsNullOrWhiteSpace(companyCode) ||
+            string.IsNullOrWhiteSpace(branchCode))
+            return new List<CAOBranchListDetails>();
 
-    var branchList = new List<CAOBranchListDetails>();
+        var branchList = new List<CAOBranchListDetails>();
 
-    using var con = new NpgsqlConnection(connectionString);
-    con.Open();
+        using var con = new NpgsqlConnection(connectionString);
+        con.Open();
 
-    using var cmd = con.CreateCommand();
-    cmd.CommandType = CommandType.Text;
+        using var cmd = con.CreateCommand();
+        cmd.CommandType = CommandType.Text;
 
-    cmd.CommandText = $@"
+        cmd.CommandText = $@"
         SELECT DISTINCT
             b.tbl_mst_branch_configuration_id,
             b.branch_code,
@@ -1278,29 +1278,627 @@ public List<CAOBranchListDetails> GetCAOBranchListDetails(
           AND b.branch_code = @BranchCode;
     ";
 
-    cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
-    cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+        cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+        cmd.Parameters.AddWithValue("@BranchCode", branchCode);
 
-    using var reader = cmd.ExecuteReader();
-    while (reader.Read())
-    {
-        branchList.Add(new CAOBranchListDetails
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
         {
-            BranchConfigurationId = reader.GetInt32(0),
-            BranchCode = reader.GetString(1),
-            BranchName = reader.GetString(2)
-        });
-    }
+            branchList.Add(new CAOBranchListDetails
+            {
+                BranchConfigurationId = reader.GetInt32(0),
+                BranchCode = reader.GetString(1),
+                BranchName = reader.GetString(2)
+            });
+        }
 
-    return branchList;
-}
+        return branchList;
+    }
 
     #endregion GetCAOBranchList
 
 
+    public static string FormatDate(object strFormateDate)
+    {
+        string strDate = Convert.ToString(strFormateDate);
+        string Date = null;
+        if (!string.IsNullOrEmpty(strDate))
+        {
+            strDate = strDate.Substring(0, 10);
+
+            string[] dat = null;
+            if (strDate != null)
+            {
+                if (strDate.Contains("/"))
+                {
+                    dat = strDate.Split('/');
+                }
+                else if (strDate.Contains("-"))
+                {
+                    dat = strDate.Split('-');
+                }
+                Date = dat[2] + "-" + dat[1] + "-" + dat[0];
+            }
+        }
+        return Date;
+    }
+
+
+    //cpoe
+
+
+    public List<AccountReportsDTO> GetBankBookDetails(
+        string con,
+        string fromDate,
+        string toDate,
+        long _pBankAccountId,
+        string AccountsSchema,
+        string GlobalSchema,
+        string CompanyCode,
+        string BranchCode)
+    {
+        List<AccountReportsDTO> lstcashbook = new List<AccountReportsDTO>();
+
+        try
+        {
+            DateTime fromDateTime = DateTime.ParseExact(fromDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime toDateTime = DateTime.ParseExact(toDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+
+            using (var conn = new Npgsql.NpgsqlConnection(con))
+            {
+                conn.Open();
+
+                long BankId;
+                string bankQuery = $"SELECT bank_account_id FROM {AddDoubleQuotes(AccountsSchema)}.tbl_mst_bank_configuration " +
+                                   $"WHERE tbl_mst_bank_configuration_id={_pBankAccountId} AND company_code='{CompanyCode}' AND branch_code='{BranchCode}'";
+
+                using (var cmd = new Npgsql.NpgsqlCommand(bankQuery, conn))
+                {
+                    BankId = Convert.ToInt64(cmd.ExecuteScalar());
+                }
+
+                string Query = "select row_number() over (order by transaction_date) as recordid,* from (select transaction_date::text,TRANSACTION_NO,PARTICULARS,narration,DEBITAMOUNT,abs(CREDITAMOUNT)CREDITAMOUNT,abs(balance)balance,case when balance>0 then 'Dr' else 'Cr' end as balancetype from (select *,sum(DEBITAMOUNT+CREDITAMOUNT) OVER(ORDER BY transaction_date,RECORDID)as BALANCE from(SELECT 0 AS RECORDID,CAST('" + FormatDate(fromDate) + "' AS DATE) AS transaction_date,'0' AS TRANSACTION_NO,'Opening Balance' AS PARTICULARS,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)>0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END AS  DEBITAMOUNT,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)<0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END  AS CREDITAMOUNT,'' narration  FROM " + AddDoubleQuotes(AccountsSchema) + ".tbl_trans_total_transactions WHERE transaction_date < '" + FormatDate(fromDate) + "'  AND  account_id=" + BankId + " UNION ALL SELECT tbl_trans_total_transactions_id as RECORDID, transaction_date,TRANSACTION_NO,PARTICULARS,COALESCE(DEBITAMOUNT,0.00) as  DEBITAMOUNT,-COALESCE(CREDITAMOUNT,0.00) as CREDITAMOUNT,narration FROM  " + AddDoubleQuotes(AccountsSchema) + ".tbl_trans_total_transactions WHERE transaction_date BETWEEN  '" + FormatDate(fromDate) + "' AND '" + FormatDate(toDate) + "' AND account_id=" + BankId + " AND ( debitamount<>0 or creditamount<>0) order by transaction_date,RECORDID) as D) x union all select transaction_date::text,TRANSACTION_NO,PARTICULARS,narration,DEBITAMOUNT,abs(CREDITAMOUNT) CREDITAMOUNT,abs(balance) balance,case when balance>0 then 'Dr' else 'Cr' end as balancetype from (SELECT 0 AS RECORDID,CAST('" + FormatDate(toDate) + "' AS DATE) AS transaction_date,'0' AS TRANSACTION_NO,'Closing Balance' AS PARTICULARS,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)>0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END AS  DEBITAMOUNT,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)<0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END  AS CREDITAMOUNT,'' narration, COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) AS balance  FROM " + AddDoubleQuotes(AccountsSchema) + ".tbl_trans_total_transactions WHERE transaction_date <='" + FormatDate(toDate) + "'  AND  account_id=" + BankId + " order by recordid,transaction_date ) x) x order by recordid;";
+
+                using (var cmd = new Npgsql.NpgsqlCommand(Query, conn))
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        AccountReportsDTO _ObjBank = new AccountReportsDTO
+                        {
+                            precordid = Convert.ToInt64(dr["recordid"]),
+                            ptransactiondate = dr["transaction_date"].ToString(),
+                            pcreditamount = Convert.ToDouble(dr["CREDITAMOUNT"]),
+                            pdebitamount = Convert.ToDouble(dr["DEBITAMOUNT"]),
+                            pdescription = Convert.ToString(dr["narration"]),
+                            pparticulars = Convert.ToString(dr["PARTICULARS"]),
+                            ptransactionno = Convert.ToString(dr["TRANSACTION_NO"]),
+                            popeningbal = Convert.ToDouble(dr["balance"]),
+                            pBalanceType = Convert.ToString(dr["balancetype"])
+                        };
+                        lstcashbook.Add(_ObjBank);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+
+        return lstcashbook;
+    }
 
 
 
 
 
+    public int GetRePrintInterBranchGeneralReceiptCount(
+        string Connectionstring,
+        string ReceiptId,
+        string BranchSchema,
+        string CompanyCode,
+        string BranchCode)
+    {
+        int totalcount;
+
+        string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_interbranch_receipt where general_receipt_number='" + ReceiptId + "' and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'";
+
+        using (NpgsqlConnection conn = new NpgsqlConnection(Connectionstring))
+        {
+            conn.Open();
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+
+            {
+                totalcount = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        return totalcount;
+    }
+
+
+
+    public List<GstDTo> getStatesbyPartyid(
+        long ppartyid,
+        string Connectionstring,
+        int id,
+        string GlobalSchema,
+        string BranchSchema,
+        string CompanyCode,
+        string BranchCode)
+    {
+        List<GstDTo> statelist = new List<GstDTo>();
+        string query = "";
+
+        try
+        {
+            bool isSupplierApplicable = false;
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(Connectionstring))
+            {
+                conn.Open();
+
+                string checkQuery =
+                    "select count(*) from " + AddDoubleQuotes(GlobalSchema) +
+                    ".tbl_mst_contact t1 where is_supplier_applicable = true " +
+                    "and tbl_mst_contact_id=" + ppartyid +
+                    " and company_code='" + CompanyCode +
+                    "' and branch_code='" + BranchCode + "'";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(checkQuery, conn))
+                {
+                    isSupplierApplicable = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+
+            if (isSupplierApplicable)
+            {
+                query =
+                    "select state_id,state,case when state_code<>branchstatcode and sgsttype='SGST' " +
+                    "then 'IGST' else 'CGST,'||sgsttype end as gsttype,gst_number from " +
+                    "(select t1.state_id,t1.state,t1.state_code," +
+                    "case when union_territory=false then 'SGST' else 'UTGST' end as sgsttype," +
+                    "t2.state_code as branchstatcode,coalesce(t1.gst_number,'')gst_number " +
+                    "from (select distinct a.status, d.tbl_mst_state_id as state_id," +
+                    "d.state_name as state,state_code,union_territory,document_reference_no as gst_number " +
+                    "from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact a " +
+                    "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact_address_details b " +
+                    "on a.tbl_mst_contact_id=b.contact_id " +
+                    "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_district c " +
+                    "on b.district_id=c.tbl_mst_district_id " +
+                    "join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_state d " +
+                    "on c.state_id=d.tbl_mst_state_id " +
+                    "left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact_documents f " +
+                    "on f.contact_id=tbl_mst_contact_id and document_proofs_id IN " +
+                    "(select tbl_mst_document_proofs_id from " +
+                    AddDoubleQuotes(GlobalSchema) +
+                    ".tbl_mst_document_proofs where upper(document_name)='GST NUMBER') " +
+                    "where tbl_mst_contact_id=" + ppartyid +
+                    " and isprimary = true) t1," +
+                    AddDoubleQuotes(GlobalSchema) +
+                    ".tbl_mst_branch_configuration t2 where t1.status = true " +
+                    "and branch_code='" + BranchCode + "')x order by state;";
+            }
+            else
+            {
+                query =
+                    "select state_id,state,case when state_code<>branchstatcode and sgsttype='SGST' " +
+                    "then 'IGST' else 'CGST,'||sgsttype end as gsttype,'' gst_number from " +
+                    "(select t1.tbl_mst_state_id as state_id,t1.state_name as state," +
+                    "t1.state_code,case when union_territory=false then 'SGST' else 'UTGST' end as sgsttype," +
+                    "t2.state_code as branchstatcode from " +
+                    AddDoubleQuotes(GlobalSchema) +
+                    ".tbl_mst_state t1," +
+                    AddDoubleQuotes(GlobalSchema) +
+                    ".tbl_mst_branch_configuration t2 where t1.status = true " +
+                    "and branch_code='" + BranchCode + "')x order by state;";
+            }
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(Connectionstring))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        GstDTo obGstDTo = new GstDTo();
+                        obGstDTo.pState = dr["state"].ToString();
+                        obGstDTo.pStateId = Convert.ToInt32(dr["state_id"]);
+                        obGstDTo.pgsttype = Convert.ToString(dr["gsttype"]);
+                        obGstDTo.gstnumber = dr["gst_number"];
+                        statelist.Add(obGstDTo);
+                    }
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+        return statelist;
+    }
+
+
+    public int checkAccountnameDuplicates(
+        string Accountname,
+        string AccountType,
+        int Parentid,
+        string GlobalSchema,
+        string connectionstring,
+        string CompanyCode,
+        string BranchCode)
+    {
+        int count = 0;
+
+        try
+        {
+            if (!string.IsNullOrEmpty(Accountname))
+            {
+                string query = string.Empty;
+
+                if (AccountType != "3")
+                {
+                    query = "select count(*) from " + AddDoubleQuotes(GlobalSchema) +
+                            ".tbl_mst_account where upper(account_name)='" + Accountname.ToUpper() +
+                            "' and company_code='" + CompanyCode +
+                            "' and branch_code='" + BranchCode + "'";
+                }
+
+                if (AccountType == "3")
+                {
+                    query = "select count(*) from " + AddDoubleQuotes(GlobalSchema) +
+                            ".tbl_mst_account where upper(account_name)='" + Accountname.ToUpper() +
+                            "' and parent_id=" + Parentid +
+                            " and company_code='" + CompanyCode +
+                            "' and branch_code='" + BranchCode + "'";
+                }
+
+                using (var con = new NpgsqlConnection(connectionstring))
+                {
+                    con.Open();
+
+                    using (var cmd = new NpgsqlCommand(query, con))
+                    {
+                        count = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        return count;
+    }
+
+    public decimal GetCashRestrictAmountpercontact(
+        string type,
+        string branchtype,
+        string con,
+        string GlobalSchema,
+        string BranchSchema,
+        long contactid,
+        string checkdate,
+        string CompanyCode,
+        string BranchCode)
+    {
+        decimal result = 0;
+        string branch_type = string.Empty;
+
+        try
+        {
+            using (var connection = new Npgsql.NpgsqlConnection(con))
+            {
+                connection.Open();
+
+                string branchQuery = "select branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code='" + BranchCode + "'";
+
+                using (var cmd = new Npgsql.NpgsqlCommand(branchQuery, connection))
+                {
+                    var scalar = cmd.ExecuteScalar();
+                    branch_type = scalar?.ToString();
+                }
+
+                if (type == "PAYMENT VOUCHER" && branch_type == "KGMS")
+                {
+                    string query = "select coalesce(sum(b.ledger_amount),0) as amt from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher a," + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher_details b where a.tbl_trans_payment_voucher_id = b.payment_voucher_id and a.modeof_payment = 'C' and a.payment_date = '" + FormatDate(checkdate) + "' and contact_id = " + contactid + " and a.company_code='" + CompanyCode + "' and a.branch_code='" + BranchCode + "'";
+
+                    using (var cmd = new Npgsql.NpgsqlCommand(query, connection))
+                    {
+                        var scalar = cmd.ExecuteScalar();
+                        result = scalar != null ? Convert.ToDecimal(scalar) : 0;
+                    }
+                }
+                else if (type == "GENERAL RECEIPT" && branch_type == "KGMS")
+                {
+                    string query = "select coalesce(sum(total_received_Amount),0) from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a where Receipt_date = '" + FormatDate(checkdate) + "' and modeof_receipt = 'C' and contact_id = " + contactid + " and receipt_cancel_reference_number is null and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'";
+
+                    using (var cmd = new Npgsql.NpgsqlCommand(query, connection))
+                    {
+                        var scalar = cmd.ExecuteScalar();
+                        result = scalar != null ? Convert.ToDecimal(scalar) : 0;
+                    }
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        return result;
+    }
+
+
+public List<AccountsDTO> GetGstLedgerAccountList(
+    string ConnectionString,
+    string formname,
+    string BranchSchema,
+    string CompanyCode,
+    string BranchCode)
+{
+    List<AccountsDTO> accountslist = new List<AccountsDTO>();
+    string query = string.Empty;
+
+    try
+    {
+        if (formname == "GST REPORT")
+        {
+            query = "select t1.account_id,t1.account_name from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 where chracc_type='2' and t1.status=true and is_gst_applicable=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' order by account_name";
+        }
+
+        using (var connection = new Npgsql.NpgsqlConnection(ConnectionString))
+        {
+            connection.Open();
+
+            using (var cmd = new Npgsql.NpgsqlCommand(query, connection))
+            {
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        AccountsDTO _AccountsDTO = new AccountsDTO();       
+                        _AccountsDTO.pledgerid = Convert.ToInt64(dr["account_id"]);
+                        _AccountsDTO.pledgername = Convert.ToString(dr["account_name"]);
+
+                        accountslist.Add(_AccountsDTO);
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+
+    return accountslist;
+}
+
+public List<AccountsDTO> GetLedgerAccountList(
+    string ConnectionString,
+    string formname,
+    string GlobalSchema,
+    string BranchSchema,
+    string CompanyCode,
+    string BranchCode)
+{
+    List<AccountsDTO> accountslist = new List<AccountsDTO>();
+    string query = string.Empty;
+
+    try
+    {
+        if (formname == "DISBURSEMENT")
+                    {
+                        query = "";
+                       // select t1.accountid,t1.accountname,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance," +" (case when acctype='L' then 'EQUITY AND LIABILITIES' when acctype='A' then 'ASSETS' when acctype='I' then 'INCOME' when acctype='E' then 'EXPENSES' end)acctype from tblmstaccounts t1 left join tbltranstotaltransactions t2 on t1.accountid=t2.parentid  where chracctype ='2' and t1.accountid not in (select accountid from tblmstuntransactionaccounts  where formname ='PAYMENT VOUCHER') and acctype  ='A' and t1.accountname='TRADE ADVANCE TO SHOWROOMS' and t1.statusid= true group by t1.accountid,t1.accountname,acctype order by accountname;
+
+                    }
+                    else if (formname == "PAYMENT VOUCHER")
+                    {
+
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and COALESCE(t1.account_name,'')<>'' and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' ORDER BY t1.account_name;";
+                       // select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and COALESCE(t1.account_name,'')<>'' ORDER BY t1.account_name;
+
+                    }
+                    else if (formname == "GENERAL RECEIPT")
+                    {
+
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.credit_restriction_status = false and COALESCE(t1.account_name,'')<>'' and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' ORDER BY t1.account_name;";
+                        //select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.credit_restriction_status = false and COALESCE(t1.account_name,'')<>'' ORDER BY t1.account_name;
+                    }
+                    else if (formname == "INITIALPAYMENT VOUCHER")
+                    {
+                        query = "select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance, (case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where t1.account_name='ZONAL BID PAYABLE DEPARTMENT' and chracc_type ='2'  and t1.status= true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' group by t1.account_id,t1.account_name,account_type order by account_name;";
+                       // select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance, (case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where t1.account_name='ZONAL BID PAYABLE DEPARTMENT' and chracc_type ='2'  and t1.status= true group by t1.account_id,t1.account_name,account_type order by account_name;
+                    }
+                    else if (formname == "JOURNAL VOUCHER")
+                    {
+
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and credit_restriction_status=false and t1.debit_restriction_status = FALSE and COALESCE(t1.account_name,'')<>'' and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'ORDER BY t1.account_name;";
+                      // select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and credit_restriction_status=false and t1.debit_restriction_status = FALSE and COALESCE(t1.account_name,'')<>'' ORDER BY t1.account_name;
+
+                    }
+                    else if (formname == "LEGAL EXPENSES JV")
+                    {
+
+                        long count = 0;
+
+                        string _Query = "select count(1) from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code='" + BranchCode + "' and status=true and branch_type='KGMS'";
+                       // select count(1) from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code='" + BranchSchema + "' and status=true and branch_type='KGMS'
+
+                     using (var con = new Npgsql.NpgsqlConnection(ConnectionString))
+{
+    con.Open();
+
+    using (var cmd = new Npgsql.NpgsqlCommand(_Query, con))
+    {
+        object result = cmd.ExecuteScalar();
+        count = result != null ? Convert.ToInt64(result) : 0;
+    }
+}
+
+
+                        if (count == 1)
+
+                        {
+                            query = "select (select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account where account_name='CHIT SUBSCRIPTION' and chracc_type='1' and status=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + ") as account_id,branch_name as account_name,0 balance,'' acctype,branch_code,tbl_mst_branch_configuration_id as branch_id,'ONLINE' as branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where status=true and branch_type='CAO'";
+                            //select (select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account where account_name='CHIT SUBSCRIPTION' and chracc_type='1' and status=true) as account_id,branch_name as account_name,0 balance,'' acctype,branch_code,tbl_mst_branch_configuration_id as branch_id,'ONLINE' as branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where status=true and branch_type='CAO'
+                        }
+                        else
+                        {
+                            string OFFLINE = "OFFLINE";
+
+                            query = "";
+                          //  select coalesce((select tbl_mst_branch_configuration_id from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_name=account_name and status=true and branch_type='CAO'),y.branch_id) as account_id,account_name,balance,acctype,y.branch_code,y.branch_id,case when (select count(1) from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code= y.branch_code)>0 then 'ONLINE' ELSE 'OFFLINE' END AS branch_type from (select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance, (case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where chracc_type ='2'  and t1.status= true and credit_restriction_status=false AND debit_restriction_status=false and t1.account_id in(select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account a," + AddDoubleQuotes(OFFLINE) + ".tbl_mst_collectionappbranches b where a.account_name = b.branch_name and a.parent_id = (select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account where account_name = 'INTER BRANCH BALANCES' and chracc_type = '1')) group by t1.account_id,t1.account_name,account_type order by account_name)x join " + AddDoubleQuotes(OFFLINE) + ".tbl_mst_collectionappbranches y on x.account_name = y.branch_name; 
+                        }
+
+                    }
+                    else if (formname == "LEGAL EXPENSES ACCOUNTS")//no data
+                    {
+                        query = "select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance, (case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where chracc_type ='2'  and t1.status= true and credit_restriction_status=false AND debit_restriction_status=false and t1.company_code='" + CompanyCode + "' and t1.branch_code='" + BranchCode + "' and t1.parent_id = (select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account where account_name = 'OTHER EXPENSES' and chracc_type = '1') and exists (select 1 from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_account_legal_expenses where account_id=t1.account_id) group by t1.account_id,t1.account_name,account_type order by account_name;";
+                       // select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance, (case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where chracc_type ='2'  and t1.status= true and credit_restriction_status=false AND debit_restriction_status=false and t1.parent_id = (select account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account where account_name = 'OTHER EXPENSES' and chracc_type = '1') and exists (select 1 from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_account_legal_expenses where account_id=t1.account_id) group by t1.account_id,t1.account_name,account_type order by account_name;
+                    }
+                    else if (formname == "TDS JV")
+                    {
+
+                        query = "select distinct * from (select t1.account_id,t1.account_name,coalesce(t1.account_balance,0) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  where chracc_type ='2' and t1.status= true and is_tds_applicable=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' UNION ALL select t1.account_id,t1.account_name,coalesce(t1.account_balance,0) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 where chracc_type ='2' and t1.status= true and  (account_name like 'T%D%S%19%P%E' or account_name like 'VERIFICATION AND PROCESSING CHARGES' or account_name like 'C%GST')) x order by account_name;";
+                        //select distinct * from (select t1.account_id,t1.account_name,coalesce(t1.account_balance,0) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  where chracc_type ='2' and t1.status= true and is_tds_applicable=true  UNION ALL select t1.account_id,t1.account_name,coalesce(t1.account_balance,0) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 where chracc_type ='2' and t1.status= true and  (account_name like 'T%D%S%19%P%E' or account_name like 'VERIFICATION AND PROCESSING CHARGES' or account_name like 'C%GST')) x order by account_name;
+
+                    }
+                    else if (formname == "GST REPORT")
+                    {
+                        query = "select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where chracc_type ='2' and t1.status= true and is_gst_applicable=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' group by t1.account_id,t1.account_name,account_type order by account_name;";
+                        //select t1.account_id,t1.account_name,sum( coalesce(debitamount,0)-coalesce(creditamount,0)) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 left join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.account_id=t2.parent_id  where chracc_type ='2' and t1.status= true and is_gst_applicable=true group by t1.account_id,t1.account_name,account_type order by account_name;
+                    }
+                    else if (formname == "INTERBRANCH JV")
+                    {
+
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance,(case when account_type = 'L' then 'EQUITY AND LIABILITIES' when account_type = 'A' then 'ASSETS' when account_type = 'I' then 'INCOME' when account_type = 'E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  where chracc_type = '2' and t1.status = true and is_interbranch_jv_applicable = true  and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'order by t1.account_name,account_type;";
+                       // select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance,(case when account_type = 'L' then 'EQUITY AND LIABILITIES' when account_type = 'A' then 'ASSETS' when account_type = 'I' then 'INCOME' when account_type = 'E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  where chracc_type = '2' and t1.status = true and is_interbranch_jv_applicable = true order by t1.account_name,account_type;
+
+                    }
+                    else if (formname == "INTERBRANCH MV")
+                    {
+
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and t1.is_interbranch_mv_applicable=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'ORDER BY t1.account_name;";
+                       // select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and t1.is_interbranch_mv_applicable=true ORDER BY t1.account_name;
+                    }
+
+                    else if (formname == "PAROLL MV")
+                    {
+                        query = "select t1.account_id,t1.account_name,COALESCE(account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and t1.is_payroll_mv_applicable=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'ORDER BY t1.account_name;";
+                       // select t1.account_id,t1.account_name,COALESCE(account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  WHERE t1.chracc_type = '2'  AND t1.status = TRUE and  t1.debit_restriction_status = false and t1.is_payroll_mv_applicable=true ORDER BY t1.account_name;
+                    }
+                    else
+                    {
+                        query = "select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  WHERE t1.chracc_type = '2'  AND t1.status = TRUE and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'ORDER BY t1.account_name;";
+                       // select t1.account_id,t1.account_name,COALESCE(t1.account_balance, 0) AS balance, CASE WHEN t1.account_type = 'L' THEN 'EQUITY AND LIABILITIES' WHEN t1.account_type = 'A' THEN 'ASSETS' WHEN t1.account_type = 'I' THEN 'INCOME' WHEN t1.account_type = 'E' THEN 'EXPENSES' END AS acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1  WHERE t1.chracc_type = '2'  AND t1.status = TRUE ORDER BY t1.account_name;
+                    }
+
+        using (var connection = new Npgsql.NpgsqlConnection(ConnectionString))
+        {
+            connection.Open();
+
+            using (var cmd = new Npgsql.NpgsqlCommand(query, connection))
+            {
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        AccountsDTO obj = new AccountsDTO
+                        {
+                            pledgerid = Convert.ToInt64(dr["account_id"]),
+                            pledgername = Convert.ToString(dr["account_name"]),
+                            accountbalance = dr["balance"] != DBNull.Value ? Convert.ToDecimal(dr["balance"]) : 0,
+                            id = Convert.ToInt64(dr["account_id"]),
+                            text = Convert.ToString(dr["account_name"]),
+                            pAccounttype = Convert.ToString(dr["acctype"])
+                        };
+
+                        if (formname == "LEGAL EXPENSES JV")
+                        {
+                            obj.pbranchcode = Convert.ToString(dr["branch_code"]);
+                            obj.pbranchtype = Convert.ToString(dr["branch_type"]);
+                        }
+
+                        accountslist.Add(obj);
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+
+    return accountslist;
+}
+
+
+
+
+public List<AccountsDTO> GetLedgerSummaryAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema,string CompanyCode,
+          string BranchCode)
+{
+    string query = string.Empty;
+   List<AccountsDTO>  accountslist = new List<AccountsDTO>();
+
+    try
+    {
+        if (formname == "DISBURSEMENT")
+        {
+            query = "";
+        }
+        else
+        {
+            query = "select t1.account_id,t1.account_name,sum(coalesce(account_balance,0)) as balance,(case when account_type='L' then 'EQUITY AND LIABILITIES' when account_type='A' then 'ASSETS' when account_type='I' then 'INCOME' when account_type='E' then 'EXPENSES' end)acctype from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account t1 where chracc_type='2' and t1.status=true and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' group by t1.account_id,t1.account_name,account_type order by account_name;";
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+        {
+            con.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
+            {
+                using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        AccountsDTO _AccountsDTO = new AccountsDTO();
+                        _AccountsDTO.pledgerid = Convert.ToInt64(dr["account_id"]);
+                        _AccountsDTO.pledgername = Convert.ToString(dr["account_name"]);
+                        _AccountsDTO.accountbalance = Convert.ToDecimal(dr["balance"]);
+                        _AccountsDTO.id = Convert.ToInt64(dr["account_id"]);
+                        _AccountsDTO.text = Convert.ToString(dr["account_name"]);
+                        _AccountsDTO.pAccounttype = Convert.ToString(dr["acctype"]);
+
+                        accountslist.Add(_AccountsDTO);
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return accountslist;
+}
+
+
+
+}
 }

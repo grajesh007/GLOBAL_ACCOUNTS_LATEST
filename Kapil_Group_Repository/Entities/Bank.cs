@@ -294,3 +294,66 @@ public class CAOBranchListDetails : BaseEntity
 #endregion GetCAOBranchList
 
 
+ public class GstDTo
+    {
+        public object pRecordId { get; set; }
+        public object pgstpercentage { get; set; }
+        public object pigstpercentage { get; set; }
+        public object pcgstpercentage { get; set; }
+        public object psgstpercentage { get; set; }
+        public object putgstpercentage { get; set; }
+        public object pState { get; set; }
+        public object pStateId { get; set; }
+        public object pgstno { get; set; }
+        public object pgsttype { get; set; }
+        public object pisgstapplicable { get; set; }
+        public object gstnumber { get; set; }
+    }
+
+
+
+ public class AccountReportsDTO
+    {
+
+
+        public string pparentname { get; set; }
+
+        public string pFormName { get; set; }
+        public object ptransactiondate { get; set; }
+        public string ptransactionno { get; set; }
+        public string pparticulars { get; set; }
+        public string pdescription { get; set; }
+        public double pdebitamount { get; set; }
+        public double pcreditamount { get; set; }
+        public double popeningbal { get; set; }
+        public double pclosingbal { get; set; }
+        public double pcashtotal { get; set; }
+        public double pchequetotal { get; set; }
+        public string pmodeoftransaction { get; set; }
+        public long precordid { get; set; }
+        public string paccountname { get; set; }
+        public long paccountid { get; set; }
+        public long pparentid { get; set; }
+        public string pBalanceType { get; set; }
+        public object groupcode { get; set; }
+    }
+     public class AccountsDTO
+    {
+        public object psubledgerid { get; set; }
+        public object psubledgername { get; set; }
+        public object pledgerid { get; set; }
+        public object pledgername { get; set; }
+
+        public object id { get; set; }
+        public object text { get; set; }
+
+        public object ptranstype { get; set; }
+        public object accountbalance { get; set; }
+        public object pAccounttype { get; set; }
+        public object legalcellReceipt { get; set; }
+        public object pbranchcode { get; set; }
+        public object pbranchtype { get; set; }
+        public object groupcode { get; set; }
+        public object chitgroupid { get; set; }
+
+    }
