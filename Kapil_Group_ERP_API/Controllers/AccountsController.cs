@@ -276,7 +276,7 @@ namespace Kapil_Group_ERP_API.Controllers
         #region  ViewBankInformation...
 
         [HttpGet("GetViewBankInformation")]
-        public IActionResult GetViewBankInformation(int precordid,string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null )
+        public IActionResult GetViewBankInformation(int precordid, string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null)
         {
             try
             {
@@ -426,98 +426,98 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         #endregion ProductnamesandHSNcodes
-      
+
         #region GetBankUPIList
         [HttpGet("BankUPIList")]
-public IActionResult GetBankUPIList(
+        public IActionResult GetBankUPIList(
     string? BranchSchema = null,
     string? CompanyCode = null,
     string? BranchCode = null)
-{
-    try
-    {
-        var result = _accountDal.GetBankUPIListDetails(
-            _con,
-            BranchSchema ?? BranchSchema,
-            CompanyCode ?? CompanyCode,
-            BranchCode ?? BranchCode
-        );
+        {
+            try
+            {
+                var result = _accountDal.GetBankUPIListDetails(
+                    _con,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
 
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, ex.Message);
-    }
-}
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         #endregion GetBankUPIList
 
         #region GetCAOBranchList
-//         [HttpGet("CAOBranchList")]
-// public IActionResult GetCAOBranchList(
-//     string? BranchSchema = null,
-//     string? GlobalSchema = null,
-//     string? CompanyCode = null,
-//     string? BranchCode = null)
-// {
-//     try
-//     {
-//         var result = _accountDal.GetCAOBranchList(
-//             _con,
-//             BranchSchema,
-//             GlobalSchema,
-//             CompanyCode,
-//             BranchCode
-//         );
+        //         [HttpGet("CAOBranchList")]
+        // public IActionResult GetCAOBranchList(
+        //     string? BranchSchema = null,
+        //     string? GlobalSchema = null,
+        //     string? CompanyCode = null,
+        //     string? BranchCode = null)
+        // {
+        //     try
+        //     {
+        //         var result = _accountDal.GetCAOBranchList(
+        //             _con,
+        //             BranchSchema,
+        //             GlobalSchema,
+        //             CompanyCode,
+        //             BranchCode
+        //         );
 
-//         return Ok(result);
-//     }
-//     catch (Exception ex)
-//     {
-//         return StatusCode(500, ex.Message);
-//     }
-// }
+        //         return Ok(result);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, ex.Message);
+        //     }
+        // }
 
-        
+
         [HttpGet("GetCAOBranchList")]
-public IActionResult GetCAOBranchList(
+        public IActionResult GetCAOBranchList(
     string? GlobalSchema = null,
     string? BranchSchema = null,
     string? CompanyCode = null,
     string? BranchCode = null)
-{
-    try
-    {
-        var result = _accountDal.GetCAOBranchListDetails(
-            _con,
-            GlobalSchema ?? GlobalSchema,
-            BranchSchema ?? BranchSchema,
-            CompanyCode ?? CompanyCode,
-            BranchCode ?? BranchCode
-        );
+        {
+            try
+            {
+                var result = _accountDal.GetCAOBranchListDetails(
+                    _con,
+                    GlobalSchema ?? GlobalSchema,
+                    BranchSchema ?? BranchSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode
+                );
 
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, ex.Message);
-    }
-}
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         #endregion GetCAOBranchList
 
 
 
- [HttpGet("GetBankBookDetails")]
+        [HttpGet("GetBankBookDetails")]
         public IActionResult GetBankBookDetails(
-    string fromDate,
-    string toDate,
-    long _pBankAccountId,
-    string AccountsSchema,
-    string GlobalSchema,
-    string CompanyCode,
-    string BranchCode)
+           string fromDate,
+           string toDate,
+           long _pBankAccountId,
+           string AccountsSchema,
+           string GlobalSchema,
+           string CompanyCode,
+           string BranchCode)
         {
             try
             {
@@ -613,36 +613,36 @@ public IActionResult GetCAOBranchList(
 
 
 
- [HttpGet("GetCashRestrictAmountpercontact")]
-        public IActionResult GetCashRestrictAmountpercontact(string type, string  branchtype,string BranchSchema, long contactid, string checkdate,string CompanyCode, string GlobalSchema,
-            string BranchCode)
+        [HttpGet("GetCashRestrictAmountpercontact")]
+        public IActionResult GetCashRestrictAmountpercontact(string type, string branchtype, string BranchSchema, long contactid, string checkdate, string CompanyCode, string GlobalSchema,
+                   string BranchCode)
         {
             decimal result = 0;
-           
+
             try
             {
-                result = _accountDal.GetCashRestrictAmountpercontact( type,branchtype,  _con, GlobalSchema,  BranchSchema,  contactid,  checkdate,CompanyCode,BranchCode);
+                result = _accountDal.GetCashRestrictAmountpercontact(type, branchtype, _con, GlobalSchema, BranchSchema, contactid, checkdate, CompanyCode, BranchCode);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
 
 
-         [HttpGet("GetGstLedgerAccountList")]
+        [HttpGet("GetGstLedgerAccountList")]
 
-        public IActionResult GetGstLedgerAccountList( string BranchSchema,    string formname
-,string CompanyCode,
-        string BranchCode)
+        public IActionResult GetGstLedgerAccountList(string BranchSchema, string formname
+, string CompanyCode,
+       string BranchCode)
         {
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetGstLedgerAccountList(_con, formname,  BranchSchema, CompanyCode,
+                accountslist = _accountDal.GetGstLedgerAccountList(_con, formname, BranchSchema, CompanyCode,
          BranchCode);
                 if (accountslist.Count > 0)
                 {
@@ -657,7 +657,7 @@ public IActionResult GetCAOBranchList(
             }
             catch (Exception ex)
             {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
@@ -672,13 +672,13 @@ public IActionResult GetCAOBranchList(
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema,CompanyCode,
+                accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,
          BranchCode);
                 return Ok(accountslist);
             }
             catch (Exception ex)
             {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
@@ -689,21 +689,252 @@ public IActionResult GetCAOBranchList(
         [HttpGet("GetLedgerSummaryAccountList")]
 
         public IActionResult GetLedgerSummaryAccountList(string formname, string BranchSchema, string CompanyCode,
-          string BranchCode,string GlobalSchema)
+          string BranchCode, string GlobalSchema)
         {
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetLedgerSummaryAccountList(_con, formname, GlobalSchema, BranchSchema,CompanyCode,
+                accountslist = _accountDal.GetLedgerSummaryAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,
          BranchCode);
                 return Ok(accountslist);
             }
             catch (Exception ex)
             {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
+
+
+
+
+        [HttpGet("GetSubAccountLedgerDetails")]
+        public IActionResult GetSubAccountLedgerDetails(string BranchSchema, string CompanyCode,
+         string BranchCode)
+        {
+            List<subAccountLedgerDTO> _subAccountLedgerList = new List<subAccountLedgerDTO>();
+            try
+            {
+                _subAccountLedgerList = _accountDal.GetSubAccountLedgerDetails(_con, BranchSchema, CompanyCode, BranchCode);
+                return Ok(_subAccountLedgerList);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet("GetAccountLedgerNames")]
+        public IActionResult GetAccountLedgerNames(string SubLedgerName, string BranchSchema, string CompanyCode,
+                 string BranchCode)
+        {
+            List<subAccountLedgerDTO> _SubAccountLedgerDTO = new List<subAccountLedgerDTO>();
+            try
+            {
+                _SubAccountLedgerDTO = _accountDal.GetAccountLedgerData(_con, SubLedgerName, BranchSchema, CompanyCode,
+           BranchCode);
+                return Ok(_SubAccountLedgerDTO);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+
+        [HttpGet("GetSubAccountLedgerReportData")]
+        public IActionResult GetSubAccountLedgerReportData(string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema, string CompanyCode,
+                string BranchCode)
+        {
+            List<subAccountLedgerDTO> _SubAccountLedgerDTO = new List<subAccountLedgerDTO>();
+            try
+            {
+                _SubAccountLedgerDTO = _accountDal.GetSubLedgerReportData(_con, SubLedgerName, parentid, fromDate, toDate, BranchSchema, CompanyCode,
+           BranchCode);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            return Ok(_SubAccountLedgerDTO);
+        }
+
+
+
+
+
+
+        [HttpGet("GetSubLedgerData")]
+        public IActionResult GetSubLedgerData(long pledgerid, string BranchSchema, string CompanyCode, string LocalSchema,
+        string BranchCode, string GlobalSchema)
+        {
+
+            List<AccountsDTO> accountslist = new List<AccountsDTO>();
+            try
+           
+            {
+                accountslist = _accountDal.GetSubLedgerAccountList(pledgerid, _con, GlobalSchema, BranchSchema, LocalSchema,CompanyCode,
+           BranchCode);
+                return Ok(accountslist);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+
+
+
+        [HttpGet("GetTrialBalance")]
+        public IActionResult GetTrialBalance(string fromDate, string todate, string GroupType, string LocalSchema, string CompanyCode,
+          string BranchCode, string GlobalSchema)
+        {
+            List<AccountReportsDTO> lstAccountReportsDTO = new List<AccountReportsDTO>();
+            try
+            {
+                lstAccountReportsDTO = _accountDal.GetTrialBalance(_con, LocalSchema, fromDate, todate, GroupType, CompanyCode,
+           BranchCode, GlobalSchema);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+            return Ok(lstAccountReportsDTO);
+            }
+
+
+[HttpGet("GetIssuedChequeNumbers")]
+        public IActionResult GetIssuedChequeNumbers(long _BankId, string BranchSchema, string CompanyCode,
+                  string BranchCode)
+        {
+           List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
+            try
+            {
+                _IssuedChequeDTO = _accountDal.GetIssuedChequeNumbers(_con, _BankId, BranchSchema,  CompanyCode,
+                   BranchCode);
+                return Ok(_IssuedChequeDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+ [HttpGet("GetMainAccounthead")]
+        public IActionResult GetMainAccounthead(string BranchSchema, string CompanyCode,
+                  string BranchCode)
+        {
+            List<subAccountLedgerDTO> _SubAccLedgerDTO = new List<subAccountLedgerDTO>();
+            try
+            {
+                _SubAccLedgerDTO = _accountDal.GetMainAccounthead(_con, BranchSchema, CompanyCode,
+                   BranchCode);
+
+                return Ok(_SubAccLedgerDTO);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
+        }
+
+        }
+
+
+
+
+        [HttpGet("getCashbookData")]
+        public IActionResult getCashbookData(string fromdate, string todate,  string BranchSchema, string CompanyCode,
+                  string BranchCode)
+        {
+            List<cashBookDto> _CashbookDTO = new List<cashBookDto>();
+            try
+            {
+                _CashbookDTO = _accountDal.getCashbookData(_con, fromdate, todate, BranchSchema,  CompanyCode,
+                   BranchCode);
+                //_CashbookDTO.plstcashchequetotal = await _AccountingReportsDAL.getCashbookDataTotals(Con, fromdate, todate);
+
+                return Ok(_CashbookDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+        // [HttpGet]
+        // [Route("api/AccountingTransactions/GetPettyCashReportData")]
+        // public IActionResult GetPettyCashReportData(string paymentId, string LocalSchema,string CompanyCode,
+        //   string BranchCode,string GlobalSchema)
+        // {
+        //     try
+        //     {
+        //         if (!string.IsNullOrEmpty(paymentId))
+        //         {
+        //             List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+        //             PaymentVoucherReportlist = _accountDal.GetPettyCashReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
+        //    BranchCode);
+        //             if (PaymentVoucherReportlist != null)
+        //             {
+
+        //                 return Ok(PaymentVoucherReportlist);
+        //             }
+        //             else
+        //             {
+        //                 return StatusCode(StatusCodes.Status204NoContent);
+        //             }
+        //         }
+        //         else
+        //         {
+        //             return StatusCode(StatusCodes.Status406NotAcceptable);
+        //         }
+        //     }
+        //     catch (Exception)
+        //     {
+        // return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //     }
+        // }
+        // [HttpGet("GetPaymentVoucherReportData")]
+        // public IActionResult GetPaymentVoucherReportData(string paymentId, string LocalSchema,string CompanyCode,
+        //   string BranchCode)
+        // {
+        //     try
+        //     {
+        //         if (!string.IsNullOrEmpty(paymentId))
+        //         {
+        //             List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+        //             PaymentVoucherReportlist = _accountDal.GetPaymentVoucherReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
+        //      BranchCode);
+        //             if (PaymentVoucherReportlist != null)
+        //             {
+
+        //                 return Ok(PaymentVoucherReportlist);
+        //             }
+        //             else
+        //             {
+        //                 return StatusCode(StatusCodes.Status204NoContent);
+        //             }
+        //         }
+        //         else
+        //         {
+        //             return StatusCode(StatusCodes.Status406NotAcceptable);
+        //         }
+        //     }
+        //     catch (Exception)
+        //     {
+        // return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //     }
+        // }
     }
 }

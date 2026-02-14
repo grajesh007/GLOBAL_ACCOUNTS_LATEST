@@ -1,5 +1,5 @@
 
-using Kapil_Group_Repository.Entities;
+using  Kapil_Group_Repository.Entities;
 
 namespace Kapil_Group_Repository.Interfaces
 {
@@ -172,5 +172,51 @@ namespace Kapil_Group_Repository.Interfaces
 
     List<AccountsDTO> GetLedgerSummaryAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema,string CompanyCode,
           string BranchCode);
+
+
+          List<subAccountLedgerDTO> GetSubAccountLedgerDetails(string con, string BranchSchema, string CompanyCode,string BranchCode);
+
+
+List<subAccountLedgerDTO> GetAccountLedgerData(
+    string con,
+    string SubLedgerName,
+    string BranchSchema,string CompanyCode,
+          string BranchCode);
+
+
+
+List<subAccountLedgerDTO> GetSubLedgerReportData(string con, string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema,string CompanyCode,
+          string BranchCode);
+
+         // List<AccountsDTO> GetSubLedgerAccountList(long ledgerid, string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode, string BranchCode);
+
+
+ List<AccountsDTO> GetSubLedgerAccountList(long ledgerid, string ConnectionString, string GlobalSchema, string BranchSchema,string LocalSchema, string CompanyCode,                  string BranchCode);
+
+          List<AccountReportsDTO> GetTrialBalance(string con, string LocalSchema, string fromDate, string todate, string groupType,string CompanyCode,
+          string BranchCode,string GlobalSchema);
+
+
+
+List<IssuedChequeDTO> GetIssuedChequeNumbers(string con, long bankId, string BranchSchema , string CompanyCode,
+                  string BranchCode);
+
+
+
+                  List<subAccountLedgerDTO> GetMainAccounthead(string con, string BranchSchema, string CompanyCode,
+                  string BranchCode);
+
+
+                  List<cashBookDto> getCashbookData(string ConnectionString, string fromdate, string todate, string BranchSchema, string CompanyCode,
+                  string BranchCode);
+
+        //   List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
+        //   string BranchCode);
+        //   List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
+        //   string BranchCode);
+
+
+
+          
     }
 }
