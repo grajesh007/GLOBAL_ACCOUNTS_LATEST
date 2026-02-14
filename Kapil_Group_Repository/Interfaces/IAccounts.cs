@@ -210,13 +210,34 @@ List<IssuedChequeDTO> GetIssuedChequeNumbers(string con, long bankId, string Bra
                   List<cashBookDto> getCashbookData(string ConnectionString, string fromdate, string todate, string BranchSchema, string CompanyCode,
                   string BranchCode);
 
-        //   List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
-        //   string BranchCode);
-        //   List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
-        //   string BranchCode);
+
+        List<AccountReportsDTO> GetBalances(string con, string LocalSchema, string fromDate, string todate, string groupType, string formname, string CompanyCode,
+                  string BranchCode);
 
 
+                  List<BankTransferTypesDTO> GetBankTransferTypes(string ConnectionString, string branchSchema, string CompanyCode,
+                  string BranchCode);
 
-          
+
+                  List<ChequeEnquiryDTO> GetChequeReturnDetails(string con, string fromdate, string todate, string BranchSchema,string CompanyCode,
+                  string BranchCode, string GlobalSchema);
+
+
+                  List<IssuedChequeDTO> GetIssuedChequeDetails(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema,string CompanyCode,
+                  string BranchCode);
+
+
+List<IssuedChequeDTO> GetUnUsedCheques(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema,string CompanyCode,
+                  string BranchCode);
+
+
+                  List<CountryDTO> getCountry(string ConnectionString, string GlobalSchema);
+
+                  List<StateDTO> getState(string ConnectionString, string GlobalSchema, long id);
+
+                  List<District> getDistrict(string ConnectionString, string GlobalSchema, long id);
+
+                 
+
     }
 }

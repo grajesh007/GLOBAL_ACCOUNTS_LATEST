@@ -776,9 +776,9 @@ namespace Kapil_Group_ERP_API.Controllers
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
-           
+
             {
-                accountslist = _accountDal.GetSubLedgerAccountList(pledgerid, _con, GlobalSchema, BranchSchema, LocalSchema,CompanyCode,
+                accountslist = _accountDal.GetSubLedgerAccountList(pledgerid, _con, GlobalSchema, BranchSchema, LocalSchema, CompanyCode,
            BranchCode);
                 return Ok(accountslist);
             }
@@ -809,17 +809,17 @@ namespace Kapil_Group_ERP_API.Controllers
             }
 
             return Ok(lstAccountReportsDTO);
-            }
+        }
 
 
-[HttpGet("GetIssuedChequeNumbers")]
+        [HttpGet("GetIssuedChequeNumbers")]
         public IActionResult GetIssuedChequeNumbers(long _BankId, string BranchSchema, string CompanyCode,
-                  string BranchCode)
+                          string BranchCode)
         {
-           List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
+            List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
             try
             {
-                _IssuedChequeDTO = _accountDal.GetIssuedChequeNumbers(_con, _BankId, BranchSchema,  CompanyCode,
+                _IssuedChequeDTO = _accountDal.GetIssuedChequeNumbers(_con, _BankId, BranchSchema, CompanyCode,
                    BranchCode);
                 return Ok(_IssuedChequeDTO);
             }
@@ -830,9 +830,9 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
- [HttpGet("GetMainAccounthead")]
+        [HttpGet("GetMainAccounthead")]
         public IActionResult GetMainAccounthead(string BranchSchema, string CompanyCode,
-                  string BranchCode)
+                         string BranchCode)
         {
             List<subAccountLedgerDTO> _SubAccLedgerDTO = new List<subAccountLedgerDTO>();
             try
@@ -847,7 +847,7 @@ namespace Kapil_Group_ERP_API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
-        }
+            }
 
         }
 
@@ -855,13 +855,13 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         [HttpGet("getCashbookData")]
-        public IActionResult getCashbookData(string fromdate, string todate,  string BranchSchema, string CompanyCode,
+        public IActionResult getCashbookData(string fromdate, string todate, string BranchSchema, string CompanyCode,
                   string BranchCode)
         {
             List<cashBookDto> _CashbookDTO = new List<cashBookDto>();
             try
             {
-                _CashbookDTO = _accountDal.getCashbookData(_con, fromdate, todate, BranchSchema,  CompanyCode,
+                _CashbookDTO = _accountDal.getCashbookData(_con, fromdate, todate, BranchSchema, CompanyCode,
                    BranchCode);
                 //_CashbookDTO.plstcashchequetotal = await _AccountingReportsDAL.getCashbookDataTotals(Con, fromdate, todate);
 
@@ -873,68 +873,151 @@ namespace Kapil_Group_ERP_API.Controllers
             }
 
         }
-        // [HttpGet]
-        // [Route("api/AccountingTransactions/GetPettyCashReportData")]
-        // public IActionResult GetPettyCashReportData(string paymentId, string LocalSchema,string CompanyCode,
-        //   string BranchCode,string GlobalSchema)
-        // {
-        //     try
-        //     {
-        //         if (!string.IsNullOrEmpty(paymentId))
-        //         {
-        //             List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
-        //             PaymentVoucherReportlist = _accountDal.GetPettyCashReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
-        //    BranchCode);
-        //             if (PaymentVoucherReportlist != null)
-        //             {
 
-        //                 return Ok(PaymentVoucherReportlist);
-        //             }
-        //             else
-        //             {
-        //                 return StatusCode(StatusCodes.Status204NoContent);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             return StatusCode(StatusCodes.Status406NotAcceptable);
-        //         }
-        //     }
-        //     catch (Exception)
-        //     {
-        // return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //     }
-        // }
-        // [HttpGet("GetPaymentVoucherReportData")]
-        // public IActionResult GetPaymentVoucherReportData(string paymentId, string LocalSchema,string CompanyCode,
-        //   string BranchCode)
-        // {
-        //     try
-        //     {
-        //         if (!string.IsNullOrEmpty(paymentId))
-        //         {
-        //             List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
-        //             PaymentVoucherReportlist = _accountDal.GetPaymentVoucherReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
-        //      BranchCode);
-        //             if (PaymentVoucherReportlist != null)
-        //             {
 
-        //                 return Ok(PaymentVoucherReportlist);
-        //             }
-        //             else
-        //             {
-        //                 return StatusCode(StatusCodes.Status204NoContent);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             return StatusCode(StatusCodes.Status406NotAcceptable);
-        //         }
-        //     }
-        //     catch (Exception)
-        //     {
-        // return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //     }
-        // }
+        [HttpGet("GetBalances")]
+        public IActionResult GetBalances(string fromDate, string todate, string GroupType, string LocalSchema, string formname, string CompanyCode,
+                  string BranchCode)
+        {
+            List<AccountReportsDTO> lstAccountReportsDTO = new List<AccountReportsDTO>();
+            try
+            {
+                lstAccountReportsDTO = _accountDal.GetBalances(_con, LocalSchema, fromDate, todate, GroupType, formname, CompanyCode,
+                   BranchCode);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+            return Ok(lstAccountReportsDTO);
+        }
+
+
+        [HttpGet("GetBankTransferTypes")]
+
+        public IActionResult GetBankTransferTypes(string branchSchema, string CompanyCode,
+                  string BranchCode)
+        {
+            List<BankTransferTypesDTO> _BankTransferTypesDTO = new List<BankTransferTypesDTO>();
+            try
+            {
+                _BankTransferTypesDTO = _accountDal.GetBankTransferTypes(_con, branchSchema, CompanyCode,
+                   BranchCode);
+                return Ok(_BankTransferTypesDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpGet("GetChequeReturnDetails")]
+        public  IActionResult GetChequeReturnDetails(string fromdate, string todate, string BranchSchema,string GlobalSchema ,string CompanyCode,
+                  string BranchCode)
+        {
+           List<ChequeEnquiryDTO> _ChequeEnquiryDTO = new List<ChequeEnquiryDTO>();
+            try
+            {
+                _ChequeEnquiryDTO = _accountDal.GetChequeReturnDetails(_con, fromdate, todate, BranchSchema,GlobalSchema,CompanyCode,
+                   BranchCode);
+                return Ok(_ChequeEnquiryDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
+
+
+         [HttpGet("GetIssuedChequeDetails")]
+        public IActionResult GetIssuedChequeDetails(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,
+                  string BranchCode)
+        {
+            List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
+
+            try
+            {
+                _IssuedChequeDTO = _accountDal.GetIssuedChequeDetails(_con, _BankId, _ChqBookId, _ChqFromNo, _ChqToNo, BranchSchema, GlobalSchema,CompanyCode,BranchCode);
+                return Ok(_IssuedChequeDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+         [HttpGet("GetUnUsedCheques")]
+        public  IActionResult GetUnUsedCheques(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,
+                  string BranchCode)
+        {
+            List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
+
+            try
+            {
+                _IssuedChequeDTO = _accountDal.GetUnUsedCheques(_con, _BankId, _ChqBookId, _ChqFromNo, _ChqToNo, BranchSchema, GlobalSchema, CompanyCode,
+                   BranchCode);
+                return Ok(_IssuedChequeDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+
+         [HttpGet("getCountry")]
+        public  IActionResult getCountry(string GlobalSchema)
+        {
+            try
+            {
+                List<CountryDTO> _lstCountryDTO = new List<CountryDTO>();
+                _lstCountryDTO = _accountDal.getCountry(_con, GlobalSchema);
+                return Ok(_lstCountryDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+         [HttpGet("getstate")]
+        public IActionResult getstate(string GlobalSchema,long id)
+        {
+            try
+            {
+                 List<StateDTO> _lstStateDTO  = new  List<StateDTO>();
+                 _lstStateDTO = _accountDal.getState(_con, GlobalSchema, id);
+                return Ok(_lstStateDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("getDistrict")]
+        public  IActionResult getDistrict(string GlobalSchema,long id)
+        {
+            try
+            {
+                List<District> _lstDistrictDTO = new List<District>();
+                 _lstDistrictDTO = _accountDal.getDistrict(_con, GlobalSchema, id);
+                return Ok(_lstDistrictDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
     }
 }

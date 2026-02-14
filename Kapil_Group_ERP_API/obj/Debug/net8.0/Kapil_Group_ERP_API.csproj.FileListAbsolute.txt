@@ -724,7 +724,6 @@ H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\n
 H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\Kapil_Group_ERP_API.pdb
 H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\Kapil_Group_ERP_API.genruntimeconfig.cache
 H:\ACCOUNTING\New project\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\ref\Kapil_Group_ERP_API.dll
-E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\appsettings.Development.json
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\appsettings.json
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\Kapil_Group_ERP_API.exe
@@ -824,6 +823,7 @@ E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll

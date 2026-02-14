@@ -410,39 +410,72 @@ public class IssuedChequeDTO
         public List<AccountReportsDTO> plstcashbookdata { get; set; }
         public List<AccountReportsDTO> plstcashchequetotal { get; set; }
     }
-    // public class PaymentVoucherReportDTO
-    //     {
-    //         //
-    //         public object pChequenumber { get; set; }
-    //         public object ptypeofpayment { get; set; }
-    //         public object pcontactid { get; set; }
-    //         public object pcontactname { get; set; }
 
-    //         public object ppaymentid { get; set; }
-    //         public object preceiptno { get; set; }
-    //         public object ppaymentdate { get; set; }
-    //         public object pnarration { get; set; }
-    //         public object pmodofPayment { get; set; }
-    //         public object pemployeename { get; set; }
-    //         public object pbankaccount { get; set; }
-    //         public object accountname { get; set; }
-    //         public object parentaccountname { get; set; }
-    //         public object transaction_amount { get; set; }
-    //         public List<GeneralReceiptSubDetails> ppaymentslist { get; set; }
-    //         public object pusername { get; set; }
 
-    //     }
+     public class BankTransferTypesDTO
+    {
+        public object bankttransferid { get; set; }
+        public object banktransfername { get; set; }
+        public object frombankaccountid { get; set; }
+        public object tobankaccountid { get; set; }
+        public object bankconfigurationid { get; set; }
+        public object accountname { get; set; }
 
-    //      public class GeneralReceiptSubDetails
-    //     {
-    //         public object pLedgeramount { get; set; }
-    //         public object pAccountname { get; set; }
-    //         public object pgstcalculationtype { get; set; }
-    //         public object pcgstamount { get; set; }
-    //         public object psgstamount { get; set; }
-    //         public object pigstamount { get; set; }
-    //         public object ptdscalculationtype { get; set; }
-    //         public object ptdsamount { get; set; }
-    //         public object state_code { get; set; }
-    //     }
+    }
+
+     public class ChequeEnquiryDTO
+    {
+        public string preferencenumber { get; set; }
+        public string pparticulars { get; set; }
+        public string preceiptid { get; set; }
+        public object pchequedate { get; set; }
+        public string pbankname { get; set; }
+        public object pdepositeddate { get; set; }
+        public object pcleardate { get; set; }
+        public Int64 ptotalreceivedamount { get; set; }
+        public string pchequesstatus { get; set; }
+        public string pdepositbankname { get; set; }
+        public List<ChequeEnquiryDTO> plstChequeEnquiry { get; set; }
+
+        public object psubscribername { get; set; }
+        public object pchitno { get; set; }
+        public object paddress { get; set; }
+
+        public object pchequereturnchargesamount { get; set; }
+        public object pbranchname { get; set; }
+
+        public object pvoucherno { get; set; }
+        public object pcreditaccountname { get; set; }
+        public object pdebitaccountname { get; set; }
+        public object pReceiptChqAmount { get; set; }
+
+    }
+
+     public class CountryDTO 
+    {
+        public object tbl_mst_country_id { get; set; }
+        public object country_name { get; set; }
+        public object country_code { get; set; }
+        public object status { get; set; }
+    }
+
+
+      public class StateDTO 
+    {
+        public object tbl_mst_state_id { get; set; }
+        public object country_id { get; set; }
+        public object country_name { get; set; }
+        public object state_code { get; set; }
+        public object state_name { get; set; }
+        public object union_territory { get; set; }
+        public object status { get; set; }
+    }
+
+    public class District
+    {
+        public object tbl_mst_district_id { get; set; }
+        public object district_name { get; set; }
+        public object status { get; set; }
+    }
+   
 }
