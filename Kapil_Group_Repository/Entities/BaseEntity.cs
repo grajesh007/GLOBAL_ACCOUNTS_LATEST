@@ -1,5 +1,5 @@
-namespace Kapil_Group_Repository.Entities;
-
+namespace Kapil_Group_Repository.Entities
+    {
 public abstract class BaseEntity
 {
     public int Id { get; set; }
@@ -8,4 +8,5 @@ public abstract class BaseEntity
     public string? CreatedBy { get; set; }
     public string? ModifiedBy { get; set; }
     public bool IsActive { get; set; } = true;
+}
 }

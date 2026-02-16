@@ -90,7 +90,7 @@ namespace Kapil_Group_Infrastructure.Data
                     Console.WriteLine(con.State); // Expect Open
 
                     using var cmd = con.CreateCommand();
-                    cmd.CommandText = $"select tbl_mst_bank_configuration_id as bankaccountid,case when (account_number is null or coalesce(account_number,'')='') then account_name else account_name||' - '|| account_number end as bank_name from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_bank t1 join " + AddDoubleQuotes(accountsSchema) + ".tbl_mst_bank_configuration  ts on t1.tbl_mst_bank_id =ts.bank_id  where t1.company_code='" + CompanyName + "'and t1.branch_code='" + BranchCode + "'order by bank_name;";
+                    cmd.CommandText = $"select tbl_mst_bank_configuration_id as bankaccountid,case when (account_number is null or coalesce(account_number,'')='') then account_name else account_name||' - '|| account_number end as bank_name from " + AddDoubleQuotes(globalSchema) + ".tbl_mst_bank t1 join " + AddDoubleQuotes(accountsSchema) + ".tbl_mst_bank_configuration  ts on t1.tbl_mst_bank_id =ts.bank_id  where t1.company_code='" + CompanyName + "' and t1.branch_code='" + BranchCode + "' order by bank_name;";
                     cmd.CommandType = CommandType.Text;
 
                     using var reader = cmd.ExecuteReader();
@@ -105,26 +105,26 @@ namespace Kapil_Group_Infrastructure.Data
                         Bank obj = new Bank();
 
                         obj.tbl_mst_bank_configuration_id =
-                            reader.IsDBNull(0) ? 0 : (int)reader.GetInt64(0);
+                            reader.IsDBNull(0) ? 0 : Convert.ToInt32(reader.GetInt64(0));
 
 
                         obj.BankName =
                             reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
 
-                        obj.bankbranch =
-                            reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+                        //obj.bankbranch =
+                        //    reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
 
-                        obj.ifsccode =
-                            reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                        //obj.ifsccode =
+                        //    reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
 
-                        obj.accounttype =
-                            reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+                        //obj.accounttype =
+                        //    reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
 
                         bankList.Add(obj);
                     }
                 }
             }
-            catch (Exception ex)
+                    catch (Exception ex)
             {
                 // Surface a clearer message to the caller and preserve original exception
                 throw new InvalidOperationException($"Failed to retrieve bank details (schema={globalSchema}). See inner exception for details.", ex);

@@ -54,7 +54,7 @@ namespace Kapil_Group_ERP_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.ToString()); // show full error
             }
         }
         [HttpGet("Getbanks1")]
@@ -68,7 +68,7 @@ namespace Kapil_Group_ERP_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.ToString());
             }
         }
         #region BankNames
