@@ -66,8 +66,8 @@ namespace Kapil_Group_Repository.Entities
 
 
     #endregion companyNameandaddressDetails
-    #region BankConfigurationdetails
 
+    #region BankConfigurationdetails
     public class BankConfigurationDetails : BaseEntity
     {
         public int BankConfigurationId { get; set; }
@@ -78,8 +78,8 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion BankConfigurationdetails
-    #region ViewChequeManagementDetails
 
+    #region ViewChequeManagementDetails
     public class ChequeManagementDTO
     {
         public int ptotalrecords { get; set; }
@@ -89,16 +89,16 @@ namespace Kapil_Group_Repository.Entities
         public long pchequefromnumber { get; set; }
         public long pchequetonumber { get; set; }
         public bool pchequegeneratestatus { get; set; }
-        public string pbankname { get; set; }
-        public string paccountnumber { get; set; }
+        public string pbankname { get; set; } =string.Empty;
+        public string paccountnumber { get; set; } = string.Empty;
         public bool pstatus { get; set; }
-        public string pchequestatus { get; set; }
+        public string pchequestatus { get; set; } = string.Empty;
     }
 
     #endregion ViewChequeManagementDetails
 
-    #region ExistingChequeCount
 
+    #region ExistingChequeCount
     public class ExistingChequeCountDTO : BaseEntity
     {
         public int Count { get; set; }
@@ -113,7 +113,6 @@ namespace Kapil_Group_Repository.Entities
         public int recordid { get; set; }
 
         public string upiname { get; set; } = string.Empty;
-
 
     }
 
@@ -229,6 +228,7 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion PettyCashExistingData...
+
     #region PaymentVoucherExistingData..
 
     public class PaymentVoucherDetails : BaseEntity
@@ -253,6 +253,8 @@ namespace Kapil_Group_Repository.Entities
 
 
     #endregion ProductnamesandHSNcodes..
+
+
     #region getReceiptNumber..
     public class getReceiptNumber
     {
@@ -274,15 +276,7 @@ namespace Kapil_Group_Repository.Entities
 
     #endregion GetBankUPIList
 
-    #region GetCAOBranchList
-
-    // public class CAOBranchDetails : BaseEntity
-    // {
-    //     public int BranchConfigurationId { get; set; }
-    //     public string BranchCode { get; set; } = string.Empty;
-    //     public string BranchName { get; set; } = string.Empty;
-    // }
-
+  #region GetCAOBranchList
     public class CAOBranchListDetails : BaseEntity
     {
         public int BranchConfigurationId { get; set; }
@@ -291,17 +285,17 @@ namespace Kapil_Group_Repository.Entities
     }
 
 
-    #endregion GetCAOBranchList
+ #endregion GetCAOBranchList
 
-
+ #region GstDTo...
     public class GstDTo
     {
-        public object pRecordId { get; set; }
-        public object pgstpercentage { get; set; }
-        public object pigstpercentage { get; set; }
-        public object pcgstpercentage { get; set; }
-        public object psgstpercentage { get; set; }
-        public object putgstpercentage { get; set; }
+        public object pRecordId { get; set; } 
+        public object pgstpercentage { get; set; } 
+        public object pigstpercentage { get; set; } 
+        public object pcgstpercentage { get; set; } 
+        public object psgstpercentage { get; set; } 
+        public object putgstpercentage { get; set; } 
         public object pState { get; set; }
         public object pStateId { get; set; }
         public object pgstno { get; set; }
@@ -310,8 +304,10 @@ namespace Kapil_Group_Repository.Entities
         public object gstnumber { get; set; }
     }
 
+    #endregion GstDTo...
 
 
+   #region AccountReportsDTO...
     public class AccountReportsDTO
     {
 
@@ -337,6 +333,10 @@ namespace Kapil_Group_Repository.Entities
         public string pBalanceType { get; set; }
         public object groupcode { get; set; }
     }
+
+    #endregion AccountReportsDTO...
+
+    #region AccountsDTO...
     public class AccountsDTO
     {
         public object psubledgerid { get; set; }
@@ -358,6 +358,10 @@ namespace Kapil_Group_Repository.Entities
 
     }
 
+    #endregion AccountsDTO...
+
+
+   #region subAccountLedgerDTO...
     public class subAccountLedgerDTO : AccountReportsDTO
     {
         public List<AccountReportsDTO> plstSubAccountLedger { get; set; }
@@ -380,10 +384,11 @@ namespace Kapil_Group_Repository.Entities
         public string paccountname { get; set; }
     }
 
+    #endregion subAccountLedgerDTO...
 
-
-public class IssuedChequeDTO 
-    {
+  #region IssuedChequeDTO...
+   public class IssuedChequeDTO 
+     {
         public long pchequeNoFrom { get; set; }
         public long pchequeNoTo { get; set; }
         public long pchkBookId { get; set; }
@@ -402,16 +407,18 @@ public class IssuedChequeDTO
         public string branchSchema { get; set; }
     }
 
+    #endregion IssuedChequeDTO...
 
-
-
+  #region cashBookDto...
      public class cashBookDto : AccountReportsDTO
     {
         public List<AccountReportsDTO> plstcashbookdata { get; set; }
         public List<AccountReportsDTO> plstcashchequetotal { get; set; }
     }
 
+  #endregion cashBookDto...
 
+  #region BankTransferTypesDTO....
      public class BankTransferTypesDTO
     {
         public object bankttransferid { get; set; }
@@ -420,9 +427,11 @@ public class IssuedChequeDTO
         public object tobankaccountid { get; set; }
         public object bankconfigurationid { get; set; }
         public object accountname { get; set; }
-
     }
 
+    #endregion BankTransferTypesDTO...
+    
+    #region ChequeEnquiryDTO...
      public class ChequeEnquiryDTO
     {
         public string preferencenumber { get; set; }
@@ -451,6 +460,9 @@ public class IssuedChequeDTO
 
     }
 
+    #endregion ChequeEnquiryDTO...
+    
+    #region CountryDTO...
      public class CountryDTO 
     {
         public object tbl_mst_country_id { get; set; }
@@ -459,8 +471,10 @@ public class IssuedChequeDTO
         public object status { get; set; }
     }
 
+    #endregion CountryDTO...
 
-      public class StateDTO 
+    #region StateDTO...
+    public class StateDTO 
     {
         public object tbl_mst_state_id { get; set; }
         public object country_id { get; set; }
@@ -471,11 +485,25 @@ public class IssuedChequeDTO
         public object status { get; set; }
     }
 
+    #endregion StateDTO...
+
+    #region District..
     public class District
     {
         public object tbl_mst_district_id { get; set; }
         public object district_name { get; set; }
         public object status { get; set; }
     }
+
+    #endregion District...
+
+    #region Getformnamedetails...
+
+    public class Formnamedetails:BaseEntity
+    {
+        public string formNames {get;set;}= string.Empty;
+    }
+
+    #endregion Getformnamedetails...
    
 }

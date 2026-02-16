@@ -2683,6 +2683,115 @@ public List<StateDTO> getState(string ConnectionString, string GlobalSchema, lon
     return _lstDistrict;
 }
 
+#region Getformnamedetails...
+
+public List<Formnamedetails> Getformnamedetails(
+    string connectionString,
+    string globalSchema,
+    string companyCode,
+    string branchCode)
+{
+    List<Formnamedetails> formList = new List<Formnamedetails>();
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+    try
+    {
+        // Validate connection string
+        NpgsqlConnectionStringBuilder builder;
+        try
+        {
+            builder = new NpgsqlConnectionStringBuilder(connectionString);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+        {
+            con.Open();
+            Console.WriteLine(con.State);
+
+            using var cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+
+            cmd.CommandText = $@"
+                SELECT form_name
+                FROM
+                (
+                    SELECT DISTINCT 
+                        REPLACE(form_name,'GENERAL VOUCHER','GENERAL Receipt') AS form_name
+                    FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_generate_id
+                    WHERE con_column_name='ACCOUNTING'
+                      AND company_code=@CompanyCode
+                      AND branch_code=@BranchCode
+
+                    UNION ALL
+
+                    SELECT DISTINCT 'SUBSCRIBER JV CANCEL'
+                    FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_generate_id
+                    WHERE con_column_name='ACCOUNTING'
+                      AND company_code=@CompanyCode
+                      AND branch_code=@BranchCode
+
+                    UNION ALL
+
+                    SELECT DISTINCT 'GENERAL RECEIPT CANCEL'
+                    FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_generate_id
+                    WHERE con_column_name='ACCOUNTING'
+                      AND company_code=@CompanyCode
+                      AND branch_code=@BranchCode
+
+                    UNION ALL
+
+                    SELECT DISTINCT 'CHEQUES ON HAND CANCEL'
+                    FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_generate_id
+                    WHERE con_column_name='ACCOUNTING'
+                      AND company_code=@CompanyCode
+                      AND branch_code=@BranchCode
+
+                    UNION ALL
+
+                    SELECT DISTINCT 'SUBSCRIBER JV GROUP-GROUP'
+                    FROM {AddDoubleQuotes(globalSchema)}.tbl_mst_generate_id
+                    WHERE con_column_name='ACCOUNTING'
+                      AND company_code=@CompanyCode
+                      AND branch_code=@BranchCode
+                ) t
+                ORDER BY 1;
+            ";
+
+            cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+            cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Formnamedetails obj = new Formnamedetails();
+
+               
+                obj.formNames = reader.IsDBNull(0) ? string.Empty : reader.GetString(0);
+               
+
+                formList.Add(obj);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw new InvalidOperationException(
+            $"Failed to retrieve form name details (schema={globalSchema}). See inner exception for details.",
+            ex);
+    }
+
+    return formList;
+}
+
+
+#endregion Getformnamedetails...
+
 
 
     }

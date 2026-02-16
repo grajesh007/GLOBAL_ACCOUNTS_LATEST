@@ -48,8 +48,7 @@ namespace Kapil_Group_ERP_API.Controllers
             try
             {
                 // use configured schemas by default; override by query parameters if needed later
-                var banks = _accountDal.GetBankDetails(_con, globalSchema ?? _globalSchema,
-                 accountsSchema ?? _accountsSchema);
+                var banks = _accountDal.GetBankDetails(_con, globalSchema ?? _globalSchema,accountsSchema ?? _accountsSchema);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -57,6 +56,7 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet("Getbanks1")]
         public IActionResult GetBanks1(string? globalSchema = null, string? accountsSchema = null, string? BranchCode = null, string? CompanyName = null)
         {
@@ -71,24 +71,15 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        #region BankNames
+
+#region BankNames
 
         [HttpGet("GetBankNames")]
-        public IActionResult GetBankNames(
-            string? GlobalSchema = null,
-            string? AccountsSchema = null,
-            string? CompanyCode = null,
-            string? BranchCode = null)
+        public IActionResult GetBankNames(string? GlobalSchema = null,string? AccountsSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetBankNamesDetails(
-                    _con,
-                    GlobalSchema ?? GlobalSchema,
-                    AccountsSchema ?? AccountsSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetBankNamesDetails( _con,GlobalSchema ?? GlobalSchema,AccountsSchema ?? AccountsSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -99,22 +90,16 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion BankNames
-        #region companyNameandaddressDetails
+#endregion BankNames
+
+#region companyNameandaddressDetails
+
         [HttpGet("GetCompanyNameAndAddress")]
-        public IActionResult GetCompanyNameAndAddressDetails(
-   string? GlobalSchema = null,
-   string? CompanyCode = null,
-   string? BranchCode = null)
+        public IActionResult GetCompanyNameAndAddressDetails(string? GlobalSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetCompanyNameAndAddressDetails(
-                    _con,
-                    GlobalSchema ?? GlobalSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetCompanyNameAndAddressDetails(_con,GlobalSchema ?? GlobalSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -123,22 +108,17 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        #endregion companyNameandaddressDetails
-        #region BankConfigurationdetails
+
+#endregion companyNameandaddressDetails
+
+#region BankConfigurationdetails
+
         [HttpGet("GetBankConfigurationDetails")]
-        public IActionResult GetBankConfigurationDetails(
-    string? BranchSchema = null,
-    string? CompanyCode = null,
-    string? BranchCode = null)
+        public IActionResult GetBankConfigurationDetails(string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetBankConfigurationDetails(
-                    _con,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetBankConfigurationDetails(_con,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -148,30 +128,17 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion BankConfigurationdetails
+#endregion BankConfigurationdetails
 
 
-        #region ViewChequeManagementDetails
+#region ViewChequeManagementDetails
 
         [HttpGet("GetViewChequeManagementDetails")]
-        public IActionResult ViewChequeManagementDetails(
-        string BranchSchema,
-        string GlobalSchema,
-        string CompanyCode,
-        string BranchCode,
-        int PageSize,
-        int PageNo)
+        public IActionResult ViewChequeManagementDetails(string BranchSchema,string GlobalSchema,string CompanyCode,string BranchCode,int PageSize,int PageNo)
         {
             try
             {
-                var result = _accountDal.ViewChequeManagementDetails(
-                    _con,
-                    BranchSchema,
-                    GlobalSchema,
-                    CompanyCode,
-                    BranchCode,
-                    PageSize,
-                    PageNo);
+                var result = _accountDal.ViewChequeManagementDetails(_con,BranchSchema,GlobalSchema,CompanyCode,BranchCode,PageSize,PageNo);
 
                 return Ok(result);
             }
@@ -182,29 +149,16 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion ViewChequeManagementDetails
+#endregion ViewChequeManagementDetails
 
-        #region ExistingChequeCount
+#region ExistingChequeCount
+
         [HttpGet("GetExistingChequeCount")]
-        public IActionResult GetExistingChequeCount(
-    int bankId,
-    int chqFromNo,
-    int chqToNo,
-    string? BranchSchema = null,
-    string? CompanyCode = null,
-    string? BranchCode = null)
+        public IActionResult GetExistingChequeCount(int bankId,int chqFromNo,int chqToNo,string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetExistingChequeCount(
-                    _con,
-                    bankId,
-                    chqFromNo,
-                    chqToNo,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetExistingChequeCount( _con,bankId,chqFromNo,chqToNo,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -215,10 +169,11 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion ExistingChequeCount
+#endregion ExistingChequeCount
 
 
-        #region BankUPIDetails...
+#region BankUPIDetails...
+
         [HttpGet("GetBankUPIDetails")]
 
         public IActionResult GetBankUPIDetails(string? GlobalSchema = null, string? BranchCode = null, string? CompanyCode = null)
@@ -234,9 +189,9 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion BankUPIDetails...
+#endregion BankUPIDetails...
 
-        #region ViewBankInformationDetails....
+#region ViewBankInformationDetails....
 
         [HttpGet("GetViewBankInformationDetails")]
         public IActionResult GetViewBankInformationDetails(string? GlobalSchema = null, string? BranchSchema = null, string? BranchCode = null, string? CompanyCode = null)
@@ -252,10 +207,10 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion ViewBankInformationDetails...
+#endregion ViewBankInformationDetails...
 
 
-        #region GeneralReceiptsData...
+#region GeneralReceiptsData...
 
         [HttpGet("GetGeneralReceiptsData")]
         public IActionResult GetGeneralReceiptsData(string? GlobalSchema = null, string? BranchSchema = null, string? TaxSchema = null, string? CompanyCode = null, string? BranchCode = null)
@@ -271,9 +226,9 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion GeneralReceiptsData...
+#endregion GeneralReceiptsData...
 
-        #region  ViewBankInformation...
+#region  ViewBankInformation...
 
         [HttpGet("GetViewBankInformation")]
         public IActionResult GetViewBankInformation(int precordid, string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null)
@@ -291,27 +246,17 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion ViewBankInformation...
+#endregion ViewBankInformation...
 
-        #region AvailableChequeCount...
+#region AvailableChequeCount...
 
         [HttpGet("GetAvailableChequeCount")]
-        public IActionResult GetAvailableChequeCount(int bankId,
-      int chqFromNo,
-      int chqToNo,
-      string? BranchSchema = null,
-      string? CompanyCode = null,
-      string? BranchCode = null)
+        public IActionResult GetAvailableChequeCount(int bankId,int chqFromNo,int chqToNo,string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
 
-                var banks = _accountDal.GetAvailableChequeCount(_con, bankId,
-                    chqFromNo,
-                    chqToNo,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode);
+                var banks = _accountDal.GetAvailableChequeCount(_con, bankId,chqFromNo,chqToNo,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -320,10 +265,10 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion AvailableChequeCount...
+#endregion AvailableChequeCount...
 
 
-        #region PettyCashExistingData...
+#region PettyCashExistingData...
 
         [HttpGet("GetPettyCashExistingData")]
         public IActionResult GetPettyCashExistingData(string? GlobalSchema = null, string? BranchSchema = null, string? CompanyCode = null, string? Branchcode = null)
@@ -340,26 +285,16 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion PettyCashExistingData...
+#endregion PettyCashExistingData...
 
-        #region PaymentVoucherExistingData..
+#region PaymentVoucherExistingData..
 
         [HttpGet("GetPaymentVoucherExistingData")]
-        public IActionResult GetPaymentVoucherExistingData(
-   string? GlobalSchema = null,
-   string? BranchSchema = null,
-   string? CompanyCode = null,
-   string? BranchCode = null)
+        public IActionResult GetPaymentVoucherExistingData(string? GlobalSchema = null,string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetPaymentVoucherExistingData(
-                    _con,
-                    GlobalSchema ?? GlobalSchema,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetPaymentVoucherExistingData(_con,GlobalSchema ?? GlobalSchema,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -369,19 +304,16 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion PaymentVoucherExistingData..
+ #endregion PaymentVoucherExistingData..
 
-        #region ProductnamesandHSNcodes..
+#region ProductnamesandHSNcodes..
+
         [HttpGet("GetProductNamesAndHSNCodes")]
-        public IActionResult GetProductNamesAndHSNCodes(
-     string? GlobalSchema = null)
+        public IActionResult GetProductNamesAndHSNCodes(string? GlobalSchema = null)
         {
             try
             {
-                var result = _accountDal.GetProductNamesAndHSNCodes(
-                    _con,
-                    GlobalSchema ?? GlobalSchema
-                );
+                var result = _accountDal.GetProductNamesAndHSNCodes(_con,GlobalSchema ?? GlobalSchema);
 
                 return Ok(result);
             }
@@ -392,29 +324,16 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion ProductnamesandHSNcodes
+#endregion ProductnamesandHSNcodes
 
+#region getReceiptNumber..
 
-
-
-
-        #region getReceiptNumber..
         [HttpGet("GetReceiptNumber")]
-        public IActionResult getReceiptNumber(
-      string? GlobalSchema = null,
-   string? BranchSchema = null,
-   string? CompanyCode = null,
-   string? BranchCode = null)
+        public IActionResult getReceiptNumber(string? GlobalSchema = null,string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.getReceiptNumber(
-                      _con,
-                   GlobalSchema ?? GlobalSchema,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.getReceiptNumber(_con,GlobalSchema ?? GlobalSchema,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -425,22 +344,16 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-        #endregion ProductnamesandHSNcodes
+ #endregion ProductnamesandHSNcodes
 
-        #region GetBankUPIList
+#region GetBankUPIList
+
         [HttpGet("BankUPIList")]
-        public IActionResult GetBankUPIList(
-    string? BranchSchema = null,
-    string? CompanyCode = null,
-    string? BranchCode = null)
+        public IActionResult GetBankUPIList(string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetBankUPIListDetails(
-                    _con,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
+                var result = _accountDal.GetBankUPIListDetails(_con,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode
                 );
 
                 return Ok(result);
@@ -451,51 +364,16 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion GetBankUPIList
+#endregion GetBankUPIList
 
-        #region GetCAOBranchList
-        //         [HttpGet("CAOBranchList")]
-        // public IActionResult GetCAOBranchList(
-        //     string? BranchSchema = null,
-        //     string? GlobalSchema = null,
-        //     string? CompanyCode = null,
-        //     string? BranchCode = null)
-        // {
-        //     try
-        //     {
-        //         var result = _accountDal.GetCAOBranchList(
-        //             _con,
-        //             BranchSchema,
-        //             GlobalSchema,
-        //             CompanyCode,
-        //             BranchCode
-        //         );
-
-        //         return Ok(result);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, ex.Message);
-        //     }
-        // }
-
+#region GetCAOBranchList
 
         [HttpGet("GetCAOBranchList")]
-        public IActionResult GetCAOBranchList(
-    string? GlobalSchema = null,
-    string? BranchSchema = null,
-    string? CompanyCode = null,
-    string? BranchCode = null)
+        public IActionResult GetCAOBranchList(string? GlobalSchema = null,string? BranchSchema = null,string? CompanyCode = null,string? BranchCode = null)
         {
             try
             {
-                var result = _accountDal.GetCAOBranchListDetails(
-                    _con,
-                    GlobalSchema ?? GlobalSchema,
-                    BranchSchema ?? BranchSchema,
-                    CompanyCode ?? CompanyCode,
-                    BranchCode ?? BranchCode
-                );
+                var result = _accountDal.GetCAOBranchListDetails(_con,GlobalSchema ?? GlobalSchema,BranchSchema ?? BranchSchema,CompanyCode ?? CompanyCode,BranchCode ?? BranchCode);
 
                 return Ok(result);
             }
@@ -505,25 +383,16 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-        #endregion GetCAOBranchList
+#endregion GetCAOBranchList
 
-
-
+#region GetBankBookDetails...
+       
         [HttpGet("GetBankBookDetails")]
-        public IActionResult GetBankBookDetails(
-           string fromDate,
-           string toDate,
-           long _pBankAccountId,
-           string AccountsSchema,
-           string GlobalSchema,
-           string CompanyCode,
-           string BranchCode)
+        public IActionResult GetBankBookDetails(string fromDate,string toDate,long _pBankAccountId,string AccountsSchema,string GlobalSchema,string CompanyCode,string BranchCode)
         {
             try
             {
-                var plstBankBook = _accountDal.GetBankBookDetails(
-                    _con, fromDate, toDate, _pBankAccountId,
-                    AccountsSchema, GlobalSchema, CompanyCode, BranchCode);
+                var plstBankBook = _accountDal.GetBankBookDetails( _con, fromDate, toDate, _pBankAccountId,AccountsSchema, GlobalSchema, CompanyCode, BranchCode);
 
                 return Ok(plstBankBook);
             }
@@ -533,26 +402,19 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion GetBankBookDetails...
+
+ #region GetRePrintInterBranchGeneralReceiptCount....
 
         [HttpGet("GetRePrintInterBranchGeneralReceiptCount")]
-        public int GetRePrintInterBranchGeneralReceiptCount(
-     [FromQuery] string ReceiptId,
-     [FromQuery] string BranchSchema,
-     [FromQuery] string CompanyCode,
-     [FromQuery] string BranchCode)
+        public int GetRePrintInterBranchGeneralReceiptCount([FromQuery] string ReceiptId,[FromQuery] string BranchSchema,[FromQuery] string CompanyCode,[FromQuery] string BranchCode)
 
         {
             int count = 0;
 
             try
             {
-                count = _accountDal.GetRePrintInterBranchGeneralReceiptCount(
-                    _con,
-                    ReceiptId,
-                    BranchSchema,
-                    CompanyCode,
-                    BranchCode
-                );
+                count = _accountDal.GetRePrintInterBranchGeneralReceiptCount(_con,ReceiptId,BranchSchema,CompanyCode,BranchCode);
             }
             catch (Exception)
             {
@@ -561,28 +423,17 @@ namespace Kapil_Group_ERP_API.Controllers
             return count;
         }
 
+#endregion GetRePrintInterBranchGeneralReceiptCount....
 
 
+#region GetPartywiseStates....
 
         [HttpGet("GetPartywiseStates")]
-        public IActionResult GetPartywiseStates(
-         string BranchSchema,
-         string partyid,
-         string GlobalSchema,
-         string CompanyCode,
-         string BranchCode)
+        public IActionResult GetPartywiseStates(string BranchSchema,string partyid,string GlobalSchema,string CompanyCode,string BranchCode)
         {
             try
             {
-                var statelist = _accountDal.getStatesbyPartyid(
-                    Convert.ToInt64(partyid),
-                    _con,
-                    0,
-                    GlobalSchema,
-                    BranchSchema,
-                    CompanyCode,
-                    BranchCode
-                );
+                var statelist = _accountDal.getStatesbyPartyid(Convert.ToInt64(partyid),_con,0,GlobalSchema,BranchSchema,CompanyCode,BranchCode);
 
                 return Ok(statelist);
             }
@@ -591,8 +442,10 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+ #endregion GetPartywiseStates...
 
-
+     
+#region checkAccountnameDuplicates...
 
         [HttpGet("checkAccountnameDuplicates")]
         public IActionResult checkAccountnameDuplicates(string Accountname, string AccountType, int Parentid, string CompanyCode, string GlobalSchema, string BranchSchema, string BranchCode)
@@ -600,8 +453,7 @@ namespace Kapil_Group_ERP_API.Controllers
             int count = 0;
             try
             {
-                count = _accountDal.checkAccountnameDuplicates(Accountname, AccountType, Parentid, GlobalSchema, _con, CompanyCode,
-     BranchCode);
+                count = _accountDal.checkAccountnameDuplicates(Accountname, AccountType, Parentid, GlobalSchema, _con, CompanyCode,BranchCode);
             }
             catch (Exception ex)
             {
@@ -610,8 +462,9 @@ namespace Kapil_Group_ERP_API.Controllers
             return Ok(count); ;
         }
 
+#endregion checkAccountnameDuplicates...
 
-
+#region GetCashRestrictAmountpercontact...
 
         [HttpGet("GetCashRestrictAmountpercontact")]
         public IActionResult GetCashRestrictAmountpercontact(string type, string branchtype, string BranchSchema, long contactid, string checkdate, string CompanyCode, string GlobalSchema,
@@ -631,19 +484,20 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetCashRestrictAmountpercontact...
+
+
+ #region GetGstLedgerAccountList...
 
         [HttpGet("GetGstLedgerAccountList")]
 
-        public IActionResult GetGstLedgerAccountList(string BranchSchema, string formname
-, string CompanyCode,
-       string BranchCode)
+        public IActionResult GetGstLedgerAccountList(string BranchSchema, string formname, string CompanyCode,string BranchCode)
         {
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetGstLedgerAccountList(_con, formname, BranchSchema, CompanyCode,
-         BranchCode);
+                accountslist = _accountDal.GetGstLedgerAccountList(_con, formname, BranchSchema, CompanyCode,BranchCode);
                 if (accountslist.Count > 0)
                 {
                     accountslist.Insert(0, new AccountsDTO
@@ -662,18 +516,20 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetGstLedgerAccountList...
+
+
+#region GetLedgerAccountList....
 
         [HttpGet("GetLedgerAccountList")]
 
-        public IActionResult GetLedgerAccountList(string formname, string BranchSchema, string CompanyCode,
-          string BranchCode, string GlobalSchema)
+        public IActionResult GetLedgerAccountList(string formname, string BranchSchema, string CompanyCode,string BranchCode, string GlobalSchema)
         {
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,
-         BranchCode);
+                accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,BranchCode);
                 return Ok(accountslist);
             }
             catch (Exception ex)
@@ -683,20 +539,20 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetLedgerAccountList...
 
 
+#region  GetLedgerSummaryAccountList...
 
         [HttpGet("GetLedgerSummaryAccountList")]
 
-        public IActionResult GetLedgerSummaryAccountList(string formname, string BranchSchema, string CompanyCode,
-          string BranchCode, string GlobalSchema)
+        public IActionResult GetLedgerSummaryAccountList(string formname, string BranchSchema, string CompanyCode,string BranchCode, string GlobalSchema)
         {
 
             List<AccountsDTO> accountslist = new List<AccountsDTO>();
             try
             {
-                accountslist = _accountDal.GetLedgerSummaryAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,
-         BranchCode);
+                accountslist = _accountDal.GetLedgerSummaryAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode,BranchCode);
                 return Ok(accountslist);
             }
             catch (Exception ex)
@@ -706,12 +562,12 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetLedgerSummaryAccountList...
 
-
+#region  GetSubAccountLedgerDetails...
 
         [HttpGet("GetSubAccountLedgerDetails")]
-        public IActionResult GetSubAccountLedgerDetails(string BranchSchema, string CompanyCode,
-         string BranchCode)
+        public IActionResult GetSubAccountLedgerDetails(string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<subAccountLedgerDTO> _subAccountLedgerList = new List<subAccountLedgerDTO>();
             try
@@ -726,16 +582,17 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+ #endregion GetSubAccountLedgerDetails...
+
+#region GetAccountLedgerNames...
 
         [HttpGet("GetAccountLedgerNames")]
-        public IActionResult GetAccountLedgerNames(string SubLedgerName, string BranchSchema, string CompanyCode,
-                 string BranchCode)
+        public IActionResult GetAccountLedgerNames(string SubLedgerName, string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<subAccountLedgerDTO> _SubAccountLedgerDTO = new List<subAccountLedgerDTO>();
             try
             {
-                _SubAccountLedgerDTO = _accountDal.GetAccountLedgerData(_con, SubLedgerName, BranchSchema, CompanyCode,
-           BranchCode);
+                _SubAccountLedgerDTO = _accountDal.GetAccountLedgerData(_con, SubLedgerName, BranchSchema, CompanyCode,BranchCode);
                 return Ok(_SubAccountLedgerDTO);
 
             }
@@ -745,17 +602,18 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion GetAccountLedgerNames....
 
+
+#region GetSubAccountLedgerReportData....
 
         [HttpGet("GetSubAccountLedgerReportData")]
-        public IActionResult GetSubAccountLedgerReportData(string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema, string CompanyCode,
-                string BranchCode)
+        public IActionResult GetSubAccountLedgerReportData(string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<subAccountLedgerDTO> _SubAccountLedgerDTO = new List<subAccountLedgerDTO>();
             try
             {
-                _SubAccountLedgerDTO = _accountDal.GetSubLedgerReportData(_con, SubLedgerName, parentid, fromDate, toDate, BranchSchema, CompanyCode,
-           BranchCode);
+                _SubAccountLedgerDTO = _accountDal.GetSubLedgerReportData(_con, SubLedgerName, parentid, fromDate, toDate, BranchSchema, CompanyCode,BranchCode);
             }
             catch (Exception ex)
             {
@@ -764,10 +622,9 @@ namespace Kapil_Group_ERP_API.Controllers
             return Ok(_SubAccountLedgerDTO);
         }
 
+#endregion GetSubAccountLedgerReportData...
 
-
-
-
+#region GetSubLedgerData...
 
         [HttpGet("GetSubLedgerData")]
         public IActionResult GetSubLedgerData(long pledgerid, string BranchSchema, string CompanyCode, string LocalSchema,
@@ -789,18 +646,17 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetSubLedgerData...
 
-
+#region GetTrialBalance...
 
         [HttpGet("GetTrialBalance")]
-        public IActionResult GetTrialBalance(string fromDate, string todate, string GroupType, string LocalSchema, string CompanyCode,
-          string BranchCode, string GlobalSchema)
+        public IActionResult GetTrialBalance(string fromDate, string todate, string GroupType, string LocalSchema, string CompanyCode,string BranchCode, string GlobalSchema)
         {
             List<AccountReportsDTO> lstAccountReportsDTO = new List<AccountReportsDTO>();
             try
             {
-                lstAccountReportsDTO = _accountDal.GetTrialBalance(_con, LocalSchema, fromDate, todate, GroupType, CompanyCode,
-           BranchCode, GlobalSchema);
+                lstAccountReportsDTO = _accountDal.GetTrialBalance(_con, LocalSchema, fromDate, todate, GroupType, CompanyCode,BranchCode, GlobalSchema);
 
             }
             catch (Exception ex)
@@ -811,16 +667,17 @@ namespace Kapil_Group_ERP_API.Controllers
             return Ok(lstAccountReportsDTO);
         }
 
+#endregion GetTrialBalance...
+
+#region GetIssuedChequeNumbers...
 
         [HttpGet("GetIssuedChequeNumbers")]
-        public IActionResult GetIssuedChequeNumbers(long _BankId, string BranchSchema, string CompanyCode,
-                          string BranchCode)
+        public IActionResult GetIssuedChequeNumbers(long _BankId, string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
             try
             {
-                _IssuedChequeDTO = _accountDal.GetIssuedChequeNumbers(_con, _BankId, BranchSchema, CompanyCode,
-                   BranchCode);
+                _IssuedChequeDTO = _accountDal.GetIssuedChequeNumbers(_con, _BankId, BranchSchema, CompanyCode,BranchCode);
                 return Ok(_IssuedChequeDTO);
             }
             catch (Exception ex)
@@ -829,16 +686,17 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion GetIssuedChequeNumbers...
+
+#region  GetMainAccounthead...
 
         [HttpGet("GetMainAccounthead")]
-        public IActionResult GetMainAccounthead(string BranchSchema, string CompanyCode,
-                         string BranchCode)
+        public IActionResult GetMainAccounthead(string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<subAccountLedgerDTO> _SubAccLedgerDTO = new List<subAccountLedgerDTO>();
             try
             {
-                _SubAccLedgerDTO = _accountDal.GetMainAccounthead(_con, BranchSchema, CompanyCode,
-                   BranchCode);
+                _SubAccLedgerDTO = _accountDal.GetMainAccounthead(_con, BranchSchema, CompanyCode,BranchCode);
 
                 return Ok(_SubAccLedgerDTO);
 
@@ -851,18 +709,17 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetMainAccounthead....
 
-
+#region getCashbookData...
 
         [HttpGet("getCashbookData")]
-        public IActionResult getCashbookData(string fromdate, string todate, string BranchSchema, string CompanyCode,
-                  string BranchCode)
+        public IActionResult getCashbookData(string fromdate, string todate, string BranchSchema, string CompanyCode,string BranchCode)
         {
             List<cashBookDto> _CashbookDTO = new List<cashBookDto>();
             try
             {
-                _CashbookDTO = _accountDal.getCashbookData(_con, fromdate, todate, BranchSchema, CompanyCode,
-                   BranchCode);
+                _CashbookDTO = _accountDal.getCashbookData(_con, fromdate, todate, BranchSchema, CompanyCode,BranchCode);
                 //_CashbookDTO.plstcashchequetotal = await _AccountingReportsDAL.getCashbookDataTotals(Con, fromdate, todate);
 
                 return Ok(_CashbookDTO);
@@ -874,16 +731,17 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion getCashbookData...
+
+#region  GetBalances....
 
         [HttpGet("GetBalances")]
-        public IActionResult GetBalances(string fromDate, string todate, string GroupType, string LocalSchema, string formname, string CompanyCode,
-                  string BranchCode)
+        public IActionResult GetBalances(string fromDate, string todate, string GroupType, string LocalSchema, string formname, string CompanyCode,string BranchCode)
         {
             List<AccountReportsDTO> lstAccountReportsDTO = new List<AccountReportsDTO>();
             try
             {
-                lstAccountReportsDTO = _accountDal.GetBalances(_con, LocalSchema, fromDate, todate, GroupType, formname, CompanyCode,
-                   BranchCode);
+                lstAccountReportsDTO = _accountDal.GetBalances(_con, LocalSchema, fromDate, todate, GroupType, formname, CompanyCode,BranchCode);
 
             }
             catch (Exception ex)
@@ -894,17 +752,17 @@ namespace Kapil_Group_ERP_API.Controllers
             return Ok(lstAccountReportsDTO);
         }
 
+#endregion GetBalances...
+
+ #region GetBankTransferTypes....
 
         [HttpGet("GetBankTransferTypes")]
-
-        public IActionResult GetBankTransferTypes(string branchSchema, string CompanyCode,
-                  string BranchCode)
+        public IActionResult GetBankTransferTypes(string branchSchema, string CompanyCode,string BranchCode)
         {
             List<BankTransferTypesDTO> _BankTransferTypesDTO = new List<BankTransferTypesDTO>();
             try
             {
-                _BankTransferTypesDTO = _accountDal.GetBankTransferTypes(_con, branchSchema, CompanyCode,
-                   BranchCode);
+                _BankTransferTypesDTO = _accountDal.GetBankTransferTypes(_con, branchSchema, CompanyCode,BranchCode);
                 return Ok(_BankTransferTypesDTO);
             }
             catch (Exception)
@@ -913,16 +771,18 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion GetBankTransferTypes...
+
+
+#region GetChequeReturnDetails...
 
         [HttpGet("GetChequeReturnDetails")]
-        public  IActionResult GetChequeReturnDetails(string fromdate, string todate, string BranchSchema,string GlobalSchema ,string CompanyCode,
-                  string BranchCode)
+        public  IActionResult GetChequeReturnDetails(string fromdate, string todate, string BranchSchema,string GlobalSchema ,string CompanyCode,string BranchCode)
         {
            List<ChequeEnquiryDTO> _ChequeEnquiryDTO = new List<ChequeEnquiryDTO>();
             try
             {
-                _ChequeEnquiryDTO = _accountDal.GetChequeReturnDetails(_con, fromdate, todate, BranchSchema,GlobalSchema,CompanyCode,
-                   BranchCode);
+                _ChequeEnquiryDTO = _accountDal.GetChequeReturnDetails(_con, fromdate, todate, BranchSchema,GlobalSchema,CompanyCode,BranchCode);
                 return Ok(_ChequeEnquiryDTO);
             }
             catch (Exception ex)
@@ -932,11 +792,13 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
+#endregion GetChequeReturnDetails....
 
+
+#region GetIssuedChequeDetails...
 
          [HttpGet("GetIssuedChequeDetails")]
-        public IActionResult GetIssuedChequeDetails(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,
-                  string BranchCode)
+        public IActionResult GetIssuedChequeDetails(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,string BranchCode)
         {
             List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
 
@@ -951,17 +813,18 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion GetIssuedChequeDetails...
+
+#region GetUnUsedCheques....
 
          [HttpGet("GetUnUsedCheques")]
-        public  IActionResult GetUnUsedCheques(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,
-                  string BranchCode)
+        public  IActionResult GetUnUsedCheques(long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema,string GlobalSchema,string CompanyCode,string BranchCode)
         {
             List<IssuedChequeDTO> _IssuedChequeDTO = new List<IssuedChequeDTO>();
 
             try
             {
-                _IssuedChequeDTO = _accountDal.GetUnUsedCheques(_con, _BankId, _ChqBookId, _ChqFromNo, _ChqToNo, BranchSchema, GlobalSchema, CompanyCode,
-                   BranchCode);
+                _IssuedChequeDTO = _accountDal.GetUnUsedCheques(_con, _BankId, _ChqBookId, _ChqFromNo, _ChqToNo, BranchSchema, GlobalSchema, CompanyCode,BranchCode);
                 return Ok(_IssuedChequeDTO);
             }
             catch (Exception ex)
@@ -969,8 +832,10 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+  
+#endregion GetUnUsedCheques...
 
-
+#region getCountry...
 
          [HttpGet("getCountry")]
         public  IActionResult getCountry(string GlobalSchema)
@@ -987,6 +852,9 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion getCountry...
+
+#region getstate...
 
          [HttpGet("getstate")]
         public IActionResult getstate(string GlobalSchema,long id)
@@ -1003,6 +871,10 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+#endregion getstate...
+
+#region getDistrict...
+
         [HttpGet("getDistrict")]
         public  IActionResult getDistrict(string GlobalSchema,long id)
         {
@@ -1017,6 +889,28 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+#endregion getDistrict...
+
+#region Getformnamedetails...
+
+        [HttpGet("Getformnamedetails")]
+        public IActionResult Getformnamedetails(string? globalSchema = null, string? companyCode = null, string? BranchCode = null)
+        {
+            try
+            {
+                // use configured schemas by default; override by query parameters if needed later
+                var banks = _accountDal.Getformnamedetails(_con, globalSchema ?? _globalSchema, companyCode ?? companyCode, BranchCode ?? BranchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+#endregion Getformnamedetails...
+
 
 
     }

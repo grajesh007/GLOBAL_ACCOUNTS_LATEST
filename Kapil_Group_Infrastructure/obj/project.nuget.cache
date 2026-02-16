@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "erHZZEBKqSI=",
+  "dgSpecHash": "02WE0dwZQEs=",
   "success": true,
-  "projectFilePath": "E:\\karthik\\GLOBAL_ACCOUNTS_LATEST\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
+  "projectFilePath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
