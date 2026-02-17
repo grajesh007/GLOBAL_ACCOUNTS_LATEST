@@ -1,115 +1,270 @@
 
 using Kapil_Group_Repository.Entities;
 
-namespace Kapil_Group_Repository.Interfaces;
-
-public interface IAccounts
+namespace Kapil_Group_Repository.Interfaces
 {
-  List<string> GetBankDetails(string connectionString, string GlobalSchema, string AccountsSchema);
-  List<Bank> GetBankDetails1(string connectionString, string globalSchema, string accountsSchema,
- string BranchCode, string CompanyName);
-
-  #region BankNames
-  List<BankNamesDetails> GetBankNamesDetails(string connectionString, string? globalSchema, string? accountsSchema, string? companyCode, string? branchCode);
-
-  #endregion BankNames
-
-  #region CompanyNameAndAddressDetails
-  List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(string connectionString, string globalSchema, string companyCode, string branchCode);
-
-  #endregion CompanyNameAndAddressDetails
-  #region  BankConfigurationDetails
-  List<BankConfigurationDetails> GetBankConfigurationDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
-
-  #endregion BankConfigurationDetails
-
-  #region ViewChequeManagementDetails
-  List<ChequeManagementDTO> ViewChequeManagementDetails(string con, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, int PageSize, int PageNo);
-
-  #endregion ViewChequeManagementDetails
-
-  #region GetExistingChequeCount
-  List<ExistingChequeCountDTO> GetExistingChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
-
-  #endregion GetExistingChequeCount
+  public interface IAccounts
+  {
+    List<string> GetBankDetails(string connectionString, string GlobalSchema, string AccountsSchema);
+    List<Bank> GetBankDetails1(string connectionString, string globalSchema, string accountsSchema, string BranchCode, string CompanyName);
 
 
-  #region BankUPIDetails...
-  List<BankUPIDetails> GetBankUPIDetails(string connectionString, string GlobalSchema, string CompanyCode, string BranchCode);
-
-  #endregion BankUPIDetails...
-
-  #region ViewBankInformationDetails...
-  List<ViewBankInformationDetails> GetViewBankInformationDetails(string connectionString, string GlobalSchema, string BranchSchema, string BranchCode, string CompanyCode);
-
-  #endregion ViewBankInformationDetails...
-
-  #region GeneralReceiptsData...
-  List<GeneralReceiptsData> GetGeneralReceiptsData(string connectionString, string GlobalSchema, string BranchSchema, string TaxSchema, string CompanyCode, string BranchCode);
-
-  #endregion GeneralReceiptsData...
+    #region BankNames
+    List<BankNamesDetails> GetBankNamesDetails(string connectionString, string? globalSchema, string? accountsSchema, string? companyCode, string? branchCode);
+    #endregion BankNames
 
 
-  #region ViewBankInformation...
-  List<ViewBankInformation> GetViewBankInformation(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode, string precordid);
-  #endregion ViewBankInformation...
+    #region CompanyNameAndAddressDetails
+    List<CompanyBranchDetails> GetCompanyNameAndAddressDetails(string connectionString, string globalSchema, string companyCode, string branchCode);
 
-  #region AvailableChequeCount...
+    #endregion CompanyNameAndAddressDetails
 
-  List<AvailableChequeCount> GetAvailableChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
+    #region  BankConfigurationDetails
+    List<BankConfigurationDetails> GetBankConfigurationDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
 
-  #endregion AvailableChequeCount...
+    #endregion BankConfigurationDetails
 
-  #region PettyCashExistingData...
+    #region ViewChequeManagementDetails
+    List<ChequeManagementDTO> ViewChequeManagementDetails(string con, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, int PageSize, int PageNo);
 
-  List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string Branchcode);
+    #endregion ViewChequeManagementDetails
 
+    #region GetExistingChequeCount
+    List<ExistingChequeCountDTO> GetExistingChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
 
-  #endregion PettyCashExistingData...
-
-  #region  PaymentVoucherExistingData..
-  List<PaymentVoucherDetails> GetPaymentVoucherExistingData(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
-
-
-  #endregion PaymentVoucherExistingData..
-  #region  ProductnamesandHSNcodes..
-  List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectionString, string? globalSchema);
-
-  #endregion ProductnamesandHSNcodes..
-
-  #region  getReceiptNumber..
-  public List<getReceiptNumber> getReceiptNumber(
-       string connectionString,
-       string? globalSchema,
-       string? branchSchema,
-       string? companyCode,
-       string? branchCode);
+    #endregion GetExistingChequeCount
 
 
+    #region BankUPIDetails...
+    List<BankUPIDetails> GetBankUPIDetails(string connectionString, string GlobalSchema, string CompanyCode, string BranchCode);
 
-  #endregion getReceiptNumber..
+    #endregion BankUPIDetails...
 
-  #region GetBankUPIList
+    #region ViewBankInformationDetails...
+    List<ViewBankInformationDetails> GetViewBankInformationDetails(string connectionString, string GlobalSchema, string BranchSchema, string BranchCode, string CompanyCode);
 
-  List<BankUPIListDetails> GetBankUPIListDetails(
-      string connectionString,
-      string? branchSchema,
-      string? companyCode,
-      string? branchCode);
+    #endregion ViewBankInformationDetails...
 
-  #endregion GetBankUPIList
+    #region GeneralReceiptsData...
+    List<GeneralReceiptsData> GetGeneralReceiptsData(string connectionString, string GlobalSchema, string BranchSchema, string TaxSchema, string CompanyCode, string BranchCode);
+
+    #endregion GeneralReceiptsData...
 
 
-  #region GetCAOBranchList
-//List<CAOBranchDetails> GetCAOBranchList(string connectionString, string? branchSchema, string? globalSchema, string? companyCode, string? branchCode);
+    #region ViewBankInformation...
+    List<ViewBankInformation> GetViewBankInformation(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode, int precordid);
+    #endregion ViewBankInformation...
 
-List<CAOBranchListDetails> GetCAOBranchListDetails(
+    #region AvailableChequeCount...
+
+    List<AvailableChequeCount> GetAvailableChequeCount(string connectionString, int bankId, int chqFromNo, int chqToNo, string branchSchema, string companyCode, string branchCode);
+
+    #endregion AvailableChequeCount...
+
+    #region PettyCashExistingData...
+    List<PettyCashExistingData> GetPettyCashExistingData(string connectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string Branchcode);
+
+    #endregion PettyCashExistingData...
+
+    #region  PaymentVoucherExistingData..
+    List<PaymentVoucherDetails> GetPaymentVoucherExistingData(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
+
+    #endregion PaymentVoucherExistingData..
+
+    #region  ProductnamesandHSNcodes..
+    List<ProductNamesAndHSNCodesDetails> GetProductNamesAndHSNCodes(string connectionString, string? globalSchema);
+
+    #endregion ProductnamesandHSNcodes..
+
+    #region  getReceiptNumber..
+    public List<getReceiptNumber> getReceiptNumber(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
+
+    #endregion getReceiptNumber..
+
+    #region GetBankUPIList...
+
+    List<BankUPIListDetails> GetBankUPIListDetails(string connectionString, string? branchSchema, string? companyCode, string? branchCode);
+
+    #endregion GetBankUPIList...
+
+
+    #region GetCAOBranchList...
+    List<CAOBranchListDetails> GetCAOBranchListDetails(string connectionString, string? globalSchema, string? branchSchema, string? companyCode, string? branchCode);
+
+    #endregion GetCAOBranchList...
+
+    #region GetBankBookDetails...
+    List<AccountReportsDTO> GetBankBookDetails(string con, string fromDate, string toDate, long _pBankAccountId, string AccountsSchema, string GlobalSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetBankBookDetails...
+
+    #region GetRePrintInterBranchGeneralReceiptCount...
+    int GetRePrintInterBranchGeneralReceiptCount(string Connectionstring, string ReceiptId, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetRePrintInterBranchGeneralReceiptCount.... 
+
+    #region getStatesbyPartyid...
+    List<GstDTo> getStatesbyPartyid(long ppartyid, string Connectionstring, int id, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion getStatesbyPartyid...
+
+    #region  checkAccountnameDuplicates...
+    int checkAccountnameDuplicates(string Accountname, string AccountType, int Parentid, string GlobalSchema, string connectionstring, string CompanyCode, string BranchCode);
+
+    #endregion checkAccountnameDuplicates...
+
+    #region GetCashRestrictAmountpercontact....
+    decimal GetCashRestrictAmountpercontact(string type, string branchtype, string con, string GlobalSchema, string BranchSchema, long contactid, string checkdate, string CompanyCode, string BranchCode);
+
+    #endregion GetCashRestrictAmountpercontact...
+
+    #region GetGstLedgerAccountList...
+    List<AccountsDTO> GetGstLedgerAccountList(string ConnectionString, string formname, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetGstLedgerAccountList...
+
+    #region GetLedgerAccountList...
+    List<AccountsDTO> GetLedgerAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetLedgerAccountList...
+
+
+    #region GetLedgerSummaryAccountList...
+    List<AccountsDTO> GetLedgerSummaryAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetLedgerSummaryAccountList...
+
+
+    #region GetSubAccountLedgerDetails...
+    List<subAccountLedgerDTO> GetSubAccountLedgerDetails(string con, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetSubAccountLedgerDetails...
+
+    #region  GetAccountLedgerData...
+    List<subAccountLedgerDTO> GetAccountLedgerData(string con, string SubLedgerName, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetAccountLedgerData...
+
+
+    #region GetSubLedgerReportData....
+    List<subAccountLedgerDTO> GetSubLedgerReportData(string con, string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetSubLedgerReportData...
+
+    #region GetSubLedgerAccountList...
+    List<AccountsDTO> GetSubLedgerAccountList(long ledgerid, string ConnectionString, string GlobalSchema, string BranchSchema, string LocalSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetSubLedgerAccountList...
+
+    #region  GetTrialBalance...
+    List<AccountReportsDTO> GetTrialBalance(string con, string LocalSchema, string fromDate, string todate, string groupType, string CompanyCode, string BranchCode, string GlobalSchema);
+
+    #endregion GetTrialBalance...
+
+
+    #region GetIssuedChequeNumbers...
+
+    List<IssuedChequeDTO> GetIssuedChequeNumbers(string con, long bankId, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetIssuedChequeNumbers...
+
+
+    #region GetMainAccounthead....
+    List<subAccountLedgerDTO> GetMainAccounthead(string con, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetMainAccounthead...
+
+    #region getCashbookData...
+    List<cashBookDto> getCashbookData(string ConnectionString, string fromdate, string todate, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion getCashbookData...
+
+    #region GetBalances...
+    List<AccountReportsDTO> GetBalances(string con, string LocalSchema, string fromDate, string todate, string groupType, string formname, string CompanyCode, string BranchCode);
+
+    #endregion GetBalances...
+
+    #region GetBankTransferTypes...
+    List<BankTransferTypesDTO> GetBankTransferTypes(string ConnectionString, string branchSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetBankTransferTypes...
+
+    #region GetChequeReturnDetails...
+    List<ChequeEnquiryDTO> GetChequeReturnDetails(string con, string fromdate, string todate, string BranchSchema, string CompanyCode, string BranchCode, string GlobalSchema);
+
+    #endregion GetChequeReturnDetails...
+
+    #region GetIssuedChequeDetails...
+    List<IssuedChequeDTO> GetIssuedChequeDetails(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetIssuedChequeDetails...
+
+    #region  GetUnUsedCheques...
+    List<IssuedChequeDTO> GetUnUsedCheques(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode);
+
+    #endregion GetUnUsedCheques...
+
+    #region getCountry...
+    List<CountryDTO> getCountry(string ConnectionString, string GlobalSchema);
+
+    #endregion getCountry...
+
+    #region  getState...
+    List<StateDTO> getState(string ConnectionString, string GlobalSchema, long id);
+
+    #endregion getState...
+
+    #region getDistrict...
+    List<District> getDistrict(string ConnectionString, string GlobalSchema, long id);
+
+    #endregion getDistrict...
+
+    #region Getformnamedetails...
+    List<Formnamedetails> Getformnamedetails(string connectionString, string globalSchema, string companyCode, string branchCode);
+
+    #endregion Getformnamedetails...
+
+    List<PaymentVoucherReportDTO> GetChitPaymentReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring, string CompanyCode, string BranchCode);
+
+    List<GeneralReceiptSubDetails> GetPaymentVoucherDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema, object accountid, object interbranch_id, string branchcode, string companycode);
+
+    List<ChequesDTO> GetChequeNumbers(long bankid, string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
+
+    List<BankUPI> GetUpiNames(long bankid, string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
+
+
+    List<JvListDTO> GetJvListDetails(string con, string fromDate, string toDate, string modeOfTransaction, string BranchSchema, string GlobalSchema, string companyCode, string branchCode);
+
+    List<AccountReportsDTO> GetAgentPaymentDetails(string con, string GlobalSchema, string BranchSchema, string parentaccountname, string accountname, string companyCode, string branchCode);
+
+
+
+    List<JournalVoucherReportDTO> GetJournalVoucherReportData(
+        string ConnectionString,
+        string GlobalSchema,
+        string BranchSchema,
+        string Jvnumber, string companyCode, string branchCode);
+
+    List<SVOnameDTO> Getmvonames(string connectionstring, string GlobalSchema, string localSchema, string branchcode);
+
+    List<ModulesDTO> GetallRolesModules(string modulename, string globalSchema, string connectionString, string companyCode, string branchCode);
+
+    List<PartyDTO> GetPartyListbygroup(string ConnectionString, string GlobalSchema, string BranchSchema, string subledger, string CompanyCode, string BranchCode);
+
+    #region GetCheckDuplicateDebitCardNo
+    CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
     string connectionString,
-    string? globalSchema,
     string? branchSchema,
     string? companyCode,
-    string? branchCode);
+    string? branchCode,
+    int? debitCardRecordId,
+    string? debitCardNo,
+    int? upiRecordId,
+    string? upiId,
+    int? accountRecordId,
+    string? accountNumber);
 
 
-  #endregion GetCAOBranchList
+    #endregion GetCheckDuplicateDebitCardNo
+  }
 }
