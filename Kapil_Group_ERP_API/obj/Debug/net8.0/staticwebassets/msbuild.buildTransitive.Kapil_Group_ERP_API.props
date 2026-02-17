@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Kapil_Group_ERP_API.props" />
-</Project>
