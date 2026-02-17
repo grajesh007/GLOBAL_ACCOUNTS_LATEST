@@ -1110,5 +1110,26 @@ public IActionResult GetCheckDuplicateDebitCardNo(
 }
 
         #endregion GetCheckDuplicateDebitCardNo
+
+    
+    #region GetBankNameDetails...
+
+        [HttpGet("GetBankNameDetails")]
+        public IActionResult GetBankNameDetails(string? globalSchema = null, string? branchSchema = null, string? BranchCode = null, string? CompanyName = null)
+        {
+            try
+            {
+                var banks = _accountDal.GetBankNameDetails(_con, globalSchema ?? _globalSchema, branchSchema , BranchCode ?? BranchCode, CompanyName ?? CompanyName);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+        #endregion GetBankNameDetails...
+
+
     }
 }

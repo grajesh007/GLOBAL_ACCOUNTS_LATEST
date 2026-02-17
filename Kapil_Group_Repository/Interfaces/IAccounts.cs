@@ -1,4 +1,3 @@
-
 using Kapil_Group_Repository.Entities;
 
 namespace Kapil_Group_Repository.Interfaces
@@ -266,5 +265,10 @@ namespace Kapil_Group_Repository.Interfaces
 
 
     #endregion GetCheckDuplicateDebitCardNo
+
+List<BankName> GetBankNameDetails(string connectionString,string globalSchema,string branchSchema,string BranchCode,string CompanyName);
+
+
   }
 }
+

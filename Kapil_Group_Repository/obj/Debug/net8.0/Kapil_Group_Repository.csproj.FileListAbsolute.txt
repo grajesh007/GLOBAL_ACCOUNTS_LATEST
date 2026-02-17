@@ -79,3 +79,10 @@ E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
+>>>>>>> 25f8aaa2477bf7f9e41aa226fb2f66a5cbb859f8
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json

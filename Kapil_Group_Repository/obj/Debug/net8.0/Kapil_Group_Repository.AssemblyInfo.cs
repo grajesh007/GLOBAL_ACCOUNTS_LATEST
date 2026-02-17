@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kapil_Group_Repository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25f8aaa2477bf7f9e41aa226fb2f66a5cbb859f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a0c9bc06b4fa2af617981d71e6a0eb31abf1fae")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kapil_Group_Repository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kapil_Group_Repository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3521,6 +3521,107 @@ public List<PartyDTO> GetPartyListbygroup(string ConnectionString, string Global
  #endregion GetCheckDuplicateDebitCardNo
 
 
+ #region GetBankNameDetails...
+
+public List<BankName> GetBankNameDetails(
+    string connectionString,
+    string globalSchema,
+    string branchSchema,
+    string BranchCode,
+    string CompanyName)
+{
+    List<BankName> bankList = new List<BankName>();
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+    try
+    {
+        NpgsqlConnectionStringBuilder builder;
+        try
+        {
+            builder = new NpgsqlConnectionStringBuilder(connectionString);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+        {
+            con.Open();
+
+            using var cmd = con.CreateCommand();
+
+            cmd.CommandText = $@"
+                SELECT 
+                    t1.tbl_mst_bank_configuration_id,
+
+                    CASE 
+                        WHEN (t1.account_number IS NULL OR t1.account_number = '') 
+                        THEN COALESCE(t1.account_name,'') 
+                        ELSE COALESCE(t1.account_name,'') || ' - ' || COALESCE(t1.account_number,'') 
+                    END AS bank_name,
+
+                    t1.bank_branch,
+                    t1.ifsccode,
+                    t1.account_type
+
+                FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration t1
+                JOIN {AddDoubleQuotes(globalSchema)}.tbl_mst_bank t2
+                    ON t1.bank_id = t2.tbl_mst_bank_id
+
+                WHERE t1.status = true
+                  AND t1.company_code = @CompanyName
+                  AND t1.branch_code = @BranchCode
+
+                ORDER BY bank_name;";
+
+            cmd.Parameters.AddWithValue("@CompanyName", CompanyName);
+            cmd.Parameters.AddWithValue("@BranchCode", BranchCode);
+
+            cmd.CommandType = CommandType.Text;
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                BankName obj = new BankName();
+
+                obj.tbl_mst_bank_configuration_id =
+                    reader.IsDBNull(0) ? 0 : Convert.ToInt32(reader.GetInt32(0));
+
+                obj.BankNames=
+                    reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+
+                obj.bankbranch =
+                    reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+
+                obj.ifsccode =
+                    reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+
+                obj.accounttype =
+                    reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                bankList.Add(obj);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw new InvalidOperationException(
+            $"Failed to retrieve bank details (schema={globalSchema}). See inner exception for details.",
+            ex);
+    }
+
+    return bankList;
+}
+
+
+#endregion GetBankNameDetails...
+
+
+
 
     }
 }
