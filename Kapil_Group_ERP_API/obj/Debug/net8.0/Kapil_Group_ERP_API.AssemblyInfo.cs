@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kapil_Group_ERP_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d19aada12a609f548a7860ccb0aa24468d7b0c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0fc3b6314b15f2f9c4068447b4ff95c9c4b93f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kapil_Group_ERP_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kapil_Group_ERP_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -66,8 +66,8 @@ namespace Kapil_Group_Repository.Entities
 
 
     #endregion companyNameandaddressDetails
-    #region BankConfigurationdetails
 
+    #region BankConfigurationdetails
     public class BankConfigurationDetails : BaseEntity
     {
         public int BankConfigurationId { get; set; }
@@ -78,8 +78,8 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion BankConfigurationdetails
-    #region ViewChequeManagementDetails
 
+    #region ViewChequeManagementDetails
     public class ChequeManagementDTO
     {
         public int ptotalrecords { get; set; }
@@ -89,16 +89,16 @@ namespace Kapil_Group_Repository.Entities
         public long pchequefromnumber { get; set; }
         public long pchequetonumber { get; set; }
         public bool pchequegeneratestatus { get; set; }
-        public string pbankname { get; set; }
-        public string paccountnumber { get; set; }
+        public string pbankname { get; set; } =string.Empty;
+        public string paccountnumber { get; set; } = string.Empty;
         public bool pstatus { get; set; }
-        public string pchequestatus { get; set; }
+        public string pchequestatus { get; set; } = string.Empty;
     }
 
     #endregion ViewChequeManagementDetails
 
-    #region ExistingChequeCount
 
+    #region ExistingChequeCount
     public class ExistingChequeCountDTO : BaseEntity
     {
         public int Count { get; set; }
@@ -113,7 +113,6 @@ namespace Kapil_Group_Repository.Entities
         public int recordid { get; set; }
 
         public string upiname { get; set; } = string.Empty;
-
 
     }
 
@@ -229,6 +228,7 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion PettyCashExistingData...
+
     #region PaymentVoucherExistingData..
 
     public class PaymentVoucherDetails : BaseEntity
@@ -253,6 +253,8 @@ namespace Kapil_Group_Repository.Entities
 
 
     #endregion ProductnamesandHSNcodes..
+
+
     #region getReceiptNumber..
     public class getReceiptNumber
     {
@@ -274,15 +276,7 @@ namespace Kapil_Group_Repository.Entities
 
     #endregion GetBankUPIList
 
-    #region GetCAOBranchList
-
-    // public class CAOBranchDetails : BaseEntity
-    // {
-    //     public int BranchConfigurationId { get; set; }
-    //     public string BranchCode { get; set; } = string.Empty;
-    //     public string BranchName { get; set; } = string.Empty;
-    // }
-
+  #region GetCAOBranchList
     public class CAOBranchListDetails : BaseEntity
     {
         public int BranchConfigurationId { get; set; }
@@ -291,17 +285,17 @@ namespace Kapil_Group_Repository.Entities
     }
 
 
-    #endregion GetCAOBranchList
+ #endregion GetCAOBranchList
 
-
+ #region GstDTo...
     public class GstDTo
     {
-        public object pRecordId { get; set; }
-        public object pgstpercentage { get; set; }
-        public object pigstpercentage { get; set; }
-        public object pcgstpercentage { get; set; }
-        public object psgstpercentage { get; set; }
-        public object putgstpercentage { get; set; }
+        public object pRecordId { get; set; } 
+        public object pgstpercentage { get; set; } 
+        public object pigstpercentage { get; set; } 
+        public object pcgstpercentage { get; set; } 
+        public object psgstpercentage { get; set; } 
+        public object putgstpercentage { get; set; } 
         public object pState { get; set; }
         public object pStateId { get; set; }
         public object pgstno { get; set; }
@@ -310,8 +304,10 @@ namespace Kapil_Group_Repository.Entities
         public object gstnumber { get; set; }
     }
 
+    #endregion GstDTo...
 
 
+   #region AccountReportsDTO...
     public class AccountReportsDTO
     {
 
@@ -337,6 +333,10 @@ namespace Kapil_Group_Repository.Entities
         public string pBalanceType { get; set; }
         public object groupcode { get; set; }
     }
+
+    #endregion AccountReportsDTO...
+
+    #region AccountsDTO...
     public class AccountsDTO
     {
         public object psubledgerid { get; set; }
@@ -358,6 +358,10 @@ namespace Kapil_Group_Repository.Entities
 
     }
 
+    #endregion AccountsDTO...
+
+
+   #region subAccountLedgerDTO...
     public class subAccountLedgerDTO : AccountReportsDTO
     {
         public List<AccountReportsDTO> plstSubAccountLedger { get; set; }
@@ -380,10 +384,11 @@ namespace Kapil_Group_Repository.Entities
         public string paccountname { get; set; }
     }
 
+    #endregion subAccountLedgerDTO...
 
-
-public class IssuedChequeDTO 
-    {
+  #region IssuedChequeDTO...
+   public class IssuedChequeDTO 
+     {
         public long pchequeNoFrom { get; set; }
         public long pchequeNoTo { get; set; }
         public long pchkBookId { get; set; }
@@ -402,16 +407,18 @@ public class IssuedChequeDTO
         public string branchSchema { get; set; }
     }
 
+    #endregion IssuedChequeDTO...
 
-
-
+  #region cashBookDto...
      public class cashBookDto : AccountReportsDTO
     {
         public List<AccountReportsDTO> plstcashbookdata { get; set; }
         public List<AccountReportsDTO> plstcashchequetotal { get; set; }
     }
 
+  #endregion cashBookDto...
 
+  #region BankTransferTypesDTO....
      public class BankTransferTypesDTO
     {
         public object bankttransferid { get; set; }
@@ -420,9 +427,11 @@ public class IssuedChequeDTO
         public object tobankaccountid { get; set; }
         public object bankconfigurationid { get; set; }
         public object accountname { get; set; }
-
     }
 
+    #endregion BankTransferTypesDTO...
+    
+    #region ChequeEnquiryDTO...
      public class ChequeEnquiryDTO
     {
         public string preferencenumber { get; set; }
@@ -451,6 +460,9 @@ public class IssuedChequeDTO
 
     }
 
+    #endregion ChequeEnquiryDTO...
+    
+    #region CountryDTO...
      public class CountryDTO 
     {
         public object tbl_mst_country_id { get; set; }
@@ -459,8 +471,10 @@ public class IssuedChequeDTO
         public object status { get; set; }
     }
 
+    #endregion CountryDTO...
 
-      public class StateDTO 
+    #region StateDTO...
+    public class StateDTO 
     {
         public object tbl_mst_state_id { get; set; }
         public object country_id { get; set; }
@@ -471,11 +485,181 @@ public class IssuedChequeDTO
         public object status { get; set; }
     }
 
+    #endregion StateDTO...
+
+    #region District..
     public class District
     {
         public object tbl_mst_district_id { get; set; }
         public object district_name { get; set; }
         public object status { get; set; }
     }
-   
+
+    #endregion District...
+
+    #region Getformnamedetails...
+
+    public class Formnamedetails:BaseEntity
+    {
+        public string formNames {get;set;}= string.Empty;
+    }
+
+    #endregion Getformnamedetails...
+
+
+
+     public class PaymentVoucherReportDTO
+    {
+        //
+        public object pChequenumber { get; set; }
+        public object ptypeofpayment { get; set; }
+        public object pcontactid { get; set; }
+        public object pcontactname { get; set; }
+
+        public object ppaymentid { get; set; }
+        public object preceiptno { get; set; }
+        public object ppaymentdate { get; set; }
+        public object pnarration { get; set; }
+        public object pmodofPayment { get; set; }
+        public object pemployeename { get; set; }
+        public object pbankaccount { get; set; }
+        public object accountname { get; set; }
+        public object parentaccountname { get; set; }
+        public object transaction_amount { get; set; }
+        public List<GeneralReceiptSubDetails> ppaymentslist { get; set; }
+        public object pusername { get; set; }
+
+    }
+
+
+    public class GeneralReceiptSubDetails
+    {
+        public object pLedgeramount { get; set; }
+        public object pAccountname { get; set; }
+        public object pgstcalculationtype { get; set; }
+        public object pcgstamount { get; set; }
+        public object psgstamount { get; set; }
+        public object pigstamount { get; set; }
+        public object ptdscalculationtype { get; set; }
+        public object ptdsamount { get; set; }
+        public object state_code { get; set; }
+    }
+
+    public class BankUPI
+    {
+        public object pRecordid { get; set; }
+        public object pUpiname { get; set; }
+        public object pUpiid { get; set; }
+        public object pBankconfigurationId { get; set; }
+    }
+
+    public class ChequesDTO 
+    {
+        public Int64 pRecordid { get; set; }
+        public Int64 pChequenumber { get; set; }
+        public Int64 pChqbookid { get; set; }
+        public object pchequeamount { get; set; }
+    }
+   public class AccountsMasterDTO
+    {
+        // public List<Modeoftransaction> modeofTransactionslist { get; set; }
+        // public List<BankDTO> banklist { get; set; }
+        // public List<BankDTO> adjustmentbanklist { get; set; }
+
+
+        // public List<AccountsDTO> accountslist { get; set; }
+        // public List<PartyDTO> partylist { get; set; }
+        // public List<GstDTo> Gstlist { get; set; }
+        // public List<TdsSectionDTO> lstTdsSectionDetails { get; set; }
+        // public List<BankDTO> bankdebitcardslist { get; set; }
+        public List<BankUPI> bankupilist { get; set; }
+        public List<ChequesDTO> chequeslist { get; set; }
+        public List<ChequesDTO> adjustmentchequeslist { get; set; }
+
+        // public List<GstDTo> statelist { get; set; }
+        public object accountbalance { get; set; }
+        public object cashbalance { get; set; }
+        public object bankbalance { get; set; }
+        public object bankpassbookbalance { get; set; }
+        //public List<PartyDTO> walletlist { get; set; }
+
+        public object CashRestrictAmount { get; set; }
+    }
+
+     public class JvListDTO : AccountReportsDTO
+    {
+        public string treeStatus { get; set; }
+        public int level { set; get; }
+        public bool formshoworhide { get; set; }
+
+        public int roleid { get; set; }
+        public int userId { get; set; }
+        public string userName { get; set; }
+        public string moduleid { get; set; }
+        public string branchid { get; set; }
+
+        public List<JvListDTO> plstJvList { get; set; }
+        public string id { get; set; }
+        public object parentId { get; set; }
+        public string formOrModulename { get; set; }
+    }
+
+    public class BankBookDTO : AccountReportsDTO
+    {
+        public long pbankaccountid { get; set; }
+        public string pbankname { get; set; }
+        public List<AccountReportsDTO> plstBankBook = new List<AccountReportsDTO>();
+    }
+
+     public class JournalVoucherReportDTO
+    {
+        public object pJvnumber { get; set; }
+        public object pJvDate { get; set; }
+        public object pCreditAmount { get; set; }
+        public object pDebitamount { get; set; }
+        public object pNarration { get; set; }
+        public object pParticulars { get; set; }
+        public object pContactName { get; set; }
+        public List<JournalVoucherReportDTO> plstJournalVoucherReportDTO { get; set; }
+    }
+
+    public class SVOnameDTO
+    {
+        public object svoname { get; set; }
+        public object svoid { get; set; }
+        public object mvoname { get; set; }
+        public object referred_by { get; set; }
+        public object mvoid { get; set; }
+
+    }   
+
+     public class ModulesDTO
+    {
+        public long pModuleId { get; set; }
+        public string pModulename { get; set; }
+    }
+
+    public class PartyDTO
+    {
+        public object ppartypannumber;
+
+        public object ppartyid { get; set; }
+        public object ppartyname { get; set; }
+        public object ppartyemailid { get; set; }
+        public object ppartycontactno { get; set; }
+        public object ppartyreferenceid { get; set; }
+        public object ppartyreftype { get; set; }
+
+        public object address1 { get; set; }
+        public object area { get; set; }
+        public object city_name { get; set; }
+        public object district_name { get; set; }
+        public object state_name { get; set; }
+        public object state_code { get; set; }
+        public object pan_no { get; set; }
+        public object aadharno { get; set; }
+        public object gstno { get; set; }
+        public object formname { get; set; }
+
+    }
 }
