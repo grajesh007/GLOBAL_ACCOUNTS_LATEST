@@ -154,23 +154,90 @@ namespace Kapil_Group_Repository.Interfaces
 
         decimal GetCashRestrictAmountpercontact(string type, string branchtype, string con, string GlobalSchema, string BranchSchema, long contactid, string checkdate, string CompanyCode,
                     string BranchCode);
-                    
-                    
-                    List<AccountsDTO> GetGstLedgerAccountList(
-    string ConnectionString,
-    string formname,
-    string BranchSchema,
-    string CompanyCode,
-    string BranchCode);
 
 
-    List<AccountsDTO> GetLedgerAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema,
-    string CompanyCode,
-    string BranchCode);
+        List<AccountsDTO> GetGstLedgerAccountList(
+string ConnectionString,
+string formname,
+string BranchSchema,
+string CompanyCode,
+string BranchCode);
+
+
+        List<AccountsDTO> GetLedgerAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema,
+        string CompanyCode,
+        string BranchCode);
 
 
 
-    List<AccountsDTO> GetLedgerSummaryAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema,string CompanyCode,
-          string BranchCode);
+        List<AccountsDTO> GetLedgerSummaryAccountList(string ConnectionString, string formname, string GlobalSchema, string BranchSchema, string CompanyCode,
+              string BranchCode);
+
+
+        List<subAccountLedgerDTO> GetSubAccountLedgerDetails(string con, string BranchSchema, string CompanyCode, string BranchCode);
+
+
+        List<subAccountLedgerDTO> GetAccountLedgerData(
+            string con,
+            string SubLedgerName,
+            string BranchSchema, string CompanyCode,
+                  string BranchCode);
+
+
+
+        List<subAccountLedgerDTO> GetSubLedgerReportData(string con, string SubLedgerName, long parentid, string fromDate, string toDate, string BranchSchema, string CompanyCode,
+                  string BranchCode);
+
+        // List<AccountsDTO> GetSubLedgerAccountList(long ledgerid, string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode, string BranchCode);
+
+
+        List<AccountsDTO> GetSubLedgerAccountList(long ledgerid, string ConnectionString, string GlobalSchema, string BranchSchema, string LocalSchema, string CompanyCode, string BranchCode);
+
+        List<AccountReportsDTO> GetTrialBalance(string con, string LocalSchema, string fromDate, string todate, string groupType, string CompanyCode,
+        string BranchCode, string GlobalSchema);
+
+
+
+        List<IssuedChequeDTO> GetIssuedChequeNumbers(string con, long bankId, string BranchSchema, string CompanyCode,
+                          string BranchCode);
+
+
+
+        List<subAccountLedgerDTO> GetMainAccounthead(string con, string BranchSchema, string CompanyCode,
+        string BranchCode);
+
+
+        List<cashBookDto> getCashbookData(string ConnectionString, string fromdate, string todate, string BranchSchema, string CompanyCode,
+        string BranchCode);
+
+
+        List<AccountReportsDTO> GetBalances(string con, string LocalSchema, string fromDate, string todate, string groupType, string formname, string CompanyCode,
+                  string BranchCode);
+
+
+        List<BankTransferTypesDTO> GetBankTransferTypes(string ConnectionString, string branchSchema, string CompanyCode,
+        string BranchCode);
+
+
+        List<ChequeEnquiryDTO> GetChequeReturnDetails(string con, string fromdate, string todate, string BranchSchema, string CompanyCode,
+        string BranchCode, string GlobalSchema);
+
+
+        List<IssuedChequeDTO> GetIssuedChequeDetails(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema, string CompanyCode,
+        string BranchCode);
+
+
+        List<IssuedChequeDTO> GetUnUsedCheques(string con, long _BankId, long _ChqBookId, long _ChqFromNo, long _ChqToNo, string BranchSchema, string GlobalSchema, string CompanyCode,
+                          string BranchCode);
+
+
+        List<CountryDTO> getCountry(string ConnectionString, string GlobalSchema);
+
+        List<StateDTO> getState(string ConnectionString, string GlobalSchema, long id);
+
+        List<District> getDistrict(string ConnectionString, string GlobalSchema, long id);
+
+
+
     }
 }
