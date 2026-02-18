@@ -277,17 +277,7 @@ List<Modeoftransaction> GetModeoftransactions(string ConnectionString, string Gl
   
   
   //  #region GetCheckDuplicateDebitCardNo
-    // CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
-    // string connectionString,
-    // string? branchSchema,
-    // string? companyCode,
-    // string? branchCode,
-    // int? debitCardRecordId,
-    // string? debitCardNo,
-    // int? upiRecordId,
-    // string? upiId,
-    // int? accountRecordId,
-    // string? accountNumber);
+    
 
 
   //   #endregion GetCheckDuplicateDebitCardNo
@@ -300,6 +290,43 @@ List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
             string Connectionstring,
             string CompanyCode,
             string BranchCode);
+
+            List<GeneralReceiptSubDetails> GetPettyCashDetailsReportData(
+    string paymentId,
+    object contact_id,
+    string Connectionstring,
+    string LocalSchema,
+    string GlobalSchema,
+    string BranchCode,string CompanyCode);
+
+            List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
+                  string BranchCode);
+
+                   List<AccountReportsDTO> GetAccountLedgerDetails(string con, string fromDate, string toDate, long pAccountId, long pSubAccountId, string BranchSchema, string GlobalSchema,string BranchCode,string CompanyCode);
+
+
+                   List<PaymentVoucherReportDTO> GetChitReceiptCancelReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string branchCode,string companyCode);
+
+                    List<GeneralReceiptSubDetails> GetChitReceiptCancelDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema,string branchCode,string companyCode);
+
+    //                 CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
+    // string connectionString,
+    // string? branchSchema,
+    // string? companyCode,
+    // string? branchCode,
+    // int? debitCardRecordId,
+    // string? debitCardNo,
+    // int? upiRecordId,
+    // string? upiId,
+    // int? accountRecordId,
+    // string? accountNumber);
+
+    List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation,string companycode,string branchcode);
+
+    ChequesOnHandDTO GetBankBalance1(string brstodate,long recordid, string con, string BranchSchema,string branchCode,string companyCode);
+
+    List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode);
+
   }
 }
 

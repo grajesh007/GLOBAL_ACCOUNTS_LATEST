@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "Cq32PvD5L+M=",
   "success": true,
   "projectFilePath": "E:\\karthik\\karthik\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
-=======
-  "dgSpecHash": "HYPs4NfgsnM=",
-  "success": true,
-  "projectFilePath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
->>>>>>> 76121ed0481e35025fc7ca6ae4c5bf29547aa551
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0\\microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",

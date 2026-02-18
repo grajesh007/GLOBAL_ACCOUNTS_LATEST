@@ -3130,7 +3130,7 @@ ORDER BY t1.payment_date DESC;
                         Query = "SELECT JV.journal_voucher_no,JV.journal_voucher_date::text,JV.narration,CASE WHEN JVD.account_trans_type='D' THEN JVD.ledger_amount END AS DEBIT,CASE WHEN JVD.account_trans_type='C' THEN JVD.ledger_amount END AS CREDIT,JVD.account_trans_type," + AddDoubleQuotes(GlobalSchema) + ".fn_getparticulars('" + BranchSchema + "',jv_account_id) AS PARTICULARS,transaction_type FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details JVD join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher JV on jvd.journal_voucher_id=jv.tbl_trans_journal_voucher_id WHERE journal_voucher_date BETWEEN '" + FormatDate(fromDate) + "' and '" + FormatDate(toDate) + "' and transaction_type='M' and JV.company_code ='" + companyCode + "' and JV.branch_code ='" + branchCode + "' ORDER BY journal_voucher_date,journal_voucher_no ; ";
 
                     }
-                    else if (modeOfTransaction.ToUpper() == "AUTO")  
+                    else if (modeOfTransaction.ToUpper() == "AUTO")
                     {
                         Query = "SELECT JV.journal_voucher_no,JV.journal_voucher_date::text,JV.narration,CASE WHEN JVD.account_trans_type='D' THEN JVD.ledger_amount  END AS DEBIT,CASE WHEN JVD.account_trans_type='C' THEN JVD.ledger_amount  END AS CREDIT,JVD.account_trans_type ," + AddDoubleQuotes(GlobalSchema) + ".fn_getparticulars('" + BranchSchema + "',jv_account_id)AS PARTICULARS,transaction_type FROM   " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher_details  JVD ," + AddDoubleQuotes(BranchSchema) + ".tbl_trans_journal_voucher  JV WHERE JVD.journal_voucher_id=JV.tbl_trans_journal_voucher_id  and journal_voucher_date BETWEEN '" + FormatDate(fromDate) + "' and '" + FormatDate(toDate) + "' and transaction_type='A' and JV.company_code ='" + companyCode + "' and JV.branch_code ='" + branchCode + "' ORDER BY journal_voucher_date,journal_voucher_no;";
 
@@ -3916,203 +3916,13 @@ ORDER BY t1.payment_date DESC;
 
 
 
-
-       //  #region GetCheckDuplicateDebitCardNo
-
-        //  public CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
-        //     string connectionString,
-        //     string? branchSchema,
-        //     string? companyCode,
-        //     string? branchCode,
-        //     int? debitCardRecordId,
-        //     string? debitCardNo,
-        //     int? upiRecordId,
-        //     string? upiId,
-        //     int? accountRecordId,
-        //     string? accountNumber)
-        // {
-        //     if (string.IsNullOrWhiteSpace(connectionString))
-        //         throw new ArgumentException("Connection string is required");
-
-        //     if (string.IsNullOrWhiteSpace(branchSchema) ||
-        //         string.IsNullOrWhiteSpace(companyCode) ||
-        //         string.IsNullOrWhiteSpace(branchCode))
-        //         return new CheckDuplicateBankDetailsDTO();
-
-        //     var result = new CheckDuplicateBankDetailsDTO();
-
-        //     using var con = new NpgsqlConnection(connectionString);
-        //     con.Open();
-
-        //     using var cmd = con.CreateCommand();
-        //     cmd.CommandType = CommandType.Text;
-
-        //     cmd.CommandText = $@"
-
-        //     -- Query 1: Debit Card Duplicate
-        //     SELECT COUNT(*) 
-        //     FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration
-        //     WHERE status = true
-        //       AND tbl_mst_bank_configuration_id <> @DebitCardRecordId
-        //       AND debitcard_number = @DebitCardNo
-        //       AND company_code = @CompanyCode
-        //       AND branch_code = @BranchCode;
-
-        //     -- Query 2: UPI Duplicate
-        //     SELECT COUNT(*) 
-        //     FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_upi_details
-        //     WHERE status = true
-        //       AND bank_upi_address = @UPIId
-        //       AND tbl_mst_bank_upi_details_id <> @UPIRecordId
-        //       AND company_code = @CompanyCode
-        //       AND branch_code = @BranchCode;
-
-        //     -- Query 3: Account Number Duplicate
-        //     SELECT COUNT(*) 
-        //     FROM {AddDoubleQuotes(branchSchema)}.tbl_mst_bank_configuration
-        //     WHERE status = true
-        //       AND account_number = @AccountNumber
-        //       AND tbl_mst_bank_configuration_id <> @AccountRecordId
-        //       AND company_code = @CompanyCode
-        //       AND branch_code = @BranchCode;
-        //     ";
-
-        //     cmd.Parameters.AddWithValue("@DebitCardRecordId", debitCardRecordId ?? 0);
-        //     cmd.Parameters.AddWithValue("@DebitCardNo", debitCardNo ?? string.Empty);
-
-        //     cmd.Parameters.AddWithValue("@UPIRecordId", upiRecordId ?? 0);
-        //     cmd.Parameters.AddWithValue("@UPIId", upiId ?? string.Empty);
-
-        //     cmd.Parameters.AddWithValue("@AccountRecordId", accountRecordId ?? 0);
-        //     cmd.Parameters.AddWithValue("@AccountNumber", accountNumber ?? string.Empty);
-
-        //     cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
-        //     cmd.Parameters.AddWithValue("@BranchCode", branchCode);
-
-        //     using var reader = cmd.ExecuteReader();
-
-        //     if (reader.Read())
-        //         result.DebitCardDuplicateCount = reader.GetInt32(0);
-
-        //     if (reader.NextResult() && reader.Read())
-        //         result.UPIDuplicateCount = reader.GetInt32(0);
-
-        //     if (reader.NextResult() && reader.Read())
-        //         result.AccountNumberDuplicateCount = reader.GetInt32(0);
-
-        //     return result;
-        // }
-
-//        public List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation)
-// {
-//    Int64 DebtCardCount = 0;
-//    Int64 UPIIdCount = 0;
-//    Int64 bankcount = 0;
-//    object BranchSchema;
-//    List<string> lstdata = new List<string>();
-
-//    try
-//    {
-//        if (lstBankInformation != null)
-//        {
-//            BranchSchema = lstBankInformation.branchSchema;
-
-//            using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
-//            {
-//                con.Open();
-
-//                if (Convert.ToString(lstBankInformation.pIsdebitcardapplicable) == "True")
-//                {
-//                    if (lstBankInformation.lstBankdebitcarddtlsDTO != null)
-//                    {
-//                        for (int i = 0; i < lstBankInformation.lstBankdebitcarddtlsDTO.Count; i++)
-//                        {
-//                            string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration  where status=true and tbl_mst_bank_configuration_id <>" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pRecordid + " and  debitcard_number=" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pCardNo"+ and company_code='" + lstBankInformation.companycode + "' and branch_code='" + lstBankInformation.branchcode + "';";
-//                           // select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where status=true and tbl_mst_bank_configuration_id <>" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pRecordid + " and debitcard_number=" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pCardNo
-
-//                            using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
-//                            {
-//                                DebtCardCount = Convert.ToInt64(cmd.ExecuteScalar());
-//                            }
-//                        }
-//                    }
-//                }
-
-//                if (Convert.ToString(lstBankInformation.pIsupiapplicable) == "True")
-//                {
-//                    if (lstBankInformation.lstBankUPI != null)
-//                    {
-//                        for (int i = 0; i < lstBankInformation.lstBankUPI.Count; i++)
-//                        {
-//                            if (Convert.ToString(lstBankInformation.lstBankUPI[i].pUpiid) != string.Empty)
-//                            {
-//                                if (lstBankInformation.lstBankUPI[i].pRecordid == null)
-//                                {
-//                                    lstBankInformation.lstBankUPI[i].pRecordid = 0;
-//                                }
-
-//                                string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_upi_details where status=true and bank_upi_address='" + lstBankInformation.lstBankUPI[i].pUpiid + "' and tbl_mst_bank_upi_details_id not in(" + lstBankInformation.lstBankUPI[i].pRecordid + ") and company_code='" + companycode + "' and branch_code='" + branchcode + "';";
-//                              //  select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_upi_details where status=true and bank_upi_address='" + lstBankInformation.lstBankUPI[i].pUpiid + "' and tbl_mst_bank_upi_details_id not in(" + lstBankInformation.lstBankUPI[i].pRecordid + ");
-
-//                                using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
-//                                {
-//                                    UPIIdCount = UPIIdCount + Convert.ToInt64(cmd.ExecuteScalar());
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-
-//                if (Convert.ToString(lstBankInformation.pBankname) != string.Empty)
-//                {
-//                    string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration  where  account_number='" + lstBankInformation.pAccountnumber + "' and status=true and tbl_mst_bank_configuration_id not in(" + lstBankInformation.pRecordid + ")and company_code='"+companycode +"' and branch_code='" + branchcode + "';";
-//                    //select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where account_number='" + lstBankInformation.pAccountnumber + "' and status=true and tbl_mst_bank_configuration_id not in(" + lstBankInformation.pRecordid + ");
-
-//                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
-//                    {
-//                        bankcount = Convert.ToInt64(cmd.ExecuteScalar());
-//                    }
-//                }
-//            }
-
-//            if (DebtCardCount == 0 && UPIIdCount == 0 && bankcount == 0)
-//            {
-//                lstdata.Add("TRUE");
-//            }
-//            else if (DebtCardCount > 0 && UPIIdCount > 0 && bankcount > 0)
-//            {
-//                lstdata.Add("FALSE");
-//            }
-//            else
-//            {
-//                if (bankcount > 0)
-//                    lstdata.Add("B");
-
-//                if (DebtCardCount > 0)
-//                    lstdata.Add("D");
-
-//                if (UPIIdCount > 0)
-//                    lstdata.Add("U");
-//            }
-//        }
-//    }
-//    catch (Exception ex)
-//    {
-//        throw ex;
-//    }
-
-//    return lstdata;
-// }
-
-
-//         #endregion GetCheckDuplicateDebitCardNo
-    public List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
-            string paymentId,
-            string LocalSchema,
-            string GlobalSchema,
-            string Connectionstring,
-            string CompanyCode,
-            string BranchCode)
+        public List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
+                string paymentId,
+                string LocalSchema,
+                string GlobalSchema,
+                string Connectionstring,
+                string CompanyCode,
+                string BranchCode)
         {
             List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
 
@@ -4165,6 +3975,544 @@ ORDER BY t1.payment_date DESC;
 
             return PaymentVoucherReportlist;
         }
+
+
+
+        public List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring, string CompanyCode,
+                       string BranchCode)
+        {
+            List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+
+            try
+            {
+                string Query = "select distinct tr.payment_number,tr.payment_date::text,narration,coalesce(contact_id,0) contact_id,coalesce((select account_name from " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account where account_id=t1.parent_id)||'-'||(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=contact_id)) contactname,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=contact_id) contactname,tr.modeof_payment,reference_number,trr.trans_type,(select contact_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=employee_id) employeename from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher tr join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher_details trd on tr.tbl_trans_pettycash_voucher_id=trd.payment_voucher_id left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_payment_reference trr on trr.payment_number=tr.payment_number join " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account t1 on trd.debit_account_id=t1.account_id where tr.payment_number='" + paymentId + "' and t1.company_code='" + CompanyCode + "' and t1.branch_code='" + BranchCode + "';";
+
+                //select distinct tr.payment_number,tr.payment_date::text,narration,coalesce(contact_id,0)contact_id,coalesce((select account_name from " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account where account_id=t1.parent_id)||'-'||(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=contact_id))contactname,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=contact_id)contactname,tr.modeof_payment,reference_number,trr.trans_type,(select contact_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=employee_id)employeename from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher tr join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher_details trd on tr.tbl_trans_pettycash_voucher_id = trd.payment_voucher_id left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_payment_reference trr on trr.payment_number=tr.payment_number join " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account t1 on trd.debit_account_id=t1.account_id where tr.payment_number='" + paymentId + "';
+
+                using (NpgsqlConnection conn = new NpgsqlConnection(Connectionstring))
+                {
+                    conn.Open();
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(Query, conn))
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            PaymentVoucherReportDTO pPaymentVoucherReportDTO = new PaymentVoucherReportDTO
+                            {
+                                ppaymentdate = dr["payment_date"],
+                                ppaymentid = Convert.ToString(dr["payment_number"]),
+                                pcontactid = Convert.ToString(dr["contact_id"]),
+                                pcontactname = Convert.ToString(dr["contactname"]),
+                                pnarration = Convert.ToString(dr["narration"]),
+                                pmodofPayment = PayModes(Convert.ToString(dr["modeof_payment"]), "D"),
+                                pChequenumber = Convert.ToString(dr["reference_number"]),
+                                ptypeofpayment = PayModes(Convert.ToString(dr["trans_type"]), "D"),
+                                pemployeename = Convert.ToString(dr["employeename"]),
+                                ppaymentslist = GetPettyCashDetailsReportData(paymentId, dr["contact_id"], Connectionstring, LocalSchema, GlobalSchema, BranchCode, CompanyCode)
+                            };
+
+                            PaymentVoucherReportlist.Add(pPaymentVoucherReportDTO);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return PaymentVoucherReportlist;
+        }
+
+        public List<GeneralReceiptSubDetails> GetPettyCashDetailsReportData(
+    string paymentId,
+    object contact_id,
+    string Connectionstring,
+    string LocalSchema,
+    string GlobalSchema,
+    string BranchCode, string CompanyCode)
+        {
+            List<GeneralReceiptSubDetails> GeneralReceiptlist = new List<GeneralReceiptSubDetails>();
+
+            try
+            {
+                using (NpgsqlConnection con = new NpgsqlConnection(Connectionstring))
+                {
+                    con.Open();
+
+                    // ✅ QUERY IN ONE LINE
+                    string query = "SELECT contactname,tbl_mst_contact_id, accountname, SUM(ledgeramount) ledgeramount,gst_calculation_type,gst_amount,tds_calculation_type,tds_amount FROM (select contact_mailing_name as contactname,c.tbl_mst_contact_id,case when chracc_type = '2' then account_name  else account_name end accountname,(coalesce(ledger_amount, 0)+coalesce(tds_amount,0)) ledgeramount,gst_calculation_type,gst_amount,tac.tds_calculation_type,tds_amount from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher_details tr join " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account tac on tac.account_id = tr.debit_account_id  join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact c on c.tbl_mst_contact_id = tr.contact_id where payment_voucher_id in(select tbl_trans_pettycash_voucher_id  from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher where payment_number = '" + paymentId + "' AND company_code = '" + CompanyCode + "' and branch_code = '" + BranchCode + "'))X group by contactname, tbl_mst_contact_id,accountname, gst_calculation_type, gst_amount, tds_calculation_type, tds_amount";
+                    // SELECT contactname,tbl_mst_contact_id,accountname,SUM(ledgeramount) ledgeramount,gst_calculation_type,gst_amount,tds_calculation_type,tds_amount FROM (SELECT contact_mailing_name AS contactname,c.tbl_mst_contact_id,CASE WHEN chracc_type='2' THEN account_name ELSE account_name END accountname,(COALESCE(ledger_amount,0)+COALESCE(tds_amount,0)) ledgeramount,gst_calculation_type,gst_amount,tac.tds_calculation_type,tds_amount FROM " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher_details tr JOIN " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account tac ON tac.account_id=tr.debit_account_id JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact c ON c.tbl_mst_contact_id=tr.contact_id WHERE payment_voucher_id IN (SELECT tbl_trans_pettycash_voucher_id FROM " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_pettycash_voucher WHERE payment_number=@paymentId)) X GROUP BY contactname,tbl_mst_contact_id,accountname,gst_calculation_type,gst_amount,tds_calculation_type,tds_amount
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
+                    {
+                        // ✅ Parameterized (VERY IMPORTANT)
+                        cmd.Parameters.AddWithValue("@paymentId", paymentId);
+
+                        using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                GeneralReceiptSubDetails _GeneralReceipt = new GeneralReceiptSubDetails();
+
+                                _GeneralReceipt.pLedgeramount = Convert.ToDecimal(dr["ledgeramount"]);
+                                _GeneralReceipt.pAccountname = Convert.ToString(dr["accountname"]);
+                                _GeneralReceipt.pgstcalculationtype = Convert.ToString(dr["gst_calculation_type"]);
+
+                                if (dr["gst_amount"] != DBNull.Value)
+                                    _GeneralReceipt.pcgstamount = Convert.ToDecimal(dr["gst_amount"]);
+
+                                _GeneralReceipt.ptdscalculationtype = Convert.ToString(dr["tds_calculation_type"]);
+
+                                if (dr["tds_amount"] != DBNull.Value)
+                                    _GeneralReceipt.ptdsamount = Convert.ToDecimal(dr["tds_amount"]);
+
+                                if (dr["tbl_mst_contact_id"] != DBNull.Value)
+                                {
+                                    string stateQuery = "select t3.state_code from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact_address_details t1 join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_district t2 on t1.district_id = t2.tbl_mst_district_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_state t3 on t2.state_id = t3.tbl_mst_state_id where contact_id =" + Convert.ToString(dr["tbl_mst_contact_id"]) + " and t1.status=true and t1.isprimary=true AND t1.company_code='" + CompanyCode + "' and t1.branch_code='" + BranchCode + "'";
+                                    // SELECT t3.state_code FROM " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact_address_details t1 JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_district t2 ON t1.district_id=t2.tbl_mst_district_id JOIN " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_state t3 ON t2.state_id=t3.tbl_mst_state_id WHERE contact_id=@contactId AND t1.status=true AND t1.isprimary=true";
+
+                                    // ✅ Use new connection (fixes reader conflict)
+                                    using (NpgsqlConnection con2 = new NpgsqlConnection(Connectionstring))
+                                    {
+                                        con2.Open();
+
+                                        using (NpgsqlCommand stateCmd = new NpgsqlCommand(stateQuery, con2))
+                                        {
+                                            stateCmd.Parameters.AddWithValue("@contactId",
+                                                Convert.ToInt32(dr["tbl_mst_contact_id"]));
+
+                                            object stateResult = stateCmd.ExecuteScalar();
+                                            _GeneralReceipt.state_code =
+                                                stateResult == null ? "" : Convert.ToString(stateResult);
+                                        }
+                                    }
+                                }
+
+                                GeneralReceiptlist.Add(_GeneralReceipt);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return GeneralReceiptlist;
+        }
+
+
+
+        public List<AccountReportsDTO> GetAccountLedgerDetails(string con, string fromDate, string toDate,
+            long pAccountId, long pSubAccountId, string BranchSchema, string GlobalSchema,
+            string BranchCode, string CompanyCode)
+        {
+            string Query = string.Empty;
+            string pQuery = string.Empty;
+
+            List<AccountReportsDTO> lstcashbook = new List<AccountReportsDTO>();
+
+            try
+            {
+                if (pSubAccountId > 0)
+                {
+                    Query = "select distinct accounttype,account_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions WHERE account_id=" + pSubAccountId + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "';";
+
+                    using (NpgsqlConnection connection = new NpgsqlConnection(con))
+                    {
+                        connection.Open();
+                        using (NpgsqlCommand cmd = new NpgsqlCommand(Query, connection))
+                        {
+                            object result = cmd.ExecuteScalar();
+                            long accounttype = result == null ? 0 : Convert.ToInt64(result);
+
+                            if (accounttype == 5)
+                                pAccountId = pSubAccountId;
+                        }
+                    }
+
+                    pQuery = " and account_id=" + pSubAccountId + " ";
+                }
+
+                Query = "select rownumber as recordid,parent_id,account_id,null as formname,transaction_date::text,transaction_no,PARTICULARS,narration,DEBITAMOUNT,abs(CREDITAMOUNT) as CREDITAMOUNT,abs(balance) as balance,case when balance>0 then 'Dr' else 'Cr' end as balancetype from (select row_number() over (order by transaction_date,RECORDID) as rownumber,*,sum(DEBITAMOUNT+CREDITAMOUNT) OVER(ORDER BY transaction_date,RECORDID) as BALANCE from (SELECT 0 AS RECORDID,'' as formname,0 parent_id,0 account_id,CAST('" + FormatDate(fromDate) + "' AS DATE) AS transaction_date,'0' AS TRANSACTION_NO,'Opening Balance' AS PARTICULARS,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)>0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END AS DEBITAMOUNT,CASE WHEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0)<0 THEN COALESCE(SUM(DEBITAMOUNT)-SUM(CREDITAMOUNT),0) ELSE 0 END AS CREDITAMOUNT,'' narration FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions WHERE transaction_date < '" + FormatDate(fromDate) + "' and parent_id = " + pAccountId + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'";
+
+                Query = Query + pQuery + " union all select distinct x.RECORDID,null as formname,parent_id,account_id,transaction_date,TRANSACTION_NO,PARTICULARS,COALESCE(DEBITAMOUNT,0.00) as DEBITAMOUNT,COALESCE(CREDITAMOUNT,0.00) as CREDITAMOUNT,narration from (SELECT tbl_trans_total_transactions_id as RECORDID,parent_id,account_id,transaction_date,TRANSACTION_NO,PARTICULARS,COALESCE(DEBITAMOUNT,0.00) as DEBITAMOUNT,-COALESCE(CREDITAMOUNT,0.00) as CREDITAMOUNT,narration,split_part(REGEXP_REPLACE(TRANSACTION_NO,'[[:digit:]]','','g'),'/',1) as code FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions WHERE transaction_date BETWEEN '" + FormatDate(fromDate) + "' AND '" + FormatDate(toDate) + "' and parent_id = " + pAccountId + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "'";
+
+                // Query = Query + pQuery + " AND (debitamount<>0 or creditamount<>0)) x join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_generate_id y on x.code=y.code) as D order by transaction_date,RECORDID ) x order by RECORDID;";
+                Query = Query + " AND (debitamount<>0 or creditamount<>0)) x join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_generate_id y on x.code=y.code) as D order by transaction_date,RECORDID ) x order by RECORDID;";
+
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(con))
+                {
+                    connection.Open();
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(Query, connection))
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            AccountReportsDTO _ObjBank = new AccountReportsDTO();
+
+                            _ObjBank.precordid = Convert.ToInt64(dr["RECORDID"]);
+                            _ObjBank.pparentid = Convert.ToInt64(dr["parent_id"]);
+                            _ObjBank.paccountid = Convert.ToInt64(dr["account_id"]);
+                            _ObjBank.pFormName = Convert.ToString(dr["formname"]);
+                            _ObjBank.ptransactiondate = dr["transaction_date"];
+                            _ObjBank.pdebitamount = Convert.ToDouble(dr["DEBITAMOUNT"]);
+                            _ObjBank.pcreditamount = Convert.ToDouble(dr["CREDITAMOUNT"]);
+                            _ObjBank.pparticulars = Convert.ToString(dr["PARTICULARS"]);
+                            _ObjBank.pdescription = Convert.ToString(dr["narration"]);
+                            _ObjBank.ptransactionno = Convert.ToString(dr["TRANSACTION_NO"]);
+                            _ObjBank.popeningbal = Convert.ToDouble(dr["BALANCE"]);
+                            _ObjBank.pBalanceType = Convert.ToString(dr["balancetype"]);
+
+                            lstcashbook.Add(_ObjBank);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return lstcashbook;
+        }
+
+
+
+
+public List<PaymentVoucherReportDTO> GetChitReceiptCancelReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string branchCode,string companyCode)
+{
+    List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+    string Query = string.Empty;
+
+    try
+    {
+        Query = "select x.*,y.user_id,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=coalesce(y.user_id,0)) as postedby from(select distinct tcc.transaction_no,tcc.transaction_date::text,cancellation_reason,coalesce(tcc.contact_id,0)contact_id,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=tcc.contact_id)contactname,tcc.modeof_receipt,(select contact_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=coalesce(tcc.employee_id,0))employeename,coalesce(b.bank_name,'')bank_name,coalesce(rr.trans_type,'')trans_type,coalesce(rr.receipt_branch_name,'')receipt_branch_name,coalesce(rr.reference_number,'')reference_number,coalesce(to_char(rr.cheque_date, 'YYYY-MM-DD'),'')cheque_date,chit_receipt_number from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel tcc join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt tc on tc.tbl_trans_chit_receipt_id=tcc.chit_receipt_id left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_receipt_reference rr on cast(tc.comman_receipt_number as character varying)=rr.receipt_number left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank b on b.tbl_mst_bank_id=rr.receipt_bank_id where tcc.transaction_no='" + paymentId + "' and tc.company_code='" + companyCode + "' and tc.branch_code='" + branchCode + "') x left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel_log y on x.transaction_no = y.transaction_no and y.activity_type = 'I';";
+       // select x.*,y.user_id,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=coalesce(y.user_id,0)) as postedby from (select distinct tcc.transaction_no,tcc.transaction_date::text,cancellation_reason,coalesce(tcc.contact_id,0)contact_id,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=tcc.contact_id)contactname,tcc.modeof_receipt,(select contact_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id=coalesce(tcc.employee_id,0))employeename,coalesce(b.bank_name,'')bank_name,coalesce(rr.trans_type,'')trans_type,coalesce(rr.receipt_branch_name,'')receipt_branch_name,coalesce(rr.reference_number,'')reference_number,coalesce(to_char(rr.cheque_date,'YYYY-MM-DD'),'')cheque_date,chit_receipt_number from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel tcc join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt tc on tc.tbl_trans_chit_receipt_id=tcc.chit_receipt_id left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_receipt_reference rr on cast(tc.comman_receipt_number as character varying)=rr.receipt_number left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank b on b.tbl_mst_bank_id=rr.receipt_bank_id where tcc.transaction_no='" + paymentId + "') x left join " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel_log y on x.transaction_no=y.transaction_no and y.activity_type='I';
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(Connectionstring))
+        {
+            connection.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, connection))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                  PaymentVoucherReportDTO  pPaymentVoucherReportDTO = new PaymentVoucherReportDTO
+                    {
+                        ppaymentdate = dr["transaction_date"],
+                        ppaymentid = Convert.ToString(dr["transaction_no"]),
+                        pcontactid = Convert.ToString(dr["contact_id"]),
+                        pcontactname = Convert.ToString(dr["contactname"]),
+                        pnarration = Convert.ToString(dr["cancellation_reason"]),
+                        pmodofPayment = Convert.ToString(dr["modeof_receipt"]),
+                        pChequenumber = Convert.ToString(dr["reference_number"]),
+                        ptypeofpayment = PayModes(Convert.ToString(dr["trans_type"]), "D"),
+                        pemployeename = Convert.ToString(dr["employeename"]),
+                        pusername = Convert.ToString(dr["postedby"]),
+                        pbankaccount = dr["bank_name"],
+                        preceiptno = dr["chit_receipt_number"],
+                        ppaymentslist = GetChitReceiptCancelDetailsReportData(paymentId, dr["contact_id"], Connectionstring, LocalSchema, GlobalSchema,branchCode,companyCode)
+                    };
+
+                    PaymentVoucherReportlist.Add(pPaymentVoucherReportDTO);
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return PaymentVoucherReportlist;
+}
+
+
+public List<GeneralReceiptSubDetails> GetChitReceiptCancelDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema,string branchCode,string companyCode)
+{
+    string Query = string.Empty;
+   List<GeneralReceiptSubDetails> GeneralReceiptlist = new List<GeneralReceiptSubDetails>();
+
+    try
+    {
+        Query = "SELECT contactname, accountname, SUM(receipt_amount)receipt_amount FROM (select contact_mailing_name as contactname,case when chracc_type = '2' then account_name when chracc_type = '3' then (select parentaccountname||'('||accountname||')' from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_total_transactions where accounttype='3' and transaction_no='" + paymentId + "')  else account_name end accountname,(coalesce(receipt_amount, 0)) receipt_amount,gst_calculation_type,tac.tds_calculation_type from  " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel tr join " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account tac on tac.account_id = tr.account_id  join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact c on c.tbl_mst_contact_id = tr.contact_id where transaction_no='" + paymentId + "' and tr.contact_id=" + contact_id + " and c.company_code='" + companyCode + "' and c.branch_code='" + branchCode + "')X group by contactname, accountname";
+       // SELECT contactname,accountname,SUM(receipt_amount)receipt_amount FROM (select contact_mailing_name as contactname,case when chracc_type='2' then account_name when chracc_type='3' then (select parentaccountname||'('||accountname||')' from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_total_transactions where accounttype='3' and transaction_no='" + paymentId + "') else account_name end accountname,(coalesce(receipt_amount,0)) receipt_amount,gst_calculation_type,tac.tds_calculation_type from " + AddDoubleQuotes(LocalSchema) + ".tbl_trans_chit_receipt_cancel tr join " + AddDoubleQuotes(LocalSchema) + ".tbl_mst_account tac on tac.account_id=tr.account_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact c on c.tbl_mst_contact_id=tr.contact_id where transaction_no='" + paymentId + "' and tr.contact_id=" + contact_id + ")X group by contactname,accountname
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(Connectionstring))
+        {
+            connection.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, connection))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                   GeneralReceiptSubDetails _GeneralReceipt = new GeneralReceiptSubDetails();
+                    _GeneralReceipt.pLedgeramount = Convert.ToDecimal(dr["receipt_amount"]);
+                    _GeneralReceipt.pAccountname = Convert.ToString(dr["accountname"]);
+
+                   
+
+                    GeneralReceiptlist.Add(_GeneralReceipt);
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return GeneralReceiptlist;
+}
+
+
+
+               public List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation,string companycode,string branchcode)
+        {
+           Int64 DebtCardCount = 0;
+           Int64 UPIIdCount = 0;
+           Int64 bankcount = 0;
+           object BranchSchema;
+           List<string> lstdata = new List<string>();
+
+           try
+           {
+               if (lstBankInformation != null)
+               {
+                   BranchSchema = lstBankInformation.branchSchema;
+
+                   using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+                   {
+                       con.Open();
+
+                       if (Convert.ToString(lstBankInformation.pIsdebitcardapplicable) == "True")
+                       {
+                           if (lstBankInformation.lstBankdebitcarddtlsDTO != null)
+                           {
+                               for (int i = 0; i < lstBankInformation.lstBankdebitcarddtlsDTO.Count; i++)
+                               {
+                                   string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where status=true and tbl_mst_bank_configuration_id <> " + lstBankInformation.lstBankdebitcarddtlsDTO[i].pRecordid + " and debitcard_number=" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pCardNo + " and company_code='" + companycode + "' and branch_code='" + branchcode + "';";
+                                  // select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where status=true and tbl_mst_bank_configuration_id <>" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pRecordid + " and debitcard_number=" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pCardNo
+
+                                   using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
+                                   {
+                                       DebtCardCount = Convert.ToInt64(cmd.ExecuteScalar());
+                                   }
+                               }
+                           }
+                       }
+
+                       if (Convert.ToString(lstBankInformation.pIsupiapplicable) == "True")
+                       {
+                           if (lstBankInformation.lstBankUPI != null)
+                           {
+                               for (int i = 0; i < lstBankInformation.lstBankUPI.Count; i++)
+                               {
+                                   if (Convert.ToString(lstBankInformation.lstBankUPI[i].pUpiid) != string.Empty)
+                                   {
+                                       if (lstBankInformation.lstBankUPI[i].pRecordid == null)
+                                       {
+                                           lstBankInformation.lstBankUPI[i].pRecordid = 0;
+                                       }
+
+                                       string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where status=true and tbl_mst_bank_configuration_id <> " + lstBankInformation.lstBankdebitcarddtlsDTO[i].pRecordid + " and debitcard_number=" + lstBankInformation.lstBankdebitcarddtlsDTO[i].pCardNo + " and company_code='" + companycode + "' and branch_code='" + branchcode + "';";
+                                     //  select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_upi_details where status=true and bank_upi_address='" + lstBankInformation.lstBankUPI[i].pUpiid + "' and tbl_mst_bank_upi_details_id not in(" + lstBankInformation.lstBankUPI[i].pRecordid + ");
+
+                                       using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
+                                       {
+                                           UPIIdCount = UPIIdCount + Convert.ToInt64(cmd.ExecuteScalar());
+                                       }
+                                   }
+                               }
+                           }
+                       }
+
+                       if (Convert.ToString(lstBankInformation.pBankname) != string.Empty)
+                       {
+                           string query = "select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration  where  account_number='" + lstBankInformation.pAccountnumber + "' and status=true and tbl_mst_bank_configuration_id not in(" + lstBankInformation.pRecordid + ")and company_code='"+companycode +"' and branch_code='" + branchcode + "';";
+                           //select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where account_number='" + lstBankInformation.pAccountnumber + "' and status=true and tbl_mst_bank_configuration_id not in(" + lstBankInformation.pRecordid + ");
+
+                           using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
+                           {
+                               bankcount = Convert.ToInt64(cmd.ExecuteScalar());
+                           }
+                       }
+                   }
+
+                   if (DebtCardCount == 0 && UPIIdCount == 0 && bankcount == 0)
+                   {
+                       lstdata.Add("TRUE");
+                   }
+                   else if (DebtCardCount > 0 && UPIIdCount > 0 && bankcount > 0)
+                   {
+                       lstdata.Add("FALSE");
+                   }
+                   else
+                   {
+                       if (bankcount > 0)
+                           lstdata.Add("B");
+
+                       if (DebtCardCount > 0)
+                           lstdata.Add("D");
+
+                       if (UPIIdCount > 0)
+                           lstdata.Add("U");
+                   }
+               }
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+
+           return lstdata;
+        }
+
+
+
+public ChequesOnHandDTO GetBankBalance1(string brstodate,long recordid, string con, string BranchSchema,string branchCode,string companyCode)
+{
+    ChequesOnHandDTO obj = new ChequesOnHandDTO();
+   AccountsDAL objAccountTransDal = new AccountsDAL();
+    DataSet ds = new DataSet();
+    string brsfromdate = string.Empty;
+    // string brstodate = string.Empty;
+    string fromdate = string.Empty;
+    string todate = string.Empty;
+
+    try
+    {
+        obj._BankBalance = objAccountTransDal.GetBankBalance(recordid, con, BranchSchema,companyCode,branchCode);
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(con))
+        {
+            connection.Open();
+
+            // ---------- DATASET QUERY (ONE LINE) ----------
+            string query1 = "select distinct to_char(modifieddate,'DD-MM-YYYY') modifieddate from (select log_entry_date_time::date as modifieddate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where log_entry_date_time is not null and activity_type='U' and company_code='"+ companyCode +"' and branch_code='"+ branchCode +"' union all select log_entry_date_time::date as modifieddate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where log_entry_date_time is not null and activity_type='U' and company_code='"+ companyCode +"' and branch_code='"+ branchCode +"' order by modifieddate desc limit 2) t;";
+            //select distinct to_char(modifieddate,'DD-MM-YYYY') modifieddate from (select log_entry_date_time::date as modifieddate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where log_entry_date_time is not null and activity_type='U' union all select log_entry_date_time from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where log_entry_date_time is not null and activity_type='U' order by modifieddate desc limit 2)t;
+
+            using (NpgsqlDataAdapter da = new NpgsqlDataAdapter(query1, connection))
+            {
+                da.Fill(ds);
+            }
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows.Count == 1)
+                {
+                    brsfromdate = ds.Tables[0].Rows[0]["modifieddate"].ToString();
+                    brstodate = ds.Tables[0].Rows[0]["modifieddate"].ToString();
+                }
+                else
+                {
+                    brstodate = ds.Tables[0].Rows[0]["modifieddate"].ToString();
+                    brsfromdate = ds.Tables[0].Rows[1]["modifieddate"].ToString();
+                }
+
+                // ---------- FROM DATE QUERY (ONE LINE) ----------
+                string query2 = "select max(cleardate)::date::text createddate from (select coalesce(clear_date,deposited_date) as cleardate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "' and company_code='" + companyCode + "' and branch_code='" + branchCode + "' union all select clear_date from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "' and company_code='" + companyCode + "' and branch_code='" + branchCode + "') x;).ToString();";
+               // select max(cleardate)::date::text createddate from (select coalesce(clear_date,deposited_date) as cleardate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "' union all select clear_date from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "')x;
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query2, connection))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                        fromdate = result.ToString();
+                }
+
+                if (!string.IsNullOrEmpty(fromdate))
+                {
+                    obj.ptobrsdate = fromdate;
+                }
+
+                // ---------- TO DATE QUERY (ONE LINE) ----------
+                string query3 = "select min(cleardate)::date::text createddate from (select coalesce(clear_date,deposited_date) as cleardate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brsfromdate) + "' and company_code='" + companyCode + "' and branch_code='" + branchCode + "' union all select clear_date from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "' and company_code='" + companyCode + "' and branch_code='" + branchCode + "') x;).ToString();";
+                //select min(cleardate)::date::text createddate from (select coalesce(clear_date,deposited_date) as cleardate from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brsfromdate) + "' union all select clear_date from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference_log where activity_type='U' and log_entry_date_time::date='" + FormatDate(brstodate) + "')x;
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query3, connection))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                        todate = result.ToString();
+                }
+
+                if (!string.IsNullOrEmpty(todate))
+                {
+                    obj.pfrombrsdate = todate;
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return obj;
+}
+
+
+public List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode)
+{
+    string strWhere = string.Empty;
+    List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+
+    try
+    {
+        if (!string.IsNullOrEmpty(allocationstatus))
+        {
+            strWhere = " where status=true and allocation_status='" + allocationstatus + "'";
+        }
+        else
+        {
+            strWhere = " where status=true ";
+        }
+
+        string Query = "select created_Date,transaction_date,reference_number,amount,modeof_receipt,receipt_type,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp " + strWhere + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' order by created_Date";
+        //select created_Date,transaction_date,reference_number,amount,modeof_receipt,receipt_type,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp " + strWhere + " order by created_Date;
+
+        using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+        {
+            con.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, con))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    lstPendingautoBRS.Add(new ReceiptReferenceDTO
+                    {
+                        puploadeddate = dr["created_Date"],
+                        transactiondate = dr["transaction_date"],
+                        pChequenumber = dr["reference_number"],
+                        ptotalreceivedamount = dr["amount"],
+                        pmodofreceipt = dr["modeof_receipt"],
+                        preceiptype = dr["receipt_type"],
+                        preferencetext = dr["reference_text"],
+                    });
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstPendingautoBRS;
+}
+
+
+
 
 
     }

@@ -709,20 +709,6 @@ namespace Kapil_Group_Repository.Entities
 
 
     }
-//      #region GetCheckDuplicateDebitCardNo
-//      public class CheckDuplicateBankDetailsDTO
-// {
-//     public int DebitCardDuplicateCount { get; set; }
-//     public int UPIDuplicateCount { get; set; }
-//     public int AccountNumberDuplicateCount { get; set; }
-
-//     public bool IsDuplicateDebitCard => DebitCardDuplicateCount > 0;
-//     public bool IsDuplicateUPI => UPIDuplicateCount > 0;
-//     public bool IsDuplicateAccountNumber => AccountNumberDuplicateCount > 0;
-// }
-
-     
-//      #endregion GetCheckDuplicateDebitCardNo
 
 
      
@@ -742,4 +728,237 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion GetBankNameDetails..
+
+
+
+    public class BankInformationDTO :BankdebitcarddtlsDTO
+    {
+
+        public List<BankInformationAddressDTO> lstBankInformationAddressDTO { get; set; }
+        public List<BankdebitcarddtlsDTO> lstBankdebitcarddtlsDTO { get; set; }
+        public List<BankUPI> lstBankUPI { get; set; }
+        public List<ChequeManagementDTO> lstChequemanagementDTO { get; set; }
+        public List<ChequesDTO> lstCheques { get; set; }
+        public object pRecordid { get; set; }
+        public object pBankID { get; set; }
+      //  public List<GlobalBankDTO> lstGlobalBankDTO { set; get; }
+        public object pBankname { get; set; }
+        public object pBankbranch { get; set; }
+        public object pAccountname { get; set; }
+        public object pAcctountype { get; set; }
+        public object pAccountnumber { get; set; }
+        public object pBankdate { get; set; }
+        public object pOverdraft { get; set; }
+        public object pAccountid { get; set; }
+        public object pIfsccode { get; set; }
+        public object pSwiftccode { get; set; }
+        public object pOpeningBalance { get; set; }
+        public object pIsdebitcardapplicable { get; set; }
+        public object pIsupiapplicable { get; set; }
+        public object pOpeningBalanceType { get; set; }
+        public object pChqegeneratestatus { get; set; }
+        public object popeningjvno { get; set; }
+        public object branchSchema { get; set; }
+        public object isprimary { get; set; }
+        public object isformanbank { get; set; }
+        public object isforemanpaymentbank { get; set; }
+        public object isintrestpaymentbank { get; set; }
+        public object pChequeGenerateDate { get; set; }
+    }
+
+    public class BankInformationAddressDTO 
+    {
+        public Int64 pRecordid { get; set; }
+        public string pAddressType { get; set; }
+        public long pBankId { get; set; }
+    }
+
+    public class BankdebitcarddtlsDTO 
+    {
+        public object pRecordid { get; set; }
+        public object pCardNo { get; set; }
+        public object pCardName { get; set; }
+        public object pValidfrom { get; set; }
+        public object pValidto { get; set; }
+        public object pBankId { get; set; }
+    }
+
+     public class ChequesOnHandDTO 
+    {
+        public object ptransactiondate { get; set; }
+        public object pchequecleardate { get; set; }
+        public object pcaobranchcode { get; set; }
+        public object pcaobranchname { get; set; }
+        public object pcaobranchid { get; set; }
+
+        public object pfrombrsdate { get; set; }
+        public object ptobrsdate { get; set; }
+        public object _BankBalance { get; set; }
+        public object chequestype { get; set; }
+        public object _CashBalance { get; set; }
+        public object banknameForLegal { get; set; }
+        public List<ReceiptReferenceDTO> pchequesOnHandlist { get; set; }
+        public List<ReceiptReferenceDTO> pchequesclearreturnlist { get; set; }
+        public List<ChequesOtherDetailsDTO> pchequesotherslist { get; set; }
+        public object auto_brs_type_name { get; set; }
+
+
+    }
+
+    public class ReceiptReferenceDTO : GeneralreceiptDTO
+    {
+        //public object pchequesonhandstatus { get; set; }
+        public object pdepositstatus { get; set; }
+        public object pcancelstatus { get; set; }
+        public object preturnstatus { get; set; }
+        public object pbranchname { get; set; }
+        public object pchequestatus { get; set; }
+        //public object pdepositedBankid { get; set; }
+        //public object pdepositedBankName { get; set; }
+        public object pcancelcharges { get; set; }
+        public object pactualcancelcharges { get; set; }
+        public object pledger { get; set; }
+        public string cancelstatus { get; set; }
+        public string returnstatus { get; set; }
+        public string clearstatus { get; set; }
+        //public object pdepositeddate { get; set; }
+        //public object pcleardate { get; set; }
+        public object chqueno { get; set; }
+        public object issueddate { get; set; }
+        public object chitgroupcode { get; set; }
+        public object chitgroupid { get; set; }
+        public object ticketno { get; set; }
+        public object chequeamount { get; set; }
+        public object zpdaccountid { get; set; }
+        public object installmentno { get; set; }
+        public object schemesubscriberid { get; set; }
+        public object contactid { get; set; }
+        public object schemetype { get; set; }
+        public object checksentryrecordid { get; set; }
+        public object cheque_bank { get; set; }
+        public object selfchequestatus { get; set; }
+        public object branch_name { get; set; }
+        public object receipt_branch_name { get; set; }
+        public object subscriber_details { get; set; }
+        public object ChitReceiptNo { get; set; }
+        public object total_count { get; set; }
+        public object transactionNo { get; set; }
+        public object transactiondate { get; set; }
+        public object chitstatus { get; set; }
+        public object chitgroupstatus { get; set; }
+        public object receiptnumbers { get; set; }
+
+        public object pdepositedBankid { get; set; }
+        public object pdepositedBankName { get; set; }
+        // added these above two objects on 29.10.2024 for caodeposited bank purpose
+        public object preferencetext { get; set; }
+        public object preceiptype { get; set; }
+        public object puploadeddate { get; set; }
+        public object subscriberbankaccountno { get; set; }
+        public object pkgmsreceiptdate { get; set; }
+    }
+
+    public class ChequesOtherDetailsDTO
+    {
+        public object ptransactionnumber { get; set; }
+        public object ptransactiondate { get; set; }
+        public object particulars { get; set; }
+        public object debitamount { get; set; }
+        public object creditamount { get; set; }
+        public object accountname { get; set; }
+        public object chequereturncharges { get; set; }
+    }
+
+     public class GeneralreceiptDTO : ModeofPaymentDTO
+    {
+        public object preceiptid { get; set; }
+        public object preceiptdate { get; set; }
+        public object pmodofreceipt { get; set; }
+        public object ptotalreceivedamount { get; set; }
+        public object pnarration { get; set; }
+        public object ppartyname { get; set; }
+        public object ppartyid { get; set; }
+        public object pistdsapplicable { get; set; }
+        public object pTdsSection { get; set; }
+        public object pTdsPercentage { get; set; }
+        public object ptdsamount { get; set; }
+        public object ptdscalculationtype { get; set; }
+        public object ppartypannumber { get; set; }
+        public object ppartyreftype { get; set; }
+        public object ppartyreferenceid { get; set; }
+        public List<ReceiptsDTO> preceiptslist { get; set; }
+        public object pFilename { get; set; }
+        public object pFilepath { get; set; }
+        public object pFileformat { get; set; }
+        public object pCleardate { get; set; }
+        public object pdepositeddate { get; set; }
+        public object ptdsaccountid { get; set; }
+        public object preceiptrecordid { get; set; }
+        public object pTdsSectionId { get; set; }
+        public object groupcode { get; set; }
+        public object preceiptno { get; set; }
+        public object pchequestatus { get; set; }
+        public object preferencetext { get; set; }
+        public object formname { get; set; }
+        public object chitpaymentid { get; set; }
+        public object adjustmentid { get; set; }
+    }
+    
+     public class ReceiptsDTO : AccountsDTO
+    {
+        public object pamount { get; set; }
+        public object pgsttype { get; set; }
+        public object pgstcalculationtype { get; set; }
+        public object pgstpercentage { get; set; }
+        public object pigstamount { get; set; }
+        public object pcgstamount { get; set; }
+        public object psgstamount { get; set; }
+        public object putgstamount { get; set; }
+        public object pState { get; set; }
+        public object pStateId { get; set; }
+        public object pgstno { get; set; }
+
+        public object pisgstapplicable { get; set; }
+
+        public object ptdsamountindividual { get; set; }
+
+        public object pTdsSection { get; set; }
+        public object pTdsPercentage { get; set; }
+        public object preferencetext { get; set; }
+    }
+
+    public class ModeofPaymentDTO : BankUPI
+    {
+        //public object pBankId { get; set; }
+        public object pBankName { get; set; }
+
+        public object pbranchname { get; set; }
+        public object ptranstype { get; set; }
+        public object ptypeofpayment { get; set; }
+        public object pChequenumber { get; set; }
+        public object pchequedate { get; set; }
+        public object pchequedepositdate { get; set; }
+        public object pchequecleardate { get; set; }
+        public object pbankid { get; set; }
+        public object branchid { get; set; }
+        public object pCardNumber { get; set; }
+        public object pdepositbankid { get; set; }
+        public object pdepositbankname { get; set; }
+        public object pAccountnumber { get; set; }
+        public object ChallanaNo { get; set; }
+    }
+
+      public class InitialPaymentVoucherDTO
+    {
+        public object pPayment_number { get; set; }
+        public object pGroupcode { get; set; }
+        public object pTicketno { get; set; }
+        public object pSubscribername { get; set; }
+        public object pTransactiondate { get; set; }
+        public object pPaymentdate { get; set; }
+        public object pPaidamount { get; set; }
+        public object pChequeno { get; set; }
+        public object pBankname { get; set; }
+
+    }
 }

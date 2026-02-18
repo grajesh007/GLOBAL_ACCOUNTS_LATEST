@@ -1162,28 +1162,13 @@ namespace Kapil_Group_ERP_API.Controllers
         //         return StatusCode(500, ex.Message);
         //     }
         //}
-        // [HttpPost("GetCheckDuplicateDebitCardNo")]
-        //      public IActionResult GetCheckDuplicateDebitCardNo(BankInformationDTO lstBankInformation)
-        //      {
-        //          //Int64 DebtCardCount;
-        //          List<string> lstdata = new List<string>();
-        //          try
-        //          {
-        //              IBankInformation _ConfigMaster = new EasyChitConfigurationDAL();
-        //              lstdata = _ConfigMaster.GetCheckDuplicateDebitCardNo(ConnectionString, GlobalSchema, lstBankInformation);
-        //          }
-        //          catch (Exception ex)
-        //          {
-        //              throw new FieldAccessException(ex.ToString());
-        //          }
-        //          return Ok(lstdata);
-        //      }
+       
 
         //      #endregion GetCheckDuplicateDebitCardNo
 
-   [HttpGet("GetPaymentVoucherReportData")]
-        public IActionResult GetPaymentVoucherReportData(string paymentId, string LocalSchema,string CompanyCode,
-          string BranchCode,string GlobalSchema)
+        [HttpGet("GetPaymentVoucherReportData")]
+        public IActionResult GetPaymentVoucherReportData(string paymentId, string LocalSchema, string CompanyCode,
+               string BranchCode, string GlobalSchema)
         {
             try
             {
@@ -1209,10 +1194,132 @@ namespace Kapil_Group_ERP_API.Controllers
             }
             catch (Exception ex)
             {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
 
+
+        [HttpGet("GetPettyCashReportData")]
+        public IActionResult GetPettyCashReportData(string paymentId, string LocalSchema, string CompanyCode,
+                 string BranchCode, string GlobalSchema)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(paymentId))
+                {
+                    List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+                    PaymentVoucherReportlist = _accountDal.GetPettyCashReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
+           BranchCode);
+                    if (PaymentVoucherReportlist != null)
+                    {
+
+                        return Ok(PaymentVoucherReportlist);
+                    }
+                    else
+                    {
+                        return StatusCode(StatusCodes.Status204NoContent);
+                    }
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet("GetAccountLedgerDetails")]
+        public IActionResult GetAccountLedgerDetails(string fromDate, string toDate, long pAccountId, long pSubAccountId, string BranchSchema, string GlobalSchema, string BranchCode, string CompanyCode)
+        {
+            BankBookDTO _BankBookDto = new BankBookDTO();
+            try
+            {
+                _BankBookDto.plstBankBook = _accountDal.GetAccountLedgerDetails(_con, fromDate, toDate, pAccountId, pSubAccountId, BranchSchema, GlobalSchema, BranchCode, CompanyCode);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            return Ok(_BankBookDto.plstBankBook);
+        }
+
+         [HttpGet("GetChitReceiptCancelReportData")]
+        public  IActionResult GetChitReceiptCancelReportData(string paymentId, string LocalSchema,string GlobalSchema,string branchCode,string companyCode)
+        {
+            try
+            {
+               
+                    List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+                    PaymentVoucherReportlist = _accountDal.GetChitReceiptCancelReportData(paymentId, LocalSchema, GlobalSchema, _con,branchCode,companyCode);
+                    
+
+                        return Ok(PaymentVoucherReportlist);
+                    
+                
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+         [HttpPost("GetCheckDuplicateDebitCardNo")]
+        public IActionResult GetCheckDuplicateDebitCardNo(BankInformationDTO lstBankInformation,string companycode,string branchcode,string GlobalSchema)
+        {
+            //Int64 DebtCardCount;
+            List<string> lstdata = new List<string>();
+            try
+            {
+                lstdata =_accountDal.GetCheckDuplicateDebitCardNo(_con, GlobalSchema, lstBankInformation, companycode, branchcode);
+            }
+            catch (Exception ex)
+            {
+                throw new FieldAccessException(ex.ToString());
+            }
+            return Ok(lstdata);
+        }
+
+        [HttpGet("GetBankBalance")]
+        public IActionResult GetBankBalance(string brstodate,Int64 _recordid, string BranchSchema,string branchCode,string companyCode)
+        {
+           ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
+            try
+            {
+                _ChequesOnHandDTO = _accountDal.GetBankBalance1(brstodate,_recordid, _con, BranchSchema, branchCode, companyCode);
+            }
+            catch (Exception ex)
+            {
+                throw new FieldAccessException(ex.ToString());
+            }
+            return Ok(_ChequesOnHandDTO);
+        }
+
+
+        [HttpGet("GetPendingautoBRSDetails")]
+        public IActionResult GetPendingautoBRSDetails(string BranchSchema, string allocationstatus,string GlobalSchema,string BranchCode,string CompanyCode)
+        {
+            List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+            try
+            {
+                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetails(_con, GlobalSchema, BranchSchema, allocationstatus,BranchCode,CompanyCode);
+
+                return Ok(lstPendingautoBRS);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+
+        }
+
+       
+
     }
+        
 }
