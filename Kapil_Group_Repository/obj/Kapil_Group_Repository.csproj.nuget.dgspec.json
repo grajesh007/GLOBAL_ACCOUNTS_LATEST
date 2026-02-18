@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "E:\\karthik\\karthik\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "E:\\karthik\\karthik\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
         "outputPath": "E:\\karthik\\karthik\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
+=======
+    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {}
+  },
+  "projects": {
+    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+        "projectName": "Kapil_Group_Repository",
+        "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
+>>>>>>> 76121ed0481e35025fc7ca6ae4c5bf29547aa551
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,8 +35,13 @@
           "net8.0"
         ],
         "sources": {
+<<<<<<< HEAD
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
+=======
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.nuget.org/api/v2": {}
+>>>>>>> 76121ed0481e35025fc7ca6ae4c5bf29547aa551
         },
         "frameworks": {
           "net8.0": {

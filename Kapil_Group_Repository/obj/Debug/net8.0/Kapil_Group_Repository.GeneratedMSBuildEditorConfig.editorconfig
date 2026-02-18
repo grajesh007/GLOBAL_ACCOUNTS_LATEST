@@ -8,6 +8,10 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Kapil_Group_Repository
+<<<<<<< HEAD
 build_property.ProjectDir = E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\
+=======
+build_property.ProjectDir = D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\
+>>>>>>> 76121ed0481e35025fc7ca6ae4c5bf29547aa551
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
