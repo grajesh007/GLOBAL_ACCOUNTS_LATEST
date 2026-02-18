@@ -86,3 +86,16 @@ C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATES
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.deps.json
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.dll
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.pdb
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.AssemblyReference.cache
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.dll
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\refint\Kapil_Group_Repository.dll
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.pdb
+E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\ref\Kapil_Group_Repository.dll

@@ -250,25 +250,56 @@ namespace Kapil_Group_Repository.Interfaces
 
     List<PartyDTO> GetPartyListbygroup(string ConnectionString, string GlobalSchema, string BranchSchema, string subledger, string CompanyCode, string BranchCode);
 
-    #region GetCheckDuplicateDebitCardNo
-    CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
-    string connectionString,
-    string? branchSchema,
-    string? companyCode,
-    string? branchCode,
-    int? debitCardRecordId,
-    string? debitCardNo,
-    int? upiRecordId,
-    string? upiId,
-    int? accountRecordId,
-    string? accountNumber);
-
-
-    #endregion GetCheckDuplicateDebitCardNo
+ 
 
 List<BankName> GetBankNameDetails(string connectionString,string globalSchema,string branchSchema,string BranchCode,string CompanyName);
 
 
+
+List<BankDTO> GetBankntList(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
+
+List<Modeoftransaction> GetModeoftransactions(string ConnectionString, string GlobalSchema,string CompanyCode,string BranchCode);
+
+ List<PartyDTO> GetPartyListGST(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
+
+ List<PartyDTO> GetPartyList(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
+
+ List<GstDTo> GetGstPercentages(string ConnectionString, string GlobalSchema,string CompanyCode,string BranchCode,string TaxesSchema);
+
+ List<BankDTO> GetDebitCardNumbers(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
+
+ decimal getcashbalance(string ConnectionString, string BranchSchema,string CompanyCode,string BranchCode);
+
+ decimal GetBankBalance(long recordid, string con, string BranchSchema,string CompanyCode,string BranchCode);
+
+ decimal GetCashRestrictAmount(string type, string con, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
+  
+  
+  
+  //  #region GetCheckDuplicateDebitCardNo
+    // CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
+    // string connectionString,
+    // string? branchSchema,
+    // string? companyCode,
+    // string? branchCode,
+    // int? debitCardRecordId,
+    // string? debitCardNo,
+    // int? upiRecordId,
+    // string? upiId,
+    // int? accountRecordId,
+    // string? accountNumber);
+
+
+  //   #endregion GetCheckDuplicateDebitCardNo
+
+
+List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
+            string paymentId,
+            string LocalSchema,
+            string GlobalSchema,
+            string Connectionstring,
+            string CompanyCode,
+            string BranchCode);
   }
 }
 

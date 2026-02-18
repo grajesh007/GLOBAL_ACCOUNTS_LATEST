@@ -562,28 +562,74 @@ namespace Kapil_Group_Repository.Entities
     }
    public class AccountsMasterDTO
     {
-        // public List<Modeoftransaction> modeofTransactionslist { get; set; }
-        // public List<BankDTO> banklist { get; set; }
-        // public List<BankDTO> adjustmentbanklist { get; set; }
+        public List<Modeoftransaction> modeofTransactionslist { get; set; }//
+        public List<BankDTO> banklist { get; set; }
+        public List<BankDTO> adjustmentbanklist { get; set; }
 
 
-        // public List<AccountsDTO> accountslist { get; set; }
-        // public List<PartyDTO> partylist { get; set; }
-        // public List<GstDTo> Gstlist { get; set; }
-        // public List<TdsSectionDTO> lstTdsSectionDetails { get; set; }
-        // public List<BankDTO> bankdebitcardslist { get; set; }
+        public List<AccountsDTO> accountslist { get; set; }
+        public List<PartyDTO> partylist { get; set; }
+        public List<GstDTo> Gstlist { get; set; }
+        public List<TdsSectionDTO> lstTdsSectionDetails { get; set; }
+        public List<BankDTO> bankdebitcardslist { get; set; }
         public List<BankUPI> bankupilist { get; set; }
         public List<ChequesDTO> chequeslist { get; set; }
         public List<ChequesDTO> adjustmentchequeslist { get; set; }
 
-        // public List<GstDTo> statelist { get; set; }
+        public List<GstDTo> statelist { get; set; }
         public object accountbalance { get; set; }
         public object cashbalance { get; set; }
         public object bankbalance { get; set; }
         public object bankpassbookbalance { get; set; }
-        //public List<PartyDTO> walletlist { get; set; }
+        public List<PartyDTO> walletlist { get; set; }
 
         public object CashRestrictAmount { get; set; }
+    }
+
+    public class TdsSectionDTO 
+    {
+        public object istdsapplicable;
+
+        public object pRecordid { get; set; }
+        public object pTdsSection { get; set; }
+        public object sectionname { get; set; }
+        public object pTdsPercentage { get; set; }
+        public object withpanpercentage { get; set; }
+        public object withcompanypanpercentage { get; set; }
+        public object withoutpanpercentage { get; set; }
+        public object monthlylimitamount { get; set; }
+        public object yearlylimitamount { get; set; }
+    }
+
+      public class BankDTO
+    {
+        public object pCardNumber { get; set; }
+        public object pbankname { get; set; }
+        public object pbankid { get; set; }
+        public object pbranchname { get; set; }
+        public object pdepositbankid { get; set; }
+        public object pdepositbankname { get; set; }
+        public object pbankbalance { get; set; }
+        public object pbankaccountnumber { get; set; }
+        public object pfrombrsdate { get; set; }
+        public object ptobrsdate { get; set; }
+        public object pbankpassbookbalance { get; set; }
+        public object paccountid { get; set; }
+        public object pisprimary { get; set; }
+        public object pisformanbank { get; set; }
+        public object isForemanPaymentBank { get; set; }
+        public object pisInterestPaymentBank { get; set; }
+    }
+
+     public class Modeoftransaction 
+    {
+        public object pRecordid { get; set; }
+        public object pmodofPayment { get; set; }
+        public object pmodofreceipt { get; set; }
+        public object ptranstype { get; set; }
+        public object ptypeofpayment { get; set; }
+        public object pchqonhandstatus { get; set; }
+        public object pchqinbankstatus { get; set; }
     }
 
      public class JvListDTO : AccountReportsDTO
@@ -663,20 +709,20 @@ namespace Kapil_Group_Repository.Entities
 
 
     }
-     #region GetCheckDuplicateDebitCardNo
-     public class CheckDuplicateBankDetailsDTO
-{
-    public int DebitCardDuplicateCount { get; set; }
-    public int UPIDuplicateCount { get; set; }
-    public int AccountNumberDuplicateCount { get; set; }
+//      #region GetCheckDuplicateDebitCardNo
+//      public class CheckDuplicateBankDetailsDTO
+// {
+//     public int DebitCardDuplicateCount { get; set; }
+//     public int UPIDuplicateCount { get; set; }
+//     public int AccountNumberDuplicateCount { get; set; }
 
-    public bool IsDuplicateDebitCard => DebitCardDuplicateCount > 0;
-    public bool IsDuplicateUPI => UPIDuplicateCount > 0;
-    public bool IsDuplicateAccountNumber => AccountNumberDuplicateCount > 0;
-}
+//     public bool IsDuplicateDebitCard => DebitCardDuplicateCount > 0;
+//     public bool IsDuplicateUPI => UPIDuplicateCount > 0;
+//     public bool IsDuplicateAccountNumber => AccountNumberDuplicateCount > 0;
+// }
 
      
-     #endregion GetCheckDuplicateDebitCardNo
+//      #endregion GetCheckDuplicateDebitCardNo
 
 
      

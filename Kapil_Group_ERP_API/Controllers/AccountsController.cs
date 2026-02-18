@@ -965,7 +965,7 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         [HttpGet("GetJvListDetails")]
-        public async Task<IActionResult> GetJvListDetails(string fromdate, string todate, string pmodeoftransaction, string BranchSchema, string CompanyCode, string BranchCode, string GlobalSchema)
+        public IActionResult GetJvListDetails(string fromdate, string todate, string pmodeoftransaction, string BranchSchema, string CompanyCode, string BranchCode, string GlobalSchema)
         {
             JvListDTO _JvListDTO = new JvListDTO();
             try
@@ -1072,54 +1072,15 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
-        #region GetCheckDuplicateDebitCardNo
 
-        [HttpGet("GetCheckDuplicateDebitCardNo")]
-public IActionResult GetCheckDuplicateDebitCardNo(
-    string? BranchSchema = null,
-    string? CompanyCode = null,
-    string? BranchCode = null,
-    int? DebitCardRecordId = null,
-    string? DebitCardNo = null,
-    int? UPIRecordId = null,
-    string? UPIId = null,
-    int? AccountRecordId = null,
-    string? AccountNumber = null)
-{
-    try
-    {
-        var result = _accountDal.GetCheckDuplicateDebitCardNo(
-            _con,
-            BranchSchema,
-            CompanyCode,
-            BranchCode,
-            DebitCardRecordId,
-            DebitCardNo,
-            UPIRecordId,
-            UPIId,
-            AccountRecordId,
-            AccountNumber
-        );
-
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, ex.Message);
-    }
-}
-
-        #endregion GetCheckDuplicateDebitCardNo
-
-    
-    #region GetBankNameDetails...
+        #region GetBankNameDetails...
 
         [HttpGet("GetBankNameDetails")]
         public IActionResult GetBankNameDetails(string? globalSchema = null, string? branchSchema = null, string? BranchCode = null, string? CompanyName = null)
         {
             try
             {
-                var banks = _accountDal.GetBankNameDetails(_con, globalSchema ?? _globalSchema, branchSchema , BranchCode ?? BranchCode, CompanyName ?? CompanyName);
+                var banks = _accountDal.GetBankNameDetails(_con, globalSchema ?? _globalSchema, branchSchema, BranchCode ?? BranchCode, CompanyName ?? CompanyName);
                 return Ok(banks);
             }
             catch (Exception ex)
@@ -1129,6 +1090,128 @@ public IActionResult GetCheckDuplicateDebitCardNo(
         }
 
         #endregion GetBankNameDetails...
+
+
+        [HttpGet("GetReceiptsandPaymentsLoadingData")]
+
+        public IActionResult GetReceiptsandPaymentsLoadingData(string formname, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, string TaxesSchema)
+        {
+
+            AccountsMasterDTO _accountsmasterdto = new AccountsMasterDTO();
+            try
+            {
+                _accountsmasterdto.banklist = _accountDal.GetBankntList(_con, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                _accountsmasterdto.modeofTransactionslist = _accountDal.GetModeoftransactions(_con, GlobalSchema, CompanyCode, BranchCode);
+                _accountsmasterdto.accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                if (formname == "GST PAYMENT VOUCHER")
+                {
+                    _accountsmasterdto.partylist = _accountDal.GetPartyListGST(_con, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                }
+                else
+                {
+                    _accountsmasterdto.partylist = _accountDal.GetPartyList(_con, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                }
+                _accountsmasterdto.Gstlist = _accountDal.GetGstPercentages(_con, GlobalSchema, CompanyCode, BranchCode, TaxesSchema);
+                _accountsmasterdto.bankdebitcardslist = _accountDal.GetDebitCardNumbers(_con, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                _accountsmasterdto.cashbalance = _accountDal.getcashbalance(_con, BranchSchema, CompanyCode, BranchCode);
+                _accountsmasterdto.bankbalance = _accountDal.GetBankBalance(0, _con, BranchSchema, CompanyCode, BranchCode);
+                _accountsmasterdto.CashRestrictAmount = _accountDal.GetCashRestrictAmount(formname, _con, GlobalSchema, BranchSchema, CompanyCode, BranchCode);
+                //_accountsmasterdto.statelist = await _AccountingTransactionsDAL.getStatesbyPartyid(0,Con,0,GlobalSchema,BranchSchema);
+                return Ok(_accountsmasterdto);
+            }
+            catch (Exception ex)
+            {
+                //return StatusCode(StatusCodes.Status500InternalServerError);
+                throw ex;
+            }
+        }
+
+        //#region GetCheckDuplicateDebitCardNo
+
+        //         [HttpGet("GetCheckDuplicateDebitCardNo")]
+        // public IActionResult GetCheckDuplicateDebitCardNo(
+        //     string? BranchSchema = null,
+        //     string? CompanyCode = null,
+        //     string? BranchCode = null,
+        //     int? DebitCardRecordId = null,
+        //     string? DebitCardNo = null,
+        //     int? UPIRecordId = null,
+        //     string? UPIId = null,
+        //     int? AccountRecordId = null,
+        //     string? AccountNumber = null)
+        // {
+        //     try
+        //     {
+        //         var result = _accountDal.GetCheckDuplicateDebitCardNo(
+        //             _con,
+        //             BranchSchema,
+        //             CompanyCode,
+        //             BranchCode,
+        //             DebitCardRecordId,
+        //             DebitCardNo,
+        //             UPIRecordId,
+        //             UPIId,
+        //             AccountRecordId,
+        //             AccountNumber
+        //         );
+
+        //         return Ok(result);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, ex.Message);
+        //     }
+        //}
+        // [HttpPost("GetCheckDuplicateDebitCardNo")]
+        //      public IActionResult GetCheckDuplicateDebitCardNo(BankInformationDTO lstBankInformation)
+        //      {
+        //          //Int64 DebtCardCount;
+        //          List<string> lstdata = new List<string>();
+        //          try
+        //          {
+        //              IBankInformation _ConfigMaster = new EasyChitConfigurationDAL();
+        //              lstdata = _ConfigMaster.GetCheckDuplicateDebitCardNo(ConnectionString, GlobalSchema, lstBankInformation);
+        //          }
+        //          catch (Exception ex)
+        //          {
+        //              throw new FieldAccessException(ex.ToString());
+        //          }
+        //          return Ok(lstdata);
+        //      }
+
+        //      #endregion GetCheckDuplicateDebitCardNo
+
+   [HttpGet("GetPaymentVoucherReportData")]
+        public IActionResult GetPaymentVoucherReportData(string paymentId, string LocalSchema,string CompanyCode,
+          string BranchCode,string GlobalSchema)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(paymentId))
+                {
+                    List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+                    PaymentVoucherReportlist = _accountDal.GetPaymentVoucherReportData(paymentId, LocalSchema, GlobalSchema, _con, CompanyCode,
+             BranchCode);
+                    if (PaymentVoucherReportlist != null)
+                    {
+
+                        return Ok(PaymentVoucherReportlist);
+                    }
+                    else
+                    {
+                        return StatusCode(StatusCodes.Status204NoContent);
+                    }
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable);
+                }
+            }
+            catch (Exception ex)
+            {
+        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
 
     }
