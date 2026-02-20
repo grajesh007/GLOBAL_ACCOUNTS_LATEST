@@ -250,81 +250,81 @@ namespace Kapil_Group_Repository.Interfaces
 
     List<PartyDTO> GetPartyListbygroup(string ConnectionString, string GlobalSchema, string BranchSchema, string subledger, string CompanyCode, string BranchCode);
 
- 
-
-List<BankName> GetBankNameDetails(string connectionString,string globalSchema,string branchSchema,string BranchCode,string CompanyName);
 
 
-
-List<BankDTO> GetBankntList(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
-
-List<Modeoftransaction> GetModeoftransactions(string ConnectionString, string GlobalSchema,string CompanyCode,string BranchCode);
-
- List<PartyDTO> GetPartyListGST(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
-
- List<PartyDTO> GetPartyList(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
-
- List<GstDTo> GetGstPercentages(string ConnectionString, string GlobalSchema,string CompanyCode,string BranchCode,string TaxesSchema);
-
- List<BankDTO> GetDebitCardNumbers(string ConnectionString, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
-
- decimal getcashbalance(string ConnectionString, string BranchSchema,string CompanyCode,string BranchCode);
-
- decimal GetBankBalance(long recordid, string con, string BranchSchema,string CompanyCode,string BranchCode);
-
- decimal GetCashRestrictAmount(string type, string con, string GlobalSchema, string BranchSchema,string CompanyCode,string BranchCode);
-  
-  
-  
-
-List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
-            string paymentId,
-            string LocalSchema,
-            string GlobalSchema,
-            string Connectionstring,
-            string CompanyCode,
-            string BranchCode);
-
-            List<GeneralReceiptSubDetails> GetPettyCashDetailsReportData(
-    string paymentId,
-    object contact_id,
-    string Connectionstring,
-    string LocalSchema,
-    string GlobalSchema,
-    string BranchCode,string CompanyCode);
-
-            List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string CompanyCode,
-                  string BranchCode);
-
-                   List<AccountReportsDTO> GetAccountLedgerDetails(string con, string fromDate, string toDate, long pAccountId, long pSubAccountId, string BranchSchema, string GlobalSchema,string BranchCode,string CompanyCode);
+    List<BankName> GetBankNameDetails(string connectionString, string globalSchema, string branchSchema, string BranchCode, string CompanyName);
 
 
-                   List<PaymentVoucherReportDTO> GetChitReceiptCancelReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring,string branchCode,string companyCode);
 
-                    List<GeneralReceiptSubDetails> GetChitReceiptCancelDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema,string branchCode,string companyCode);
+    List<BankDTO> GetBankntList(string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
 
+    List<Modeoftransaction> GetModeoftransactions(string ConnectionString, string GlobalSchema, string CompanyCode, string BranchCode);
 
-    List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation,string companycode,string branchcode);
+    List<PartyDTO> GetPartyListGST(string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
 
-    ChequesOnHandDTO GetBankBalance1(string brstodate,long recordid, string con, string BranchSchema,string branchCode,string companyCode);
+    List<PartyDTO> GetPartyList(string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
 
-    List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode);
+    List<GstDTo> GetGstPercentages(string ConnectionString, string GlobalSchema, string CompanyCode, string BranchCode, string TaxesSchema);
 
-   List<InitialPaymentVoucherDTO> GetInitialPVDetails(string connectionstring, string fromdate, string todate, string transtype, string localSchema, string GlobalSchema,string CompanyCode,string Branchcode);
+    List<BankDTO> GetDebitCardNumbers(string ConnectionString, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
 
+    decimal getcashbalance(string ConnectionString, string BranchSchema, string CompanyCode, string BranchCode);
 
-   List<ReceiptReferenceDTO> GetPendingautoBRSDetailsIssued(string ConnectionString, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode);
+    decimal GetBankBalance(long recordid, string con, string BranchSchema, string CompanyCode, string BranchCode);
 
-   List<BRSDto> GetBrs(string con, string fromDate, long pBankAccountId, string BranchSchema, string GlobalSchema,string branchCode,string companyCode);
-
-   List<ReceiptReferenceDTO> GetIssuedCancelledChequesubi(string ConnectionString, string BrsFromDate, string BrsTodate, Int64 _BankId, string GlobalSchema, string BranchSchema,string BranchCode,string CompanyCode);
-
-   List<AccountsDTO> GetCashAmountAccountWise(string type, string con, string GlobalSchema, string BranchSchema, string account_id, string transaction_date,string CompanyCode,string BranchCode);
-
-  bool UnusedhequeCancel(string ConnectionString, string branchSchema, string globalSchema, IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode);
+    decimal GetCashRestrictAmount(string type, string con, string GlobalSchema, string BranchSchema, string CompanyCode, string BranchCode);
 
 
-  #region PendingautoBRSDetails...
+
+
+    List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
+                string paymentId,
+                string LocalSchema,
+                string GlobalSchema,
+                string Connectionstring,
+                string CompanyCode,
+                string BranchCode);
+
+    List<GeneralReceiptSubDetails> GetPettyCashDetailsReportData(
+string paymentId,
+object contact_id,
+string Connectionstring,
+string LocalSchema,
+string GlobalSchema,
+string BranchCode, string CompanyCode);
+
+    List<PaymentVoucherReportDTO> GetPettyCashReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring, string CompanyCode,
+          string BranchCode);
+
+    List<AccountReportsDTO> GetAccountLedgerDetails(string con, string fromDate, string toDate, long pAccountId, long pSubAccountId, string BranchSchema, string GlobalSchema, string BranchCode, string CompanyCode);
+
+
+    List<PaymentVoucherReportDTO> GetChitReceiptCancelReportData(string paymentId, string LocalSchema, string GlobalSchema, string Connectionstring, string branchCode, string companyCode);
+
+    List<GeneralReceiptSubDetails> GetChitReceiptCancelDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema, string branchCode, string companyCode);
+
+
+    List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation, string companycode, string branchcode);
+
+    ChequesOnHandDTO GetBankBalance1(string brstodate, long recordid, string con, string BranchSchema, string branchCode, string companyCode);
+
+    List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode);
+
+    List<InitialPaymentVoucherDTO> GetInitialPVDetails(string connectionstring, string fromdate, string todate, string transtype, string localSchema, string GlobalSchema, string CompanyCode, string Branchcode);
+
+
+    List<ReceiptReferenceDTO> GetPendingautoBRSDetailsIssued(string ConnectionString, string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode);
+
+    List<BRSDto> GetBrs(string con, string fromDate, long pBankAccountId, string BranchSchema, string GlobalSchema, string branchCode, string companyCode);
+
+    List<ReceiptReferenceDTO> GetIssuedCancelledChequesubi(string ConnectionString, string BrsFromDate, string BrsTodate, Int64 _BankId, string GlobalSchema, string BranchSchema, string BranchCode, string CompanyCode);
+
+    List<AccountsDTO> GetCashAmountAccountWise(string type, string con, string GlobalSchema, string BranchSchema, string account_id, string transaction_date, string CompanyCode, string BranchCode);
+
+    bool UnusedhequeCancel(string ConnectionString, string branchSchema, string globalSchema, IssuedChequeDTO issuedChequeDTO, string BranchCode, string CompanyCode);
+
+
+    #region PendingautoBRSDetails...
     //List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode);
 
     #endregion PendingautoBRSDetails...
@@ -360,6 +360,119 @@ List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
     List<ChequeCancelDetails> GetChequeCancelDetails(string connectionString, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, string fromDate, string toDate);
 
     #endregion ChequeCancelDetails...
+    #region GetInterBranchPaymentVoucher
+    List<InterBranchPaymentVoucherDetails> GetInterBranchPaymentVoucher(
+    string connectionString,
+    string? globalSchema,
+    string? accountsSchema,
+    string? companyCode,
+    string? branchCode,
+    DateTime fromDate,
+    DateTime toDate);
+
+    #endregion GetInterBranchPaymentVoucher
+
+    #region  Getemipayments
+    List<EmiPaymentDetails> GetEmiPayments(
+    string connectionString,
+    string? globalSchema,
+    string? localSchema,
+    string? companyCode,
+    string? branchCode);
+
+
+    #endregion Getemipayments
+
+    #region GetComparisionTB
+    List<ComparisionTBDTO> GetComparisionTB(
+    string GlobalSchema,
+    string BranchSchema,
+    DateTime fromDate,
+    DateTime toDate,
+    string company_code,
+    string branch_code,
+    string Connectionstring);
+
+    #endregion GetComparisionTB
+
+
+    #region GetCashonhandBalance
+    List<CashOnHandBalance> GetCashonhandBalance(
+string connectionString,
+string globalSchema,
+string BranchSchema,
+string branchCode,
+string companyCode);
+
+    #endregion GetCashonhandBalance
+
+    #region Getbrscount
+    BrsCount Getbrscount(
+    string connectionString,
+    string BranchSchema,
+    string branch_code,
+    string company_code,
+    DateTime brsdate);
+    #endregion Getbrscount
+
+    #region GetBrStatementReportbyDatesChequesInfo
+
+    List<BrStatementReportbyDatesChequesInfo> GetBrStatementReportbyDatesChequesInfo(
+           string connectionString,
+           string BranchSchema,
+           string GlobalSchema,
+           string BranchCode,
+           string CompanyCode,
+           DateTime fromDate,
+           DateTime toDate,
+           int pBankAccountId
+       );
+
+    #endregion GetBrStatementReportbyDatesChequesInfo
+
+
+    #region GetParentModules
+    public List<ParentModulesDTO> GetParentModules(
+    string globalSchema,
+    string companyCode,
+    string branchCode,
+    string connectionString);
+    #endregion GetParentModules
+
+    #region GetMenuandSubmenuDetails
+    public List<MenuAndSubmenuDTO> GetMenuAndSubmenuDetails(
+  string globalSchema,
+  string companyCode,
+  string branchCode,
+  string connectionString);
+
+
+    #endregion GetMenuandSubmenuDetails
+
+    #region GetChitValueDetails
+    List<ChitValueDetailsDTO> GetChitValueDetails(
+string globalSchema,
+string localSchema,
+string companyCode,
+string branchCode,
+string groupcode,
+string connectionString);
+    #endregion GetChitValueDetails
+
+     #region getTdsSectionNo
+         List<TdsSectionNoDTO> GetTdsSectionNo(
+    string globalSchema,
+    string companyCode,
+    string branchCode,
+    string connectionString);
+        
+        #endregion getTdsSectionNo
+
+
+
+
+
+
 
 
 

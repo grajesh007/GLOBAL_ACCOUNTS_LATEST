@@ -564,11 +564,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+      "projectUniqueName": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
       "projectName": "Kapil_Group_Repository",
-      "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+      "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
+      "outputPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -580,8 +580,7 @@
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://www.nuget.org/api/v2": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {

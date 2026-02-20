@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj": {}
+    "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj": {}
   },
   "projects": {
-    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj": {
+    "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
+        "projectUniqueName": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
         "projectName": "Kapil_Group_ERP_API",
-        "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
+        "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\Kapil_Group_ERP_API.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\obj\\",
+        "outputPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_ERP_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -23,18 +23,17 @@
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
-                "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj"
+              "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
+                "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj"
               },
-              "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
-                "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
+              "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
+                "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
               }
             }
           }
@@ -96,14 +95,14 @@
         }
       }
     },
-    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
+    "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
+        "projectUniqueName": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
         "projectName": "Kapil_Group_Infrastructure",
-        "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
+        "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\Kapil_Group_Infrastructure.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\obj\\",
+        "outputPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -115,15 +114,14 @@
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
-                "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
+              "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
+                "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj"
               }
             }
           }
@@ -182,14 +180,14 @@
         }
       }
     },
-    "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
+    "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+        "projectUniqueName": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
         "projectName": "Kapil_Group_Repository",
-        "projectPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
+        "projectPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\Kapil_Group_Repository.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Global_Accounting_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
+        "outputPath": "D:\\GLOBAL_ACCOUNTS_API\\GLOBAL_ACCOUNTS_LATEST\\Kapil_Group_Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -201,8 +199,7 @@
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {

@@ -1125,6 +1125,175 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion ChequeCancelDetails...
+    #region GetInterBranchPaymentVoucher
+    
+    public class InterBranchPaymentVoucherDetails : BaseEntity
+    {
+        public int TblTransInterbranchPaymentVoucherId { get; set; }
+        public string InterbranchName { get; set; } = string.Empty;
+        public string Perticulars { get; set; } = string.Empty;
+        public decimal LedgerAmount { get; set; }
+        public decimal GstAmount { get; set; }
+        public decimal TdsAmount { get; set; }
+        public string Narration { get; set; } = string.Empty;
+    }
+   
+
+    #endregion GetInterBranchPaymentVoucher
+
+     #region  Getemipayments
+    public class EmiPaymentDetails : BaseEntity
+    {
+        public string GroupCode { get; set; } = string.Empty;
+        public int NoOfAuctions { get; set; }
+        public string TicketNo { get; set; } = string.Empty;
+        public string ContactMailingName { get; set; } = string.Empty;
+        public int ContactId { get; set; }
+        public decimal ChitValue { get; set; }
+        public int ZpdAccountId { get; set; }
+        public int InstallmentNo { get; set; }
+        public DateTime? ChequeDate { get; set; }
+        public decimal ChequeAmount { get; set; }
+        public int ChequeEntryId { get; set; }
+        public string ZpdChequeNumber { get; set; } = string.Empty;
+        public int ZpdChequeBookId { get; set; }
+    }
+
+    #endregion Getemipayments
+
+     #region GetComparisionTB
+    public class ComparisionTBDTO
+    {
+        public object parentaccountname { get; set; }
+        public object accountname { get; set; }
+        public object debitamount1 { get; set; }
+        public object creditamount1 { get; set; }
+        public object debitamount2 { get; set; }
+        public object creditamount2 { get; set; }
+        public object debittotal { get; set; }
+        public object credittotal { get; set; }
+    }
+
+    #endregion GetComparisionTB
+
+     #region GetCashonhandBalance
+
+
+    public class CashOnHandBalance : BaseEntity
+    {
+        public decimal balance { get; set; }
+    }
+
+
+    #endregion GetCashonhandBalance
+     #region Getbrscount
+    public class BrsCount : BaseEntity
+    {
+        public int count { get; set; }
+    }
+
+    #endregion Getbrscount
+
+     #region GetBrStatementReportbyDatesChequesInfo
+    public class BrStatementReportbyDatesChequesInfo
+{
+    public int? branch_id { get; set; }              
+    public string branch_name { get; set; } = string.Empty;
+    public bool? selfchequestatus { get; set; }     
+    public long receiptrecordid { get; set; }
+    public string receiptid { get; set; } = string.Empty;
+    public long? comman_receipt_number { get; set; }
+    public string receiptdate { get; set; } = string.Empty;
+    public decimal total_received_amount { get; set; }
+    public int? contact_id { get; set; }
+    public string contact_name { get; set; } = string.Empty;
+    public string referencetext { get; set; } = string.Empty;
+    public string modeof_receipt { get; set; } = string.Empty;
+    public string reference_number { get; set; } = string.Empty;
+    public string chequedate { get; set; } = string.Empty;
+    public string deposit_status { get; set; } = string.Empty;
+    public int? depositedbankid { get; set; }     
+    public string bankname { get; set; } = string.Empty;
+    public string depositeddate { get; set; } = string.Empty;
+    public string clear_date { get; set; } = string.Empty;
+    public string cheque_bank { get; set; } = string.Empty;
+    public string receipt_branch_name { get; set; } = string.Empty;
+    public string received_from { get; set; } = string.Empty;
+    public string transaction_no { get; set; } = string.Empty;
+    public string transaction_date { get; set; } = string.Empty;
+    public string comman_receipt_no { get; set; } = string.Empty;
+    public string time { get; set; } = string.Empty;
+    public int? user_id { get; set; }                
+    public string user { get; set; } = string.Empty;
+}
+
+    #endregion GetBrStatementReportbyDatesChequesInfo
+
+    
+  #region GetParentModules
+    
+    public class ParentModulesDTO
+{
+    public int tbl_mst_parent_modules_id { get; set; }
+    public string parent_module_name { get; set; }
+}
+
+    #endregion GetParentModules
+
+    #region GetMenuandSubmenuDetails
+         public class MenuAndSubmenuDTO
+{
+    public int tbl_mst_functions_id { get; set; }
+    public string parent_module_name { get; set; }
+    public string module_name { get; set; }
+    public string function_name { get; set; }
+    public string function_url { get; set; }
+    public bool status { get; set; }
+}
+
+        #endregion GetMenuandSubmenuDetails
+
+         #region GetChitValueDetails
+        public class ChitValueDetailsDTO
+{
+    public int scheme_subscriber_id { get; set; }
+    public int contact_id { get; set; }
+    public string ticketno { get; set; }
+    public int chitgroup_id { get; set; }
+    public string groupcode { get; set; }
+    public string groupticktno { get; set; }
+    public string chitvalue_code { get; set; }
+    public decimal chitvalue { get; set; }
+    public decimal scheme_amount { get; set; }
+
+    public string contact_name { get; set; }
+    public string contact_title_name { get; set; }
+    public string contact_reference_id { get; set; }
+    public string business_entity_contactno { get; set; }
+    public string business_entity_emailid { get; set; }
+    public string partyreftype { get; set; }
+}
+        #endregion GetChitValueDetails
+
+        #region getTdsSectionNo
+        public class TdsSectionNoDTO
+{
+    public int tbl_mst_tds_id { get; set; }
+    public string section_name { get; set; }
+    public decimal with_pan_percentage { get; set; }
+}
+        #endregion getTdsSectionNo
+
+
+
+     
+
+
+    
+
+    
+
+
 	
 	
 }
