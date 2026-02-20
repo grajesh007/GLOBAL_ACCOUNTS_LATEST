@@ -1162,7 +1162,7 @@ namespace Kapil_Group_ERP_API.Controllers
         //         return StatusCode(500, ex.Message);
         //     }
         //}
-       
+
 
         //      #endregion GetCheckDuplicateDebitCardNo
 
@@ -1248,19 +1248,19 @@ namespace Kapil_Group_ERP_API.Controllers
             return Ok(_BankBookDto.plstBankBook);
         }
 
-         [HttpGet("GetChitReceiptCancelReportData")]
-        public  IActionResult GetChitReceiptCancelReportData(string paymentId, string LocalSchema,string GlobalSchema,string branchCode,string companyCode)
+        [HttpGet("GetChitReceiptCancelReportData")]
+        public IActionResult GetChitReceiptCancelReportData(string paymentId, string LocalSchema, string GlobalSchema, string branchCode, string companyCode)
         {
             try
             {
-               
-                    List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
-                    PaymentVoucherReportlist = _accountDal.GetChitReceiptCancelReportData(paymentId, LocalSchema, GlobalSchema, _con,branchCode,companyCode);
-                    
 
-                        return Ok(PaymentVoucherReportlist);
-                    
-                
+                List<PaymentVoucherReportDTO> PaymentVoucherReportlist = new List<PaymentVoucherReportDTO>();
+                PaymentVoucherReportlist = _accountDal.GetChitReceiptCancelReportData(paymentId, LocalSchema, GlobalSchema, _con, branchCode, companyCode);
+
+
+                return Ok(PaymentVoucherReportlist);
+
+
             }
             catch (Exception ex)
             {
@@ -1268,14 +1268,14 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
-         [HttpPost("GetCheckDuplicateDebitCardNo")]
-        public IActionResult GetCheckDuplicateDebitCardNo(BankInformationDTO lstBankInformation,string companycode,string branchcode,string GlobalSchema)
+        [HttpPost("GetCheckDuplicateDebitCardNo")]
+        public IActionResult GetCheckDuplicateDebitCardNo(BankInformationDTO lstBankInformation, string companycode, string branchcode, string GlobalSchema)
         {
-            //Int64 DebtCardCount;
+            
             List<string> lstdata = new List<string>();
             try
             {
-                lstdata =_accountDal.GetCheckDuplicateDebitCardNo(_con, GlobalSchema, lstBankInformation, companycode, branchcode);
+                lstdata = _accountDal.GetCheckDuplicateDebitCardNo(_con, GlobalSchema, lstBankInformation, companycode, branchcode);
             }
             catch (Exception ex)
             {
@@ -1285,12 +1285,12 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
         [HttpGet("GetBankBalance")]
-        public IActionResult GetBankBalance(string brstodate,Int64 _recordid, string BranchSchema,string branchCode,string companyCode)
+        public IActionResult GetBankBalance(string brstodate, Int64 _recordid, string BranchSchema, string branchCode, string companyCode)
         {
-           ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
+            ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
             try
             {
-                _ChequesOnHandDTO = _accountDal.GetBankBalance1(brstodate,_recordid, _con, BranchSchema, branchCode, companyCode);
+                _ChequesOnHandDTO = _accountDal.GetBankBalance1(brstodate, _recordid, _con, BranchSchema, branchCode, companyCode);
             }
             catch (Exception ex)
             {
@@ -1301,12 +1301,12 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         [HttpGet("GetPendingautoBRSDetails")]
-        public IActionResult GetPendingautoBRSDetails(string BranchSchema, string allocationstatus,string GlobalSchema,string BranchCode,string CompanyCode)
+        public IActionResult GetPendingautoBRSDetails(string BranchSchema, string allocationstatus, string GlobalSchema, string BranchCode, string CompanyCode)
         {
             List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
             try
             {
-                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetails(_con, GlobalSchema, BranchSchema, allocationstatus,BranchCode,CompanyCode);
+                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetails(_con, GlobalSchema, BranchSchema, allocationstatus, BranchCode, CompanyCode);
 
                 return Ok(lstPendingautoBRS);
             }
@@ -1318,14 +1318,14 @@ namespace Kapil_Group_ERP_API.Controllers
 
         }
 
-       
- [HttpGet("GetInitialPVDetails")]
-        public IActionResult GetInitialPVDetails(string fromdate, string todate, string transtype, string localSchema,string Branchcode,string CompanyCode,string GlobalSchema)
+
+        [HttpGet("GetInitialPVDetails")]
+        public IActionResult GetInitialPVDetails(string fromdate, string todate, string transtype, string localSchema, string Branchcode, string CompanyCode, string GlobalSchema)
         {
             List<InitialPaymentVoucherDTO> paymentlistdetails = new List<InitialPaymentVoucherDTO>();
             try
             {
-                paymentlistdetails = _accountDal.GetInitialPVDetails(_con, fromdate, todate, transtype, localSchema, GlobalSchema,Branchcode,CompanyCode);
+                paymentlistdetails = _accountDal.GetInitialPVDetails(_con, fromdate, todate, transtype, localSchema, GlobalSchema, Branchcode, CompanyCode);
             }
             catch (Exception ex)
             {
@@ -1335,13 +1335,13 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-         [HttpGet("GetPendingautoBRSDetailsIssued")]
-        public  IActionResult GetPendingautoBRSDetailsIssued(string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode)
+        [HttpGet("GetPendingautoBRSDetailsIssued")]
+        public IActionResult GetPendingautoBRSDetailsIssued(string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode)
         {
             List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
             try
             {
-                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetailsIssued(_con, BranchSchema, allocationstatus,BranchCode,CompanyCode);
+                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetailsIssued(_con, BranchSchema, allocationstatus, BranchCode, CompanyCode);
 
                 return Ok(lstPendingautoBRS);
             }
@@ -1354,13 +1354,13 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-  [HttpGet("GetBrs")]
-        public IActionResult GetBrs(string fromDate, long _pBankAccountId, string BranchSchema,string branchCode,string companyCode,string GlobalSchema)
+        [HttpGet("GetBrs")]
+        public IActionResult GetBrs(string fromDate, long _pBankAccountId, string BranchSchema, string branchCode, string companyCode, string GlobalSchema)
         {
-           BRSDto _BRSDto = new BRSDto();
+            BRSDto _BRSDto = new BRSDto();
             try
             {
-                _BRSDto.lstBRSDto = _accountDal.GetBrs(_con, fromDate, _pBankAccountId, BranchSchema, GlobalSchema,branchCode,companyCode);                
+                _BRSDto.lstBRSDto = _accountDal.GetBrs(_con, fromDate, _pBankAccountId, BranchSchema, GlobalSchema, branchCode, companyCode);
 
             }
             catch (Exception ex)
@@ -1374,12 +1374,12 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
         [HttpGet("GetIssuedCancelledCheques_Newubi")]
-        public IActionResult GetIssuedCancelledCheques_Newubi(string BrsFromDate, string BrsTodate, Int64 _BankId, string BranchSchema,string BranchCode,string CompanyCode,string GlobalSchema)
+        public IActionResult GetIssuedCancelledCheques_Newubi(string BrsFromDate, string BrsTodate, Int64 _BankId, string BranchSchema, string BranchCode, string CompanyCode, string GlobalSchema)
         {
-           ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
+            ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
             try
             {
-                _ChequesOnHandDTO.pchequesclearreturnlist = _accountDal.GetIssuedCancelledChequesubi(_con, BrsFromDate, BrsTodate, _BankId, GlobalSchema, BranchSchema,BranchCode,CompanyCode);
+                _ChequesOnHandDTO.pchequesclearreturnlist = _accountDal.GetIssuedCancelledChequesubi(_con, BrsFromDate, BrsTodate, _BankId, GlobalSchema, BranchSchema, BranchCode, CompanyCode);
 
                 return Ok(_ChequesOnHandDTO);
             }
@@ -1390,14 +1390,14 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
 
-         [HttpGet("GetCashAmountAccountWise")]
-        public  IActionResult GetCashAmountAccountWise(string formname, string BranchSchema, string account_id, string transaction_date,string GlobalSchema,string CompanyCode,string BranchCode)
+        [HttpGet("GetCashAmountAccountWise")]
+        public IActionResult GetCashAmountAccountWise(string formname, string BranchSchema, string account_id, string transaction_date, string GlobalSchema, string CompanyCode, string BranchCode)
         {
 
             List<AccountsDTO> lstAccounts = new List<AccountsDTO>();
             try
             {
-                lstAccounts = _accountDal.GetCashAmountAccountWise(formname, _con, GlobalSchema, BranchSchema, account_id, transaction_date,CompanyCode,BranchCode);
+                lstAccounts = _accountDal.GetCashAmountAccountWise(formname, _con, GlobalSchema, BranchSchema, account_id, transaction_date, CompanyCode, BranchCode);
                 return Ok(lstAccounts);
             }
             catch (Exception ex)
@@ -1409,7 +1409,7 @@ namespace Kapil_Group_ERP_API.Controllers
 
         [HttpPost("UnusedhequeCancel")]
 
-        public IActionResult UnusedhequeCancel(IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode,string branchSchema,string GlobalSchema)
+        public IActionResult UnusedhequeCancel(IssuedChequeDTO issuedChequeDTO, string BranchCode, string CompanyCode, string branchSchema, string GlobalSchema)
         {
             bool isSaved = false;
             try
@@ -1561,7 +1561,7 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
         #endregion ChequeCancelDetails...
-         #region GetInterBranchPaymentVoucher
+        #region GetInterBranchPaymentVoucher
         [HttpGet("GetInterBranchPaymentVoucher")]
         public IActionResult GetInterBranchPaymentVoucher(
    string? GlobalSchema = null,
@@ -1593,147 +1593,147 @@ namespace Kapil_Group_ERP_API.Controllers
 
         #endregion GetInterBranchPaymentVoucher
 
-        
-        #region  Getemipayments
-         
-         [HttpGet("GetEmiPayments")]
-public IActionResult GetEmiPayments(
-    string? GlobalSchema = null, 
-    string? LocalSchema = null, 
-    string? CompanyCode = null, 
-    string? BranchCode = null)
-{
-    try
-    {
-        var result = _accountDal.GetEmiPayments(
-            _con, 
-            GlobalSchema ?? GlobalSchema, 
-            LocalSchema ?? LocalSchema, 
-            CompanyCode ?? CompanyCode, 
-            BranchCode ?? BranchCode);
 
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, ex.Message);
-    }
-}
+        #region  Getemipayments
+
+        [HttpGet("GetEmiPayments")]
+        public IActionResult GetEmiPayments(
+   string? GlobalSchema = null,
+   string? LocalSchema = null,
+   string? CompanyCode = null,
+   string? BranchCode = null)
+        {
+            try
+            {
+                var result = _accountDal.GetEmiPayments(
+                    _con,
+                    GlobalSchema ?? GlobalSchema,
+                    LocalSchema ?? LocalSchema,
+                    CompanyCode ?? CompanyCode,
+                    BranchCode ?? BranchCode);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         #endregion Getemipayments
         #region GetComparisionTB
-         [HttpGet("GetComparisionTB")]
-public IActionResult GetComparisionTB(
-    string GlobalSchema,
-    string BranchSchema,
-    string fromDate,
-    string toDate,
-    string company_code,
-    string branch_code)
-{
-    try
-    {
-        // Validate input dates
-        if (string.IsNullOrWhiteSpace(fromDate) || string.IsNullOrWhiteSpace(toDate) ||
-            !DateTime.TryParse(fromDate, out DateTime fromDateParsed) ||
-            !DateTime.TryParse(toDate, out DateTime toDateParsed))
+        [HttpGet("GetComparisionTB")]
+        public IActionResult GetComparisionTB(
+   string GlobalSchema,
+   string BranchSchema,
+   string fromDate,
+   string toDate,
+   string company_code,
+   string branch_code)
         {
-            return BadRequest("Invalid fromDate or toDate. Please provide valid dates.");
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(fromDate) || string.IsNullOrWhiteSpace(toDate) ||
+                    !DateTime.TryParse(fromDate, out DateTime fromDateParsed) ||
+                    !DateTime.TryParse(toDate, out DateTime toDateParsed))
+                {
+                    return BadRequest("Invalid fromDate or toDate. Please provide valid dates.");
+                }
+
+                List<ComparisionTBDTO> comparisionList = _accountDal.GetComparisionTB(
+                    GlobalSchema, BranchSchema, fromDateParsed, toDateParsed, company_code, branch_code, _con);
+
+                if (comparisionList != null && comparisionList.Count > 0)
+                    return Ok(comparisionList);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
-
-        List<ComparisionTBDTO> comparisionList = _accountDal.GetComparisionTB(
-            GlobalSchema, BranchSchema, fromDateParsed, toDateParsed, company_code, branch_code, _con);
-
-        if (comparisionList != null && comparisionList.Count > 0)
-            return Ok(comparisionList);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
 
         #endregion GetComparisionTB
 
-        
+
         #region GetCashonhandBalance
 
-       [HttpGet("GetCashonhandBalance")]
-public IActionResult GetCashonhandBalance(
-    string? globalSchema = null,
-    string? BranchSchema = null,
-    string? branchCode = null,
-    string? companyCode = null)
-{
-    try
-    {
-        var balance = _accountDal.GetCashonhandBalance(
-            _con,
-            globalSchema ?? _globalSchema,
-            BranchSchema,
-            branchCode ?? branchCode,
-            companyCode ?? companyCode);
+        [HttpGet("GetCashonhandBalance")]
+        public IActionResult GetCashonhandBalance(
+     string? globalSchema = null,
+     string? BranchSchema = null,
+     string? branchCode = null,
+     string? companyCode = null)
+        {
+            try
+            {
+                var balance = _accountDal.GetCashonhandBalance(
+                    _con,
+                    globalSchema ?? _globalSchema,
+                    BranchSchema,
+                    branchCode ?? branchCode,
+                    companyCode ?? companyCode);
 
-        return Ok(balance);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, ex.ToString());
-    }
-}
+                return Ok(balance);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
 
         #endregion GetCashonhandBalance
 
-         #region Getbrscount
+        #region Getbrscount
         [HttpGet("GetBrsCount")]
-public IActionResult GetBrsCount(
+        public IActionResult GetBrsCount(
     string BranchSchema,
     string CompanyCode,
     string BranchCode,
     DateTime BrsDate)
-{
-    try
-    {
-        if (!string.IsNullOrEmpty(BranchSchema) &&
-            !string.IsNullOrEmpty(CompanyCode) &&
-            !string.IsNullOrEmpty(BranchCode))
         {
-            BrsCount brsCountObj = _accountDal.Getbrscount(
-                _con,           
-                BranchSchema,
-                BranchCode,
-                CompanyCode,
-                BrsDate
-            );
+            try
+            {
+                if (!string.IsNullOrEmpty(BranchSchema) &&
+                    !string.IsNullOrEmpty(CompanyCode) &&
+                    !string.IsNullOrEmpty(BranchCode))
+                {
+                    BrsCount brsCountObj = _accountDal.Getbrscount(
+                        _con,
+                        BranchSchema,
+                        BranchCode,
+                        CompanyCode,
+                        BrsDate
+                    );
 
-            if (brsCountObj != null)
-            {
-                return Ok(brsCountObj);
+                    if (brsCountObj != null)
+                    {
+                        return Ok(brsCountObj);
+                    }
+                    else
+                    {
+                        return StatusCode(StatusCodes.Status204NoContent);
+                    }
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "BranchSchema, CompanyCode, and BranchCode are required");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status204NoContent);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        else
-        {
-            return StatusCode(StatusCodes.Status406NotAcceptable, "BranchSchema, CompanyCode, and BranchCode are required");
-        }
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
 
-        
+
         #endregion Getbrscount
 
         #region GetBrStatementReportbyDatesChequesInfo
         [HttpGet("GetBrStatementReportbyDatesChequesInfo")]
-public IActionResult GetBrStatementReportbyDatesChequesInfo(
+        public IActionResult GetBrStatementReportbyDatesChequesInfo(
     string BranchSchema,
     string GlobalSchema,
     string BranchCode,
@@ -1741,162 +1741,162 @@ public IActionResult GetBrStatementReportbyDatesChequesInfo(
     DateTime fromDate,
     DateTime toDate,
     int pBankAccountId)
-{
-    try
-    {
-        if (string.IsNullOrEmpty(BranchSchema) || string.IsNullOrEmpty(CompanyCode) || string.IsNullOrEmpty(BranchCode))
-            return StatusCode(StatusCodes.Status406NotAcceptable, "BranchSchema, CompanyCode, and BranchCode are required");
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(BranchSchema) || string.IsNullOrEmpty(CompanyCode) || string.IsNullOrEmpty(BranchCode))
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "BranchSchema, CompanyCode, and BranchCode are required");
 
-        var result = _accountDal.GetBrStatementReportbyDatesChequesInfo(
-            _con,
-            BranchSchema,
-            GlobalSchema,
-            BranchCode,
-            CompanyCode,
-            fromDate,
-            toDate,
-            pBankAccountId
-        );
+                var result = _accountDal.GetBrStatementReportbyDatesChequesInfo(
+                    _con,
+                    BranchSchema,
+                    GlobalSchema,
+                    BranchCode,
+                    CompanyCode,
+                    fromDate,
+                    toDate,
+                    pBankAccountId
+                );
 
-        if (result != null && result.Any())
-            return Ok(result);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
+                if (result != null && result.Any())
+                    return Ok(result);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
         #endregion  GetBrStatementReportbyDatesChequesInfo
 
         #region GetParentModules
-         
-          [HttpGet("GetParentModules")]
-public IActionResult GetParentModules(
-    string globalSchema,
-    string companyCode,
-    string branchCode)
-{
-    try
-    {
-        List<ParentModulesDTO> modulesList = _accountDal.GetParentModules(
-            globalSchema, companyCode, branchCode, _con);
 
-        if (modulesList != null && modulesList.Count > 0)
-            return Ok(modulesList);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
+        [HttpGet("GetParentModules")]
+        public IActionResult GetParentModules(
+  string globalSchema,
+  string companyCode,
+  string branchCode)
+        {
+            try
+            {
+                List<ParentModulesDTO> modulesList = _accountDal.GetParentModules(
+                    globalSchema, companyCode, branchCode, _con);
 
-    #endregion GetParentModules
+                if (modulesList != null && modulesList.Count > 0)
+                    return Ok(modulesList);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        #endregion GetParentModules
 
 
-     #region GetMenuandSubmenuDetails
+        #region GetMenuandSubmenuDetails
 
-      [HttpGet("GetMenuAndSubmenuDetails")]
-public IActionResult GetMenuAndSubmenuDetails(
-    string globalSchema,
-    string companyCode,
-    string branchCode)
-{
-    try
-    {
-        List<MenuAndSubmenuDTO> menuList = _accountDal.GetMenuAndSubmenuDetails(
-            globalSchema, companyCode, branchCode, _con);
+        [HttpGet("GetMenuAndSubmenuDetails")]
+        public IActionResult GetMenuAndSubmenuDetails(
+      string globalSchema,
+      string companyCode,
+      string branchCode)
+        {
+            try
+            {
+                List<MenuAndSubmenuDTO> menuList = _accountDal.GetMenuAndSubmenuDetails(
+                    globalSchema, companyCode, branchCode, _con);
 
-        if (menuList != null && menuList.Count > 0)
-            return Ok(menuList);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
+                if (menuList != null && menuList.Count > 0)
+                    return Ok(menuList);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
 
         #endregion GetMenuandSubmenuDetails
 
-        
-  #region GetChitValueDetails
-         [HttpGet("GetChitValueDetails")]
-public IActionResult GetChitValueDetails(
-    string globalSchema,
-    string localSchema,
-    string companyCode,
-    string branchCode,
-    string groupcode)
-{
-    try
-    {
-        List<ChitValueDetailsDTO> chitValueList = _accountDal.GetChitValueDetails(
-            globalSchema, localSchema, companyCode, branchCode, groupcode, _con);
 
-        if (chitValueList != null && chitValueList.Count > 0)
-            return Ok(chitValueList);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
-        
+        #region GetChitValueDetails
+        [HttpGet("GetChitValueDetails")]
+        public IActionResult GetChitValueDetails(
+   string globalSchema,
+   string localSchema,
+   string companyCode,
+   string branchCode,
+   string groupcode)
+        {
+            try
+            {
+                List<ChitValueDetailsDTO> chitValueList = _accountDal.GetChitValueDetails(
+                    globalSchema, localSchema, companyCode, branchCode, groupcode, _con);
+
+                if (chitValueList != null && chitValueList.Count > 0)
+                    return Ok(chitValueList);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         #endregion GetChitValueDetails
 
-         #region getTdsSectionNo
+        #region getTdsSectionNo
         [HttpGet("GetTdsSectionNo")]
-public IActionResult GetTdsSectionNo(
+        public IActionResult GetTdsSectionNo(
     string globalSchema,
     string companyCode,
     string branchCode)
-{
-    try
-    {
-        List<TdsSectionNoDTO> tdsList = _accountDal.GetTdsSectionNo(
-            globalSchema, companyCode, branchCode, _con);
+        {
+            try
+            {
+                List<TdsSectionNoDTO> tdsList = _accountDal.GetTdsSectionNo(
+                    globalSchema, companyCode, branchCode, _con);
 
-        if (tdsList != null && tdsList.Count > 0)
-            return Ok(tdsList);
-        else
-            return StatusCode(StatusCodes.Status204NoContent);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
+                if (tdsList != null && tdsList.Count > 0)
+                    return Ok(tdsList);
+                else
+                    return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
         #endregion getTdsSectionNo
 
-       
-
-
-        
-
-
-
-        
-
-        
-
-
-
-        
-
-
-       
 
 
 
 
 
-    }  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }

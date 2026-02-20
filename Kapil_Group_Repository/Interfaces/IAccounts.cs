@@ -459,14 +459,14 @@ string groupcode,
 string connectionString);
     #endregion GetChitValueDetails
 
-     #region getTdsSectionNo
-         List<TdsSectionNoDTO> GetTdsSectionNo(
-    string globalSchema,
-    string companyCode,
-    string branchCode,
-    string connectionString);
-        
-        #endregion getTdsSectionNo
+    #region getTdsSectionNo
+    List<TdsSectionNoDTO> GetTdsSectionNo(
+string globalSchema,
+string companyCode,
+string branchCode,
+string connectionString);
+
+    #endregion getTdsSectionNo
 
 
 

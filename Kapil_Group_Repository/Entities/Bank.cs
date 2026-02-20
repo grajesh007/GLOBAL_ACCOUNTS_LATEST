@@ -1195,7 +1195,7 @@ namespace Kapil_Group_Repository.Entities
     #endregion Getbrscount
 
      #region GetBrStatementReportbyDatesChequesInfo
-    public class BrStatementReportbyDatesChequesInfo
+    public class BrStatementReportbyDatesChequesInfo : BaseEntity
 {
     public int? branch_id { get; set; }              
     public string branch_name { get; set; } = string.Empty;
@@ -1232,7 +1232,7 @@ namespace Kapil_Group_Repository.Entities
     
   #region GetParentModules
     
-    public class ParentModulesDTO
+    public class ParentModulesDTO : BaseEntity
 {
     public int tbl_mst_parent_modules_id { get; set; }
     public string parent_module_name { get; set; }
@@ -1241,7 +1241,7 @@ namespace Kapil_Group_Repository.Entities
     #endregion GetParentModules
 
     #region GetMenuandSubmenuDetails
-         public class MenuAndSubmenuDTO
+         public class MenuAndSubmenuDTO : BaseEntity
 {
     public int tbl_mst_functions_id { get; set; }
     public string parent_module_name { get; set; }
@@ -1254,7 +1254,7 @@ namespace Kapil_Group_Repository.Entities
         #endregion GetMenuandSubmenuDetails
 
          #region GetChitValueDetails
-        public class ChitValueDetailsDTO
+        public class ChitValueDetailsDTO : BaseEntity
 {
     public int scheme_subscriber_id { get; set; }
     public int contact_id { get; set; }
@@ -1276,24 +1276,11 @@ namespace Kapil_Group_Repository.Entities
         #endregion GetChitValueDetails
 
         #region getTdsSectionNo
-        public class TdsSectionNoDTO
+        public class TdsSectionNoDTO : BaseEntity
 {
     public int tbl_mst_tds_id { get; set; }
     public string section_name { get; set; }
     public decimal with_pan_percentage { get; set; }
 }
-        #endregion getTdsSectionNo
-
-
-
-     
-
-
-    
-
-    
-
-
-	
-	
+        #endregion getTdsSectionNo	
 }
