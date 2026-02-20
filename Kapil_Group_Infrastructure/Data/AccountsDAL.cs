@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Npgsql;
+using System.Text;
 using Kapil_Group_Repository.Interfaces;
 using Kapil_Group_Repository.Entities;
 using System.Globalization;
@@ -4509,6 +4510,392 @@ public List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionStrin
     }
 
     return lstPendingautoBRS;
+}
+
+
+
+public List<InitialPaymentVoucherDTO> GetInitialPVDetails(string connectionstring, string fromdate, string todate, string transtype, string localSchema, string GlobalSchema,string CompanyCode,string Branchcode)
+{
+    List<InitialPaymentVoucherDTO> lstInitialPV = new List<InitialPaymentVoucherDTO>();
+    string _query;
+
+    try
+    {
+        if (transtype == "ALL")
+        {
+            _query = "select a.chitgroup_id,b.groupcode,ticketno,(select  contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id in (select distinct contact_id from " + AddDoubleQuotes(localSchema) + ".tbl_trans_ZPD_SUBSCRIBER  where  tbl_trans_zpd_subscriber_id=scheme_subscriber_id))as subscriber_name,a.payment_number,coalesce(transaction_date::text,'')transaction_date,coalesce(payment_amount,0) payment_amount,reference_number,bank_name from " + AddDoubleQuotes(localSchema) + ".tbl_trans_zpd_initial_payment_voucher  a join   " + AddDoubleQuotes(localSchema) + ".tbl_mst_chitgroup b on a.chitgroup_id=b.tbl_mst_chitgroup_id join ((select bank_name,reference_number,payment_number from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank l join  " + AddDoubleQuotes(localSchema) + ".tbl_mst_bank_configuration m on tbl_mst_bank_id= m.bank_id join   " + AddDoubleQuotes(localSchema) + ".tbl_trans_payment_reference n on m.tbl_mst_bank_configuration_id=n.bank_configuration_id)) d on a.payment_number=d.payment_number where a.company_code='"+CompanyCode+"' and a.Branch_Code='"+Branchcode+"';";
+           // select a.chitgroup_id,b.groupcode,ticketno,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id in (select distinct contact_id from " + AddDoubleQuotes(localSchema) + ".tbl_trans_ZPD_SUBSCRIBER where tbl_trans_zpd_subscriber_id=scheme_subscriber_id)) as subscriber_name,a.payment_number,coalesce(transaction_date::text,'') transaction_date,coalesce(payment_amount,0) payment_amount,reference_number,bank_name from " + AddDoubleQuotes(localSchema) + ".tbl_trans_zpd_initial_payment_voucher a join " + AddDoubleQuotes(localSchema) + ".tbl_mst_chitgroup b on a.chitgroup_id=b.tbl_mst_chitgroup_id join ((select bank_name,reference_number,payment_number from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank l join " + AddDoubleQuotes(localSchema) + ".tbl_mst_bank_configuration m on tbl_mst_bank_id=m.bank_id join " + AddDoubleQuotes(localSchema) + ".tbl_trans_payment_reference n on m.tbl_mst_bank_configuration_id=n.bank_configuration_id)) d on a.payment_number=d.payment_number;
+        }
+        else
+        {
+            _query = "select a.chitgroup_id,b.groupcode,ticketno,(select  contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id in (select distinct contact_id from " + AddDoubleQuotes(localSchema) + ".tbl_trans_ZPD_SUBSCRIBER  where  tbl_trans_zpd_subscriber_id=scheme_subscriber_id))as subscriber_name,a.payment_number,coalesce(transaction_date::text,'')transaction_date,coalesce(payment_amount,0) payment_amount,reference_number,bank_name from " + AddDoubleQuotes(localSchema) + ".tbl_trans_zpd_initial_payment_voucher  a join   " + AddDoubleQuotes(localSchema) + ".tbl_mst_chitgroup b on a.chitgroup_id=b.tbl_mst_chitgroup_id join ((select bank_name,reference_number,payment_number from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank l join  " + AddDoubleQuotes(localSchema) + ".tbl_mst_bank_configuration m on tbl_mst_bank_id= m.bank_id join   " + AddDoubleQuotes(localSchema) + ".tbl_trans_payment_reference n on m.tbl_mst_bank_configuration_id=n.bank_configuration_id)) d on a.payment_number=d.payment_number where transaction_date between '" + FormatDate(fromdate) + "' and '" + FormatDate(todate) + "' and a.company_code='"+CompanyCode+"' and a.branch_code='"+Branchcode+"';";
+           // select a.chitgroup_id,b.groupcode,ticketno,(select contact_mailing_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact where tbl_mst_contact_id in (select distinct contact_id from " + AddDoubleQuotes(localSchema) + ".tbl_trans_ZPD_SUBSCRIBER where tbl_trans_zpd_subscriber_id=scheme_subscriber_id)) as subscriber_name,a.payment_number,coalesce(transaction_date::text,'') transaction_date,coalesce(payment_amount,0) payment_amount,reference_number,bank_name from " + AddDoubleQuotes(localSchema) + ".tbl_trans_zpd_initial_payment_voucher a join " + AddDoubleQuotes(localSchema) + ".tbl_mst_chitgroup b on a.chitgroup_id=b.tbl_mst_chitgroup_id join ((select bank_name,reference_number,payment_number from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank l join " + AddDoubleQuotes(localSchema) + ".tbl_mst_bank_configuration m on tbl_mst_bank_id=m.bank_id join " + AddDoubleQuotes(localSchema) + ".tbl_trans_payment_reference n on m.tbl_mst_bank_configuration_id=n.bank_configuration_id)) d on a.payment_number=d.payment_number where transaction_date between '" + FormatDate(fromdate) + "' and '" + FormatDate(todate) + "';
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(connectionstring))
+        {
+            con.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(_query, con))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    InitialPaymentVoucherDTO InitialPV = new InitialPaymentVoucherDTO();
+                    {
+                        InitialPV.pGroupcode = dr["groupcode"];
+                        InitialPV.pTicketno = dr["ticketno"];
+                        InitialPV.pSubscribername = dr["subscriber_name"];
+                        InitialPV.pPayment_number = dr["payment_number"];
+                        InitialPV.pTransactiondate = dr["transaction_date"];
+                        InitialPV.pPaidamount = dr["payment_amount"];
+                        InitialPV.pChequeno = dr["reference_number"];
+                        InitialPV.pBankname = dr["bank_name"];
+                    };
+                    lstInitialPV.Add(InitialPV);
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstInitialPV;
+}
+
+
+
+public List<ReceiptReferenceDTO> GetPendingautoBRSDetailsIssued(string ConnectionString, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode)
+{
+    string strWhere = string.Empty;
+    List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+
+    try
+    {
+        if (!string.IsNullOrEmpty(allocationstatus))
+        {
+            strWhere = " where status=true and allocation_status='" + allocationstatus + "'";
+        }
+        else
+        {
+            strWhere = " where status=true ";
+        }
+
+        string Query = "select created_Date,transaction_date,reference_number,amount,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp_issued " + strWhere + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' order by created_Date;";
+       // select created_Date,transaction_date,reference_number,amount,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp_issued " + strWhere + " order by created_Date;
+
+        using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+        {
+            con.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, con))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    lstPendingautoBRS.Add(new ReceiptReferenceDTO
+                    {
+                        puploadeddate = dr["created_Date"],
+                        transactiondate = dr["transaction_date"],
+                        pChequenumber = dr["reference_number"],
+                        ptotalreceivedamount = dr["amount"],
+                        preferencetext = dr["reference_text"],
+                    });
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstPendingautoBRS;
+}
+
+
+
+public List<BRSDto> GetBrs(string con, string fromDate, long pBankAccountId, string BranchSchema, string GlobalSchema,string branchCode,string companyCode)
+{
+    string Query = string.Empty;
+    string Query1 = string.Empty;
+    string Query2 = string.Empty;
+    string Condition = string.Empty;
+    decimal BankBookBalance = 0;
+
+   List<BRSDto> lstBRS = new List<BRSDto>();
+
+    try
+    {
+        using (NpgsqlConnection conn = new NpgsqlConnection(con))
+        {
+            conn.Open();
+
+            Query2 = "select count(*) from  " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brsreport where brsdate='" + FormatDate(fromDate) + "' and bankid=" + pBankAccountId + " AND company_code ='" + companyCode + "' and branch_code = '" + branchCode + "';";
+           // select count(*) from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brsreport where brsdate='" + FormatDate(fromDate) + "' and bankid=" + pBankAccountId + ";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query2, conn))
+            {
+                Int64 brscount = Convert.ToInt64(cmd.ExecuteScalar());
+
+                if (brscount >= 1)
+                {
+                    Query = "select * from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brsreport where  brsdate='" + FormatDate(fromDate) + "' and bankid=" + pBankAccountId + " AND company_code ='" + companyCode + "' and branch_code = '" + branchCode + "' ;";
+                   // select * from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brsreport where brsdate='" + FormatDate(fromDate) + "' and bankid=" + pBankAccountId + ";
+
+                    Query1 = "select coalesce(sum( coalesce(debitamount,0)-coalesce(creditamount,0)),0) as bankbookbalance from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration  t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.bank_account_id=t2.parent_id where t1.tbl_mst_bank_configuration_id=" + pBankAccountId + " and transaction_date<='" + FormatDate(fromDate) + "' and t2.company_code = '" + companyCode + "' and t2.branch_code = '" + branchCode + "' group by t1.tbl_mst_bank_configuration_id;";
+                   // select coalesce(sum(coalesce(debitamount,0)-coalesce(creditamount,0)),0) as bankbookbalance from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.bank_account_id=t2.parent_id where t1.tbl_mst_bank_configuration_id=" + pBankAccountId + " and transaction_date<='" + FormatDate(fromDate) + "' group by t1.tbl_mst_bank_configuration_id;
+
+                    using (NpgsqlCommand cmd1 = new NpgsqlCommand(Query1, conn))
+                    {
+                        BankBookBalance = Convert.ToDecimal(cmd1.ExecuteScalar());
+                    }
+
+                    string _query = "select branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration  where branch_code='" + branchCode + "'";
+                   // select branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code='" + BranchSchema + "';
+                    string Branchtype;
+                    using (NpgsqlCommand cmd2 = new NpgsqlCommand(_query, conn))
+                    {
+                        Branchtype = Convert.ToString(cmd2.ExecuteScalar());
+                    }
+
+                    if (Branchtype == "KGMS")
+                        Condition = " and selfchequestatus = true";
+
+                    using (NpgsqlCommand cmd3 = new NpgsqlCommand(Query, conn))
+                    using (NpgsqlDataReader dr = cmd3.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BRSDto _ObjBank = new BRSDto();
+                            _ObjBank.precordid = Convert.ToInt64(dr["tbl_trans_brsreport_id"]);
+                            _ObjBank.ptransactiondate = dr["cheque_date"];
+                            _ObjBank.pChequeNumber = Convert.ToString(dr["reference_number"]);
+                            _ObjBank.pparticulars = Convert.ToString(dr["PARTICULARS"]);
+                            _ObjBank.ptotalreceivedamount = Convert.ToDecimal(dr["amount"]);
+                            _ObjBank.pBankName = Convert.ToString(dr["BANK_name"]);
+                            _ObjBank.pBranchName = Convert.ToString(dr["BRANCH_name"]);
+                            _ObjBank.pGroupType = Convert.ToString(dr["group_type"]);
+                            _ObjBank.pbrsdate = Convert.ToString(dr["brsdate"]);
+                            _ObjBank.pbankbalance = Convert.ToString(dr["bankbalance"]);
+                            _ObjBank.pBankBookBalance = BankBookBalance;
+                            lstBRS.Add(_ObjBank);
+                        }
+                    }
+                }
+                else
+                {
+                    Query = "select coalesce(sum( coalesce(debitamount,0)-coalesce(creditamount,0)),0) as bankbookbalance from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration  t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.bank_account_id=t2.parent_id where t1.tbl_mst_bank_configuration_id=" + pBankAccountId + " and transaction_date<='" + FormatDate(fromDate) + "' and t2.company_code = '" + companyCode + "' and t2.branch_code = '" + branchCode + "' group by t1.tbl_mst_bank_configuration_id;";
+                  //  select coalesce(sum(coalesce(debitamount,0)-coalesce(creditamount,0)),0) as bankbookbalance from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_total_transactions t2 on t1.bank_account_id=t2.parent_id where t1.tbl_mst_bank_configuration_id=" + pBankAccountId + " and transaction_date<='" + FormatDate(fromDate) + "' group by t1.tbl_mst_bank_configuration_id;
+
+                    using (NpgsqlCommand cmd4 = new NpgsqlCommand(Query, conn))
+                    {
+                        BankBookBalance = Convert.ToDecimal(cmd4.ExecuteScalar());
+                    }
+
+                    string _query = "select branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration  where branch_code='" + BranchSchema + "'";
+                    //select branch_type from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_branch_configuration where branch_code='" + BranchSchema + "';
+                    string Branchtype;
+                    using (NpgsqlCommand cmd5 = new NpgsqlCommand(_query, conn))
+                    {
+                        Branchtype = Convert.ToString(cmd5.ExecuteScalar());
+                    }
+
+                    if (Branchtype == "KGMS")
+                        Condition = " and selfchequestatus = true";
+
+                    Query = "SELECT BS.tbl_mst_bank_configuration_id,CD.deposited_date::text as chequedate,CD.reference_number,CD.received_from PARTICULARS,CD.total_received_amount,(select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank where tbl_mst_bank_id in(select distinct bank_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id=" + pBankAccountId + ")) BANKNAME,BS.bank_branch as branchname,'CHEQUES DEPOSITED BUT NOT CREDITED' groupType,0 as bankbalance FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference CD JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration   BS ON CD.deposited_bank_id=BS.tbl_mst_bank_configuration_id  AND  CD.deposit_status='P' AND CD.CLEAR_STATUS='N' AND deposited_date<='" + FormatDate(fromDate) + "' and BS.tbl_mst_bank_configuration_id=" + pBankAccountId + " AND CD.total_received_amount>0 " + Condition + " and CD.company_code = '" + companyCode + "' and CD.branch_code = '" + branchCode + "' UNION ALL SELECT P.bank_configuration_id,P.payment_DATE::text,P.reference_number,P.paid_to ||' '||coalesce((select coalesce(e.account_name, '') from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher_details b on a.tbl_trans_payment_voucher_id = b.payment_voucher_id join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference c on a.payment_number = c.payment_number join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration d on d.tbl_mst_bank_configuration_id = c.bank_configuration_id join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account e on debit_account_id = e.account_id and d.account_name like 'Subscriber Bank%3' and d.tbl_mst_bank_configuration_id = P.bank_configuration_id and c.reference_number = P.reference_number and c.clear_status=p.clear_status),'') as particulars,coalesce(p.paid_amount,0) as total_paid_amount,(select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank where tbl_mst_bank_id in(select distinct bank_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id=" + pBankAccountId + "))BANKNAME,(select bank_branch from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id in (select distinct branch_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference)) branchname,'CHEQUES ISSUED BUT NOT CLEARED' as groupType,0 as bankbalance FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference AS P where P.payment_DATE<='" + FormatDate(fromDate) + "' AND P.CLEAR_STATUS='N' and bank_configuration_id=" + pBankAccountId + "and p.paid_amount>0 order by chequedate;";
+                   // SELECT BS.tbl_mst_bank_configuration_id,CD.deposited_date::text as chequedate,CD.reference_number,CD.received_from PARTICULARS,CD.total_received_amount,(select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank where tbl_mst_bank_id in(select distinct bank_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id=" + pBankAccountId + ")) BANKNAME,BS.bank_branch as branchname,'CHEQUES DEPOSITED BUT NOT CREDITED' groupType,0 as bankbalance FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_receipt_reference CD JOIN " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration BS ON CD.deposited_bank_id=BS.tbl_mst_bank_configuration_id AND CD.deposit_status='P' AND CD.CLEAR_STATUS='N' AND deposited_date<='" + FormatDate(fromDate) + "' and BS.tbl_mst_bank_configuration_id=" + pBankAccountId + " AND CD.total_received_amount>0 " + Condition + " UNION ALL SELECT P.bank_configuration_id,P.payment_DATE::text,P.reference_number,P.paid_to ||' '||coalesce((select coalesce(e.account_name,'') from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher_details b on a.tbl_trans_payment_voucher_id=b.payment_voucher_id join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference c on a.payment_number=c.payment_number join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration d on d.tbl_mst_bank_configuration_id=c.bank_configuration_id join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_account e on debit_account_id=e.account_id and d.account_name like 'Subscriber Bank%3' and d.tbl_mst_bank_configuration_id=P.bank_configuration_id and c.reference_number=P.reference_number and c.clear_status=p.clear_status),'') as particulars,coalesce(p.paid_amount,0) as total_paid_amount,(select bank_name from " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank where tbl_mst_bank_id in(select distinct bank_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id=" + pBankAccountId + ")) BANKNAME,(select bank_branch from " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration where tbl_mst_bank_configuration_id in (select distinct branch_id from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference)) branchname,'CHEQUES ISSUED BUT NOT CLEARED' as groupType,0 as bankbalance FROM " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference P where P.payment_DATE<='" + FormatDate(fromDate) + "' AND P.CLEAR_STATUS='N' and bank_configuration_id=" + pBankAccountId + " and p.paid_amount>0 order by chequedate;
+
+                    using (NpgsqlCommand cmd6 = new NpgsqlCommand(Query, conn))
+                    using (NpgsqlDataReader dr = cmd6.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BRSDto _ObjBank = new BRSDto();
+                            _ObjBank.precordid = Convert.ToInt64(dr["tbl_mst_bank_configuration_id"]);
+                            _ObjBank.ptransactiondate = dr["chequedate"];
+                            _ObjBank.pChequeNumber = Convert.ToString(dr["reference_number"]);
+                            _ObjBank.pparticulars = Convert.ToString(dr["PARTICULARS"]);
+                            _ObjBank.ptotalreceivedamount = Convert.ToDecimal(dr["total_received_amount"]);
+                            _ObjBank.pBankName = Convert.ToString(dr["BANKNAME"]);
+                            _ObjBank.pBranchName = Convert.ToString(dr["BRANCHname"]);
+                            _ObjBank.pGroupType = Convert.ToString(dr["groupType"]);
+                            _ObjBank.pbankbalance = Convert.ToString(dr["bankbalance"]);
+                            _ObjBank.pBankBookBalance = BankBookBalance;
+                            lstBRS.Add(_ObjBank);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (lstBRS.Count == 0)
+        {
+            BRSDto _ObjBank = new BRSDto();
+            _ObjBank.pBankBookBalance = BankBookBalance;
+            lstBRS.Add(_ObjBank);
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstBRS;
+}
+
+
+
+public List<ReceiptReferenceDTO> GetIssuedCancelledChequesubi(string ConnectionString, string BrsFromDate, string BrsTodate, Int64 _BankId, string GlobalSchema, string BranchSchema,string BranchCode,string CompanyCode)
+{
+   List<ReceiptReferenceDTO> lstreceipts = new List<ReceiptReferenceDTO>();
+    string Query = string.Empty;
+    string strWhere = string.Empty;
+
+    try
+    {
+        if ((string.IsNullOrEmpty(BrsFromDate) && string.IsNullOrEmpty(BrsTodate)) || (BrsFromDate == null && BrsTodate == null))
+        {
+            Query = "select * from (select bank_configuration_id,a.payment_number,coalesce(a.payment_date::text,'')payment_date,a.total_paid_amount,b.modeof_payment,reference_number,bank_name,clear_status,coalesce(clear_date ::text,'')clear_date,coalesce(subscriber_details,paid_to)subscriber_details from (select payment_number,payment_date,total_paid_amount,credit_account_id,null as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher union all select payment_number,t1.transaction_date,transaction_amount,credit_account_id, groupcode||'-'||ticketno||'('||contact_mailing_name||')' as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_payment t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_chitgroup t2 on t1.chitgroup_id=t2.tbl_mst_chitgroup_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact t3 on t3.tbl_mst_contact_id=t1.contact_id) a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference b on a.payment_number = b.payment_number left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c on b.bank_configuration_id=c.tbl_mst_bank_configuration_id left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank d on c.bank_id=d.tbl_mst_bank_id  where clear_status in ('P','C','R') and case when " + _BankId + "=0 then credit_account_id>0 else tbl_mst_bank_configuration_id=" + _BankId + " and c.company_code='" + CompanyCode + "' and c.branch_code='" + BranchCode + "' end)tt;";
+            //select * from (select bank_configuration_id,a.payment_number,coalesce(a.payment_date::text,'')payment_date,a.total_paid_amount,b.modeof_payment,reference_number,bank_name,clear_status,coalesce(clear_date::text,'')clear_date,coalesce(subscriber_details,paid_to)subscriber_details from (select payment_number,payment_date,total_paid_amount,credit_account_id,null as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher union all select payment_number,t1.transaction_date,transaction_amount,credit_account_id,groupcode||'-'||ticketno||'('||contact_mailing_name||')' as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_payment t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_chitgroup t2 on t1.chitgroup_id=t2.tbl_mst_chitgroup_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact t3 on t3.tbl_mst_contact_id=t1.contact_id) a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference b on a.payment_number=b.payment_number left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c on b.bank_configuration_id=c.tbl_mst_bank_configuration_id left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank d on c.bank_id=d.tbl_mst_bank_id where clear_status in ('P','C','R') and case when " + _BankId + "=0 then credit_account_id>0 else tbl_mst_bank_configuration_id=" + _BankId + " end) tt;
+        }
+        else
+        {
+            Query = "select * from (select bank_configuration_id,a.payment_number,coalesce(a.payment_date::text,'')payment_date,a.total_paid_amount,b.modeof_payment,reference_number,bank_name,clear_status,coalesce(clear_date::text,'')clear_date,coalesce(subscriber_details,paid_to)subscriber_details from (select payment_number,payment_date,total_paid_amount,credit_account_id,null as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher union all select payment_number,t1.transaction_date,transaction_amount,credit_account_id, groupcode||'-'||ticketno||'('||contact_mailing_name||')' as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_payment t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_chitgroup t2 on t1.chitgroup_id=t2.tbl_mst_chitgroup_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact t3 on t3.tbl_mst_contact_id=t1.contact_id) a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference b on a.payment_number = b.payment_number left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c on b.bank_configuration_id=c.tbl_mst_bank_configuration_id left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank d on c.bank_id=d.tbl_mst_bank_id  where clear_status in ('P','C','R') and clear_date between '" + FormatDate(BrsFromDate) + "' and '" + FormatDate(BrsTodate) + "' and c.company_code='" + CompanyCode + "' and c.branch_code='" + BranchCode + "')tt where bank_configuration_id=" + _BankId + ";";
+          //  select * from (select bank_configuration_id,a.payment_number,coalesce(a.payment_date::text,'')payment_date,a.total_paid_amount,b.modeof_payment,reference_number,bank_name,clear_status,coalesce(clear_date::text,'')clear_date,coalesce(subscriber_details,paid_to)subscriber_details from (select payment_number,payment_date,total_paid_amount,credit_account_id,null as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher union all select payment_number,t1.transaction_date,transaction_amount,credit_account_id,groupcode||'-'||ticketno||'('||contact_mailing_name||')' as subscriber_details from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_payment t1 join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_chitgroup t2 on t1.chitgroup_id=t2.tbl_mst_chitgroup_id join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_contact t3 on t3.tbl_mst_contact_id=t1.contact_id) a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_reference b on a.payment_number=b.payment_number left join " + AddDoubleQuotes(BranchSchema) + ".tbl_mst_bank_configuration c on b.bank_configuration_id=c.tbl_mst_bank_configuration_id left join " + AddDoubleQuotes(GlobalSchema) + ".tbl_mst_bank d on c.bank_id=d.tbl_mst_bank_id where clear_status in ('P','C','R') and clear_date between '" + FormatDate(BrsFromDate) + "' and '" + FormatDate(BrsTodate) + "') tt where bank_configuration_id=" + _BankId + ";
+        }
+
+        using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+        {
+            con.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, con))
+            using (NpgsqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    ReceiptReferenceDTO _receiptsDTO = new ReceiptReferenceDTO();
+                    _receiptsDTO.preceiptid = Convert.ToString(dr["payment_number"]);
+                    _receiptsDTO.pChequenumber = "02" + Convert.ToString(dr["reference_number"]);
+                    _receiptsDTO.preceiptdate = dr["payment_date"];
+                    _receiptsDTO.ptotalreceivedamount = Convert.ToDecimal(dr["total_paid_amount"]);
+                    _receiptsDTO.ptypeofpayment = PayModes(Convert.ToString(dr["modeof_payment"]), "D");
+                    _receiptsDTO.pdepositeddate = dr["clear_date"];
+                    _receiptsDTO.pdepositbankid = dr["bank_configuration_id"];
+                    _receiptsDTO.pdepositbankname = Convert.ToString(dr["bank_name"]);
+                    _receiptsDTO.pchequestatus = Convert.ToString(dr["clear_status"]);
+                    _receiptsDTO.ppartyname = Convert.ToString(dr["subscriber_details"]);
+                    lstreceipts.Add(_receiptsDTO);
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstreceipts;
+}
+
+
+public List<AccountsDTO> GetCashAmountAccountWise(string type, string con, string GlobalSchema, string BranchSchema, string account_id, string transaction_date,string CompanyCode,string BranchCode)
+{
+    string strQuery = string.Empty;
+    List<AccountsDTO> lstaccounts = new List<AccountsDTO>();
+
+    try
+    {
+        if (type == "PAYMENT VOUCHER")
+        {
+            strQuery = "select debit_account_id as account_id,coalesce(sum(b.ledger_amount),0) amount from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher_details b on a.tbl_trans_payment_voucher_id=b.payment_voucher_id where modeof_payment='C' and payment_date='" + FormatDate(transaction_date) + "' and debit_account_id in (" + account_id + " ) and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' group by debit_account_id;";
+           // select debit_account_id as account_id,coalesce(sum(b.ledger_amount),0) amount from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_payment_voucher_details b on a.tbl_trans_payment_voucher_id=b.payment_voucher_id where modeof_payment='C' and payment_date='" + FormatDate(transaction_date) + "' and debit_account_id in (" + account_id + ") group by debit_account_id;
+        }
+        else if (type == "GENERAL RECEIPT")
+        {
+            strQuery = "select credit_account_id as account_id,sum(receipt_amount) amount from (select credit_account_id,coalesce(sum(b.ledger_amount),0)receipt_amount from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt_details b on a.tbl_trans_generalreceipt_id=b.generalreceipt_id where modeof_receipt='C' and receipt_date='" + FormatDate(transaction_date) + "' and credit_account_id in (" + account_id + ") and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' group by credit_account_id  union all select credit_account_id,coalesce(sum(b.receipt_amount), 0) from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_receipt a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_receipt_details b on a.tbl_trans_chit_receipt_id = b.chit_receipt_id where modeof_receipt = 'C' and chit_receipt_date = '" + FormatDate(transaction_date) + "' and credit_account_id in ( " + account_id + ")and a.company_code='" + CompanyCode + "' and a.branch_code='" + BranchCode + "'group by credit_account_id)t group by credit_account_id;";
+           // select credit_account_id as account_id,sum(receipt_amount) amount from (select credit_account_id,coalesce(sum(b.ledger_amount),0)receipt_amount from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_generalreceipt_details b on a.tbl_trans_generalreceipt_id=b.generalreceipt_id where modeof_receipt='C' and receipt_date='" + FormatDate(transaction_date) + "' and credit_account_id in (" + account_id + ") group by credit_account_id union all select credit_account_id,coalesce(sum(b.receipt_amount),0) from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_receipt a join " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_chit_receipt_details b on a.tbl_trans_chit_receipt_id=b.chit_receipt_id where modeof_receipt='C' and chit_receipt_date='" + FormatDate(transaction_date) + "' and credit_account_id in (" + account_id + ") group by credit_account_id) t group by credit_account_id;
+        }
+        else
+        {
+            strQuery = "";
+        }
+
+        if (!string.IsNullOrEmpty(strQuery))
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(con))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(strQuery, connection))
+                using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        lstaccounts.Add(new AccountsDTO
+                        {
+                            psubledgerid = dr["account_id"],
+                            accountbalance = dr["amount"]
+                        });
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstaccounts;
+}
+
+
+
+
+    public bool UnusedhequeCancel(string ConnectionString, string branchSchema, string globalSchema, IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode)
+{
+    bool isSaved = false;
+    StringBuilder Query = new StringBuilder();
+
+    try
+    {
+      NpgsqlConnection  con = new NpgsqlConnection(ConnectionString);
+        if (con.State != ConnectionState.Open)
+        {
+            con.Open();
+        }
+
+
+        if (issuedChequeDTO.lstIssuedCheque.Count > 0)
+        {
+            for (int i = 0; i < issuedChequeDTO.lstIssuedCheque.Count; i++)
+            {
+                Query.Append("update " + AddDoubleQuotes(branchSchema) + ".tbl_mst_cheques set cheque_status= 'Cancelled' where bank_configuration_id=" + issuedChequeDTO.lstIssuedCheque[i].pbankaccountid + "  and cheque_book_id=" + issuedChequeDTO.lstIssuedCheque[i].pchkBookId + " and cheque_number=" + issuedChequeDTO.lstIssuedCheque[i].pchequenumber + " and cheque_status!='Cancelled' and company_code='"+CompanyCode+"' and branch_code='"+BranchCode+"'");
+               // update " + AddDoubleQuotes(branchSchema) + ".tbl_mst_cheques set cheque_status='Cancelled' where bank_configuration_id=" + issuedChequeDTO.lstIssuedCheque[i].pbankaccountid + " and cheque_book_id=" + issuedChequeDTO.lstIssuedCheque[i].pchkBookId + " and cheque_number=" + issuedChequeDTO.lstIssuedCheque[i].pchequenumber + " and cheque_status!='Cancelled';
+            }
+        }
+
+        if (Query.Length > 0)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query.ToString(), con))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            }
+
+            isSaved = true;
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+   
+
+    return isSaved;
 }
 
 

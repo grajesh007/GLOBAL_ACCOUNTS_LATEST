@@ -1319,7 +1319,114 @@ namespace Kapil_Group_ERP_API.Controllers
         }
 
        
+ [HttpGet("GetInitialPVDetails")]
+        public IActionResult GetInitialPVDetails(string fromdate, string todate, string transtype, string localSchema,string Branchcode,string CompanyCode,string GlobalSchema)
+        {
+            List<InitialPaymentVoucherDTO> paymentlistdetails = new List<InitialPaymentVoucherDTO>();
+            try
+            {
+                paymentlistdetails = _accountDal.GetInitialPVDetails(_con, fromdate, todate, transtype, localSchema, GlobalSchema,Branchcode,CompanyCode);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            return Ok(paymentlistdetails);
+        }
 
-    }
-        
+
+         [HttpGet("GetPendingautoBRSDetailsIssued")]
+        public  IActionResult GetPendingautoBRSDetailsIssued(string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode)
+        {
+            List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+            try
+            {
+                lstPendingautoBRS = _accountDal.GetPendingautoBRSDetailsIssued(_con, BranchSchema, allocationstatus,BranchCode,CompanyCode);
+
+                return Ok(lstPendingautoBRS);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+
+        }
+
+
+  [HttpGet("GetBrs")]
+        public IActionResult GetBrs(string fromDate, long _pBankAccountId, string BranchSchema,string branchCode,string companyCode,string GlobalSchema)
+        {
+           BRSDto _BRSDto = new BRSDto();
+            try
+            {
+                _BRSDto.lstBRSDto = _accountDal.GetBrs(_con, fromDate, _pBankAccountId, BranchSchema, GlobalSchema,branchCode,companyCode);                
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            return Ok(_BRSDto.lstBRSDto);
+        }
+
+
+
+        [HttpGet("GetIssuedCancelledCheques_Newubi")]
+        public IActionResult GetIssuedCancelledCheques_Newubi(string BrsFromDate, string BrsTodate, Int64 _BankId, string BranchSchema,string BranchCode,string CompanyCode,string GlobalSchema)
+        {
+           ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
+            try
+            {
+                _ChequesOnHandDTO.pchequesclearreturnlist = _accountDal.GetIssuedCancelledChequesubi(_con, BrsFromDate, BrsTodate, _BankId, GlobalSchema, BranchSchema,BranchCode,CompanyCode);
+
+                return Ok(_ChequesOnHandDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+         [HttpGet("GetCashAmountAccountWise")]
+        public  IActionResult GetCashAmountAccountWise(string formname, string BranchSchema, string account_id, string transaction_date,string GlobalSchema,string CompanyCode,string BranchCode)
+        {
+
+            List<AccountsDTO> lstAccounts = new List<AccountsDTO>();
+            try
+            {
+                lstAccounts = _accountDal.GetCashAmountAccountWise(formname, _con, GlobalSchema, BranchSchema, account_id, transaction_date,CompanyCode,BranchCode);
+                return Ok(lstAccounts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpPost("UnusedhequeCancel")]
+
+        public IActionResult UnusedhequeCancel(IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode,string branchSchema,string GlobalSchema)
+        {
+            bool isSaved = false;
+            try
+            {
+                isSaved = _accountDal.UnusedhequeCancel(_con, issuedChequeDTO.branchSchema, GlobalSchema, issuedChequeDTO, BranchCode, CompanyCode);
+                return Ok(isSaved);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+       
+
+
+
+
+
+    }  
 }

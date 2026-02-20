@@ -276,12 +276,6 @@ List<Modeoftransaction> GetModeoftransactions(string ConnectionString, string Gl
   
   
   
-  //  #region GetCheckDuplicateDebitCardNo
-    
-
-
-  //   #endregion GetCheckDuplicateDebitCardNo
-
 
 List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
             string paymentId,
@@ -309,23 +303,26 @@ List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
 
                     List<GeneralReceiptSubDetails> GetChitReceiptCancelDetailsReportData(string paymentId, object contact_id, string Connectionstring, string LocalSchema, string GlobalSchema,string branchCode,string companyCode);
 
-    //                 CheckDuplicateBankDetailsDTO GetCheckDuplicateDebitCardNo(
-    // string connectionString,
-    // string? branchSchema,
-    // string? companyCode,
-    // string? branchCode,
-    // int? debitCardRecordId,
-    // string? debitCardNo,
-    // int? upiRecordId,
-    // string? upiId,
-    // int? accountRecordId,
-    // string? accountNumber);
 
     List<string> GetCheckDuplicateDebitCardNo(string ConnectionString, string GlobalSchema, BankInformationDTO lstBankInformation,string companycode,string branchcode);
 
     ChequesOnHandDTO GetBankBalance1(string brstodate,long recordid, string con, string BranchSchema,string branchCode,string companyCode);
 
     List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode);
+
+   List<InitialPaymentVoucherDTO> GetInitialPVDetails(string connectionstring, string fromdate, string todate, string transtype, string localSchema, string GlobalSchema,string CompanyCode,string Branchcode);
+
+
+   List<ReceiptReferenceDTO> GetPendingautoBRSDetailsIssued(string ConnectionString, string BranchSchema, string allocationstatus,string BranchCode,string CompanyCode);
+
+   List<BRSDto> GetBrs(string con, string fromDate, long pBankAccountId, string BranchSchema, string GlobalSchema,string branchCode,string companyCode);
+
+   List<ReceiptReferenceDTO> GetIssuedCancelledChequesubi(string ConnectionString, string BrsFromDate, string BrsTodate, Int64 _BankId, string GlobalSchema, string BranchSchema,string BranchCode,string CompanyCode);
+
+   List<AccountsDTO> GetCashAmountAccountWise(string type, string con, string GlobalSchema, string BranchSchema, string account_id, string transaction_date,string CompanyCode,string BranchCode);
+
+  bool UnusedhequeCancel(string ConnectionString, string branchSchema, string globalSchema, IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode);
+
 
   }
 }

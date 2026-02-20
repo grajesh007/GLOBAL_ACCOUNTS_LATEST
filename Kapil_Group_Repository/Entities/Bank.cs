@@ -392,7 +392,7 @@ namespace Kapil_Group_Repository.Entities
         public long pchequeNoFrom { get; set; }
         public long pchequeNoTo { get; set; }
         public long pchkBookId { get; set; }
-        public List<IssuedChequeDTO> lstIssuedCheque { get; set; }
+    public List<IssuedChequeItemDTO> lstIssuedCheque { get; set; }
         public string pchqfromto { get; set; }
         public string pchequenumber { get; set; }
         public string ppaymentid { get; set; }
@@ -408,6 +408,13 @@ namespace Kapil_Group_Repository.Entities
     }
 
     #endregion IssuedChequeDTO...
+    public class IssuedChequeItemDTO
+{
+    public long pbankaccountid { get; set; }
+    public long pchkBookId { get; set; }
+    public string pchequenumber { get; set; }
+}
+
 
   #region cashBookDto...
      public class cashBookDto : AccountReportsDTO
@@ -959,6 +966,80 @@ namespace Kapil_Group_Repository.Entities
         public object pPaidamount { get; set; }
         public object pChequeno { get; set; }
         public object pBankname { get; set; }
+
+    }
+
+    public class BRSDto : AccountReportsDTO
+    {
+        public string pChequeNumber { get; set; }
+        public decimal ptotalreceivedamount { get; set; }
+        public string pBankName { get; set; }
+        public string pBranchName { get; set; }
+        public string pGroupType { get; set; }
+        public decimal pBankBookBalance { get; set; }
+        public object selfchequestatus { get; set; }
+        public object receiptrecordid { get; set; }
+        public object receiptid { get; set; }
+        public object receiptdate { get; set; }
+        public object total_received_amount { get; set; }
+        public object contact_name { get; set; }
+        public object modeof_receipt { get; set; }
+        public object reference_number { get; set; }
+        public object chequedate { get; set; }
+        public object deposit_status { get; set; }
+        public object depositebankid { get; set; }
+        public object depositeddate { get; set; }
+        public object clear_date { get; set; }
+        public object cheque_bank { get; set; }
+        public object receipt_branch_name { get; set; }
+        public object received_form { get; set; }
+        public object chit_receipt_number { get; set; }
+        public object transaction_no { get; set; }
+        public object transaction_date { get; set; }
+        public List<BRSDto> lstBRSDto { get; set; }
+        public List<BRSDto> lstBRSDto1 { get; set; }
+        public object ptransactionTime { get; set; }
+        public object pUserName { get; set; }
+        
+        // added below on 25.12.2024
+        public object pbrsdate { get; set; }
+        public object pbankbalance { get; set; }
+        public object preferencetext { get; set; }
+
+    }
+
+      public class TDSJVDetails 
+    {
+        public object account_id { get; set; }
+        public object account_trans_type { get; set; }
+        public object particulars { get; set; }
+        public object debit_amount { get; set; }
+        public object credit_amount { get; set; }
+        public object payroll_month { get; set; }
+        public object transaction_date { get; set; }
+        public object jv_type { get; set; }
+        public object creditledger { get; set; }
+    }
+
+
+
+        public class ChequesRowCountDTO
+    {
+        public object cheques_count { get; set; }
+        public object others_count { get; set; }
+        public object total_count { get; set; }
+        public object clear_count { get; set; }
+        public object return_count { get; set; }
+        public object cancel_count { get; set; }
+
+        public object clearedcount { get; set; }
+        public object pendingcount { get; set; }
+        public object totalcount { get; set; }
+        public object clearedamount { get; set; }
+        public object pendingamount { get; set; }
+        public object totalamount { get; set; }
+
+        public object matchedcount { get; set; }
 
     }
 }
