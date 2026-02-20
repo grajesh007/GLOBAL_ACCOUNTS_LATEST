@@ -324,6 +324,46 @@ List<PaymentVoucherReportDTO> GetPaymentVoucherReportData(
   bool UnusedhequeCancel(string ConnectionString, string branchSchema, string globalSchema, IssuedChequeDTO issuedChequeDTO,string BranchCode,string CompanyCode);
 
 
+  #region PendingautoBRSDetails...
+    //List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode);
+
+    #endregion PendingautoBRSDetails...
+
+    #region subledgerdata...
+    List<SubLedgerdata> GetSubLedgersdata(string connectionString, string? branchSchema, string? companyCode, string? branchCode, long? ledgerId);
+
+    #endregion subledgerdata...
+
+    #region BrsBankBalance...
+    List<BrsBankBalance> GetBrsBankBalance(string connectionString, string BranchSchema, int pBankAccountId, DateTime fromDate, string company_code, string branch_code);
+
+    #endregion BrsBankBalance...
+
+    #region ChequeReturnCharges...
+
+    List<ChequeReturnCharges> GetChequeReturnCharges(string connectionString, string GlobalSchema, string companyCode, string branchCode);
+
+    #endregion ChequeReturnCharges...
+
+    #region JournalVoucherData...
+    List<JournalVoucherData> GetJournalVoucherData(string connectionString, string BranchSchema, string CompanyCode, string BranchCode);
+
+    #endregion JournalVoucherData...
+
+    #region GlobalBanks...
+    List<GlobalBanks> GetGlobalBanks(string connectionString, string GlobalSchema);
+
+    #endregion GlobalBanks...
+
+
+    #region ChequeCancelDetails...
+    List<ChequeCancelDetails> GetChequeCancelDetails(string connectionString, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, string fromDate, string toDate);
+
+    #endregion ChequeCancelDetails...
+
+
+
+
   }
 }
 

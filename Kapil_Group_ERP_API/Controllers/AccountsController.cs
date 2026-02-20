@@ -1422,6 +1422,147 @@ namespace Kapil_Group_ERP_API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+
+        // #region PendingautoBRSDetails...
+
+        // [HttpGet("GetPendingautoBRSDetails")]
+        // public IActionResult GetPendingautoBRSDetails(string BranchSchema, string allocationstatus, string GlobalSchema, string BranchCode, string CompanyCode)
+        // {
+        //     List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+        //     try
+        //     {
+        //         lstPendingautoBRS = _accountDal.GetPendingautoBRSDetails(_con, GlobalSchema, BranchSchema, allocationstatus, BranchCode, CompanyCode);
+
+        //         return Ok(lstPendingautoBRS);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError);
+
+        //     }
+
+        // }
+
+        //#endregion PendingautoBRSDetails...
+
+        #region subledgersdata...
+
+        [HttpGet("GetSubLedgersdata")]
+        public IActionResult GetSubLedgerdata(string? branchSchema = null, string? companyCode = null, string? BranchCode = null, long? ledgerId = null)
+        {
+            try
+            {
+                var result = _accountDal.GetSubLedgersdata(_con, branchSchema, companyCode, BranchCode ?? BranchCode, ledgerId);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        #endregion subledgerdata...
+
+        #region BrsBankBalance...
+
+        [HttpGet("GetBrsBankBalance")]
+        public IActionResult GetBrsBankBalance(string? BranchSchema = null, int? pBankAccountId = null, DateTime? fromDate = null, string? company_code = null, string? branch_code = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetBrsBankBalance(_con, BranchSchema, pBankAccountId.Value, fromDate.Value, company_code, branch_code);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+        #endregion BrsBankBalance...
+
+        #region ChequeReturnCharges...
+
+        [HttpGet("GetChequeReturnCharges")]
+        public IActionResult GetChequeReturnCharges(string? GlobalSchema = null, string? companyCode = null, string? branchCode = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetChequeReturnCharges(_con, GlobalSchema, companyCode, branchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+        #endregion ChequeReturnCharges...
+
+        #region  JournalVoucherData...
+
+        [HttpGet("GetJournalVoucherData")]
+        public IActionResult GetJournalVoucherData(string? BranchSchema = null, string? CompanyCode = null, string? BranchCode = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetJournalVoucherData(_con, BranchSchema, CompanyCode, BranchCode);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+        #endregion JournalVoucherData...
+
+        #region GlobalBanks...
+
+        [HttpGet("GetGlobalBanks")]
+        public IActionResult GetGlobalBanks(string? GlobalSchema = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetGlobalBanks(_con, GlobalSchema);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+
+        #endregion GlobalBanks...
+
+        #region ChequeCancelDetails...
+
+        [HttpGet("GetChequeCancelDetails")]
+        public IActionResult GetChequeCancelDetails(string? BranchSchema = null, string? GlobalSchema = null, string? CompanyCode = null, string? BranchCode = null, string? fromDate = null, string? toDate = null)
+        {
+            try
+            {
+
+                var banks = _accountDal.GetChequeCancelDetails(_con, BranchSchema, GlobalSchema, CompanyCode, BranchCode, fromDate, toDate);
+                return Ok(banks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
+
+        #endregion ChequeCancelDetails...
+
+
        
 
 

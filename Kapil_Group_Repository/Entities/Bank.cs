@@ -1042,4 +1042,89 @@ namespace Kapil_Group_Repository.Entities
         public object matchedcount { get; set; }
 
     }
+
+
+
+    
+  
+
+    #region subledgerdata...
+
+    public class SubLedgerdata : BaseEntity
+    {
+        public long AccountId { get; set; }
+
+        public string AccountName { get; set; } = string.Empty;
+
+        public decimal Balance { get; set; }
+
+    }
+
+    #endregion subledgerdata...
+
+    #region  BrsBankBalance...
+
+    public class BrsBankBalance : BaseEntity
+    {
+        public int BankAccountId { get; set; }
+
+        public decimal BankBookBalance { get; set; }
+    }
+
+    #endregion BrsBankBalance...
+
+    #region ChequeReturnCharges...
+
+    public class ChequeReturnCharges : BaseEntity
+    {
+        public decimal ChargeAmount { get; set; }
+    }
+
+    #endregion ChequeReturnCharges...
+
+    #region JournalVoucherData...
+
+    public class JournalVoucherData : BaseEntity
+
+    {
+
+        public long JournalVoucherId { get; set; }
+        public string JVDate { get; set; } = string.Empty;
+        public string JournalVoucherNo { get; set; } = string.Empty;
+        public decimal Amount { get; set; }
+        public string Narration { get; set; } = string.Empty;
+
+    }
+
+
+    #endregion JournalVoucherData...
+
+    #region GlobalBanks...
+
+    public class GlobalBanks : BaseEntity
+    {
+        public long BankId { get; set; }
+        public string BankName { get; set; } = string.Empty;
+
+    }
+
+    #endregion GlobalBanks...
+
+    #region ChequeCancelDetails...
+
+    public class ChequeCancelDetails : BaseEntity
+    {
+        public string DepositedDate { get; set; } = string.Empty;
+        public string ReferenceNumber { get; set; } = string.Empty;
+        public decimal TotalReceivedAmount { get; set; }
+        public string BankName { get; set; } = string.Empty;
+        public string ReceiptNumber { get; set; } = string.Empty;
+        public string Particulars { get; set; } = string.Empty;
+        public string ReceiptDate { get; set; } = string.Empty;
+
+    }
+
+    #endregion ChequeCancelDetails...
+	
+	
 }

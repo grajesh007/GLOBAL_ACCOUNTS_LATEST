@@ -4899,6 +4899,489 @@ public List<AccountsDTO> GetCashAmountAccountWise(string type, string con, strin
 }
 
 
+//  public List<ReceiptReferenceDTO> GetPendingautoBRSDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string allocationstatus, string BranchCode, string CompanyCode)
+//         {
+//             string strWhere = string.Empty;
+//             List<ReceiptReferenceDTO> lstPendingautoBRS = new List<ReceiptReferenceDTO>();
+
+//             try
+//             {
+//                 if (!string.IsNullOrEmpty(allocationstatus))
+//                 {
+//                     strWhere = " where status=true and allocation_status='" + allocationstatus + "'";
+//                 }
+//                 else
+//                 {
+//                     strWhere = " where status=true ";
+//                 }
+
+//                 string Query = "select created_Date,transaction_date,reference_number,amount,modeof_receipt,receipt_type,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp " + strWhere + " and company_code='" + CompanyCode + "' and branch_code='" + BranchCode + "' order by created_Date";
+//                 //select created_Date,transaction_date,reference_number,amount,modeof_receipt,receipt_type,reference_text from " + AddDoubleQuotes(BranchSchema) + ".tbl_trans_brs_auto_temp " + strWhere + " order by created_Date;
+
+//                 using (NpgsqlConnection con = new NpgsqlConnection(ConnectionString))
+//                 {
+//                     con.Open();
+
+//                     using (NpgsqlCommand cmd = new NpgsqlCommand(Query, con))
+//                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
+//                     {
+//                         while (dr.Read())
+//                         {
+//                             lstPendingautoBRS.Add(new ReceiptReferenceDTO
+//                             {
+//                                 puploadeddate = dr["created_Date"],
+//                                 transactiondate = dr["transaction_date"],
+//                                 pChequenumber = dr["reference_number"],
+//                                 ptotalreceivedamount = dr["amount"],
+//                                 pmodofreceipt = dr["modeof_receipt"],
+//                                 preceiptype = dr["receipt_type"],
+//                                 preferencetext = dr["reference_text"],
+//                             });
+//                         }
+//                     }
+//                 }
+//             }
+//             catch (Exception ex)
+//             {
+//                 throw ex;
+//             }
+
+//             return lstPendingautoBRS;
+//         }
+        
+
+        #region subledgerdata...
+
+        public List<SubLedgerdata> GetSubLedgersdata(
+            string connectionString,
+            string? branchSchema,
+            string? companyCode,
+            string? branchCode,
+            long? ledgerId)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is required");
+
+            if (string.IsNullOrWhiteSpace(branchSchema) ||
+                string.IsNullOrWhiteSpace(companyCode) ||
+                string.IsNullOrWhiteSpace(branchCode) ||
+                !ledgerId.HasValue || ledgerId.Value <= 0)
+            {
+                return new List<SubLedgerdata>();
+            }
+
+
+            var schema = AddDoubleQuotes(branchSchema.Trim());
+
+            var accountList = new List<SubLedgerdata>();
+
+            using var con = new NpgsqlConnection(connectionString);
+            con.Open();
+
+            using var cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+
+            cmd.CommandText = $@"
+        SELECT 
+            t1.account_id,
+            t1.account_name,
+            SUM(COALESCE(t2.debitamount, 0) - COALESCE(t2.creditamount, 0)) AS balance
+        FROM {schema}.tbl_mst_account t1
+        LEFT JOIN {schema}.tbl_trans_total_transactions t2
+            ON t1.account_id = t2.account_id
+        WHERE t1.parent_id = @LedgerId
+          AND t1.chracc_type = '3'
+          AND t1.status = 'true'
+          AND t1.company_code = @CompanyCode
+          AND t1.branch_code = @BranchCode
+        GROUP BY t1.account_id, t1.account_name
+        ORDER BY t1.account_name;
+    ";
+
+            cmd.Parameters.AddWithValue("@LedgerId", ledgerId.Value);
+            cmd.Parameters.AddWithValue("@CompanyCode", companyCode);
+            cmd.Parameters.AddWithValue("@BranchCode", branchCode);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                accountList.Add(new SubLedgerdata
+                {
+                    AccountId = reader.GetInt32(0),
+                    AccountName = reader.GetString(1),
+                    Balance = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2)
+                });
+            }
+
+            return accountList;
+        }
+
+
+        private string AddDoubleQuotes(string schema)
+        {
+            return $"\"{schema.Trim()}\"";
+        }
+
+        #endregion subledgerdata...
+
+        #region GetBrsBankBalance...
+
+
+        public List<BrsBankBalance> GetBrsBankBalance(
+            string connectionString,
+            string BranchSchema,
+            int pBankAccountId,
+            DateTime fromDate,
+            string company_code,
+            string branch_code)
+        {
+            List<BrsBankBalance> balances = new List<BrsBankBalance>();
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+            try
+            {
+                NpgsqlConnectionStringBuilder builder;
+                try
+                {
+                    builder = new NpgsqlConnectionStringBuilder(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+                }
+
+                using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+                {
+                    con.Open();
+                    Console.WriteLine(con.State);
+
+                    using var cmd = con.CreateCommand();
+
+
+                    cmd.CommandText = $@"
+                SELECT t1.tbl_mst_bank_configuration_id AS BankAccountId,
+                       COALESCE(SUM(COALESCE(debitamount,0) - COALESCE(creditamount,0)),0) AS BankBookBalance
+                FROM {AddDoubleQuotes(BranchSchema)}.tbl_mst_bank_configuration t1
+                JOIN {AddDoubleQuotes(BranchSchema)}.tbl_trans_total_transactions t2
+                  ON t1.bank_account_id = t2.parent_id
+                WHERE t1.tbl_mst_bank_configuration_id = @BankAccountId
+                  AND transaction_date <= @FromDate
+                  AND t1.company_code = @CompanyCode
+                  AND t1.branch_code = @BranchCode
+                GROUP BY t1.tbl_mst_bank_configuration_id;";
+
+                    cmd.Parameters.AddWithValue("BankAccountId", pBankAccountId);
+                    cmd.Parameters.AddWithValue("FromDate", fromDate);
+                    cmd.Parameters.AddWithValue("CompanyCode", company_code);
+                    cmd.Parameters.AddWithValue("BranchCode", branch_code);
+
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        BrsBankBalance obj = new BrsBankBalance
+                        {
+                            BankAccountId = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            BankBookBalance = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1)
+                        };
+
+                        balances.Add(obj);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to retrieve bank book balance (schema={BranchSchema}). See inner exception for details.", ex);
+            }
+
+            return balances;
+        }
+
+        #endregion GetBrsBankBalance...
+
+        #region GetChequeReturnCharges...
+
+
+        public List<ChequeReturnCharges> GetChequeReturnCharges(
+            string connectionString,
+            string GlobalSchema,
+            string companyCode,
+            string branchCode)
+        {
+            List<ChequeReturnCharges> chargesList = new List<ChequeReturnCharges>();
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+            try
+            {
+                NpgsqlConnectionStringBuilder builder;
+                try
+                {
+                    builder = new NpgsqlConnectionStringBuilder(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+                }
+
+                using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+                {
+                    con.Open();
+
+                    using var cmd = con.CreateCommand();
+                    cmd.CommandText = $@"
+                SELECT a.chequereturn_charges_amount
+                FROM {AddDoubleQuotes(GlobalSchema)}.tbl_mst_chit_company_configuration a
+                JOIN {AddDoubleQuotes(GlobalSchema)}.tbl_mst_branch_configuration b
+                  ON b.company_configuration_id = a.tbl_mst_chit_company_configuration_id
+                WHERE b.branch_code = @BranchCode
+                  AND a.company_code = @CompanyCode;";
+
+                    cmd.Parameters.AddWithValue("BranchCode", branchCode);
+                    cmd.Parameters.AddWithValue("CompanyCode", companyCode);
+
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        chargesList.Add(new ChequeReturnCharges
+                        {
+                            ChargeAmount = reader.IsDBNull(0) ? 0m : reader.GetDecimal(0)
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to retrieve cheque return charges (schema={GlobalSchema}). See inner exception for details.", ex);
+            }
+
+            Console.WriteLine($"Total rows retrieved: {chargesList.Count}");
+            return chargesList;
+        }
+
+        #endregion GetChequeReturnCharges...
+
+        #region JournalVoucherData...
+
+        public List<JournalVoucherData> GetJournalVoucherData(string connectionString, string BranchSchema, string CompanyCode, string BranchCode)
+        {
+            List<JournalVoucherData> journalList = new List<JournalVoucherData>();
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+            try
+            {
+                NpgsqlConnectionStringBuilder builder;
+                try
+                {
+                    builder = new NpgsqlConnectionStringBuilder(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+                }
+
+                using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+                {
+                    con.Open();
+
+                    using var cmd = con.CreateCommand();
+                    cmd.CommandText = $@"
+                SELECT 
+                    t1.tbl_trans_journal_voucher_id,
+                    COALESCE(t1.journal_voucher_date::text,'') AS jvdate,
+                    t1.journal_voucher_no,
+                    SUM(t2.ledger_amount) AS Amount,
+                    COALESCE(t1.narration,'') AS Narration
+                FROM {AddDoubleQuotes(BranchSchema)}.tbl_trans_journal_voucher t1
+                JOIN {AddDoubleQuotes(BranchSchema)}.tbl_trans_journal_voucher_details t2
+                  ON t1.tbl_trans_journal_voucher_id = t2.journal_voucher_id
+                WHERE t2.account_trans_type = 'D'
+                  AND t1.journal_voucher_date = CURRENT_DATE
+                  AND t1.company_code = @CompanyCode
+                  AND t1.branch_code = @BranchCode
+                GROUP BY t1.tbl_trans_journal_voucher_id, t1.journal_voucher_date, t1.journal_voucher_no, t1.narration
+                ORDER BY t1.tbl_trans_journal_voucher_id DESC;";
+
+                    cmd.Parameters.AddWithValue("CompanyCode", CompanyCode);
+                    cmd.Parameters.AddWithValue("BranchCode", BranchCode);
+
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        journalList.Add(new JournalVoucherData
+                        {
+                            JournalVoucherId = reader.IsDBNull(0) ? 0 : reader.GetInt64(0),
+                            JVDate = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+                            JournalVoucherNo = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+                            Amount = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3),
+                            Narration = reader.IsDBNull(4) ? string.Empty : reader.GetString(4)
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to retrieve today’s journal vouchers (schema={BranchSchema}). See inner exception for details.", ex);
+            }
+
+            Console.WriteLine($"Total journal vouchers retrieved: {journalList.Count}");
+            return journalList;
+        }
+
+        #endregion JournalVoucherData...
+
+        #region GlobalBanks...
+
+        public List<GlobalBanks> GetGlobalBanks(string connectionString, string GlobalSchema)
+        {
+            List<GlobalBanks> bankList = new List<GlobalBanks>();
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+            try
+            {
+                // Validate/parse connection string
+                NpgsqlConnectionStringBuilder builder;
+                try
+                {
+                    builder = new NpgsqlConnectionStringBuilder(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+                }
+
+                using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+                {
+                    con.Open();
+
+                    using var cmd = con.CreateCommand();
+                    cmd.CommandText = $@"
+                SELECT tbl_mst_bank_id, bank_name
+                FROM {AddDoubleQuotes(GlobalSchema)}.tbl_mst_bank
+                WHERE status = TRUE
+                ORDER BY bank_name;";
+
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        bankList.Add(new GlobalBanks
+                        {
+                            BankId = reader.IsDBNull(0) ? 0 : reader.GetInt64(0),
+                            BankName = reader.IsDBNull(1) ? string.Empty : reader.GetString(1)
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to retrieve active banks (schema={GlobalSchema}). See inner exception for details.", ex);
+            }
+
+            Console.WriteLine($"Total active banks retrieved: {bankList.Count}");
+            return bankList;
+        }
+
+        #endregion GlobalBanks...
+
+        #region ChequeCancelDetails...
+
+        public List<ChequeCancelDetails> GetChequeCancelDetails(string connectionString, string BranchSchema, string GlobalSchema, string CompanyCode, string BranchCode, string fromDate, string toDate)
+        {
+            List<ChequeCancelDetails> receiptList = new List<ChequeCancelDetails>();
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string is null or empty", nameof(connectionString));
+
+            try
+            {
+                NpgsqlConnectionStringBuilder builder;
+                try
+                {
+                    builder = new NpgsqlConnectionStringBuilder(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Invalid connection string format", nameof(connectionString), ex);
+                }
+
+                using (NpgsqlConnection con = new NpgsqlConnection(builder.ConnectionString))
+                {
+                    con.Open();
+
+                    using var cmd = con.CreateCommand();
+                    cmd.CommandText = $@"
+                SELECT 
+                    t1.deposited_date::text,
+                    t1.reference_number,
+                    t1.total_received_amount,
+                    t2.bank_name,
+                    t1.receipt_number,
+                    t1.received_from AS particulars,
+                    t3.receipt_date::text
+                FROM {AddDoubleQuotes(BranchSchema)}.tbl_trans_receipt_reference t1
+                JOIN {AddDoubleQuotes(GlobalSchema)}.tbl_mst_bank t2 
+                  ON t2.tbl_mst_bank_id = t1.receipt_bank_id
+                JOIN (
+                    SELECT receipt_number, receipt_date FROM {AddDoubleQuotes(BranchSchema)}.tbl_trans_generalreceipt
+                    UNION ALL
+                    SELECT comman_receipt_number::text, chit_receipt_date FROM {AddDoubleQuotes(BranchSchema)}.tbl_trans_chit_receipt
+                    UNION ALL
+                    SELECT comman_receipt_number::text, chit_receipt_date FROM {AddDoubleQuotes(BranchSchema)}.tbl_trans_pso_chit_receipt
+                ) t3 ON t1.receipt_number = t3.receipt_number
+                WHERE t1.deposit_status = 'C'
+                  AND t1.deposited_date BETWEEN @FromDate::DATE AND @ToDate::DATE
+                  AND t1.company_code = @CompanyCode
+                  AND t1.branch_code = @BranchCode
+                ORDER BY t1.deposited_date DESC;";
+
+
+                    cmd.Parameters.AddWithValue("FromDate", fromDate);
+                    cmd.Parameters.AddWithValue("ToDate", toDate);
+                    cmd.Parameters.AddWithValue("CompanyCode", CompanyCode);
+                    cmd.Parameters.AddWithValue("BranchCode", BranchCode);
+
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        receiptList.Add(new ChequeCancelDetails
+                        {
+                            DepositedDate = reader.IsDBNull(0) ? string.Empty : reader.GetString(0),
+                            ReferenceNumber = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+                            TotalReceivedAmount = reader.IsDBNull(2) ? 0m : reader.GetDecimal(2),
+                            BankName = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
+                            ReceiptNumber = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
+                            Particulars = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
+                            ReceiptDate = reader.IsDBNull(6) ? string.Empty : reader.GetString(6)
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to retrieve deposited receipts (schema={BranchSchema}). See inner exception for details.", ex);
+            }
+
+            Console.WriteLine($"Total deposited receipts retrieved: {receiptList.Count}");
+            return receiptList;
+        }
+
+        #endregion ChequeCancelDetails...
+
+
+
+
+
 
 
 

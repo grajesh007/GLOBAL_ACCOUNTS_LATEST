@@ -73,19 +73,6 @@ C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATES
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\VeerendraAshwin\GLOBAL_ACCOUNTS_API\GLOBAL_ACCOUNTS_LATEST\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.deps.json
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.dll
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.pdb
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.AssemblyReference.cache
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.GeneratedMSBuildEditorConfig.editorconfig
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.dll
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\refint\Kapil_Group_Repository.dll
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.pdb
-D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\ref\Kapil_Group_Repository.dll
 >>>>>>> 76121ed0481e35025fc7ca6ae4c5bf29547aa551
 E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.deps.json
 E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.dll
@@ -100,3 +87,16 @@ E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.
 E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\refint\Kapil_Group_Repository.dll
 E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.pdb
 E:\karthik\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\ref\Kapil_Group_Repository.dll
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.deps.json
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.dll
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\bin\Debug\net8.0\Kapil_Group_Repository.pdb
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.AssemblyReference.cache
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfoInputs.cache
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.AssemblyInfo.cs
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.csproj.CoreCompileInputs.cache
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.sourcelink.json
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.dll
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\refint\Kapil_Group_Repository.dll
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\Kapil_Group_Repository.pdb
+D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_Repository\obj\Debug\net8.0\ref\Kapil_Group_Repository.dll
