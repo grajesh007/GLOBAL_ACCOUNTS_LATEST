@@ -527,6 +527,15 @@ List<ReceiptReferenceDTO> GetCashOnHandDetails(
     List<DayBookDto> getDaybookTotals(string ConnectionString, string fromdate, string todate, string Ason, string BranchSchema, string GlobalSchema,string branchCode,string companyCode);
 
      List<PendingTransferDTO> GetPendingTransferDetails(string connectionString, string GlobalSchema, string BranchSchema, string Caoschema, string ptypeofpayment,string CompanyCode,string BranchCode);
+
+
+     long GetTDSJVDetailsDuplicateCheck(string connectionString, string globalSchema, string branchschema, string jVType, string monthYear,string CompanyCode,string branchcode);
+
+     
+List<AccountReportsDTO> GetPartyLedgerDetails(string con, string fromDate, string toDate, long pAccountId, long pSubAccountId, string pPartyRefId, string BranchSchema, string GlobalSchema, string branchCode, string companyCode);
+
+
+
   }
 }
 

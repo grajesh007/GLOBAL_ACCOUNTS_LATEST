@@ -2055,5 +2055,63 @@ namespace Kapil_Group_ERP_API.Controllers
             }
         }
 
+          [HttpGet("GetTDSJVDetailsDuplicateCheck")]
+        
+public ActionResult<decimal> GetTDSJVDetailsDuplicateCheck(
+    string Branchschema,
+    string JVType,
+    string MonthYear,
+    string GlobalSchema,
+    string CompanyCode,
+    string branchcode)
+{
+    long count = 0;
+
+    try
+    {
+        count = _accountDal.GetTDSJVDetailsDuplicateCheck(
+            _con, GlobalSchema, Branchschema, JVType, MonthYear, CompanyCode, branchcode);
+
+        return Ok(count);   
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+    }
+}
+        // public  decimal GetTDSJVDetailsDuplicateCheck(string Branchschema, string JVType, string MonthYear,string GlobalSchema,string CompanyCode,string branchcode)
+        // {
+        //     long count = 0;
+        //     try
+        //     {
+        //         count = _accountDal.GetTDSJVDetailsDuplicateCheck(_con, GlobalSchema, Branchschema, JVType, MonthYear,CompanyCode,branchcode);
+        //         return ok(count);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError);
+
+        //     }
+        // }
+
+
+   [HttpGet("GetPartyLedgerDetails")]
+        public  IActionResult GetPartyLedgerDetails(string fromDate, string toDate, long pAccountId, long pSubAccountId, string pPartyRefId, string BranchSchema, string GlobalSchema,string branchCode,string companyCode)
+        {
+           BankBookDTO _BankBookDto = new BankBookDTO();
+            try
+            {
+                _BankBookDto.plstBankBook = _accountDal.GetPartyLedgerDetails(_con, fromDate, toDate, pAccountId, pSubAccountId, pPartyRefId, BranchSchema, GlobalSchema,branchCode,companyCode);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            return Ok(_BankBookDto.plstBankBook);
+        }
+
+
     }
 }

@@ -1013,6 +1013,7 @@ D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\ne
 D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\Kapil_Group_ERP_API.pdb
 D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\Kapil_Group_ERP_API.genruntimeconfig.cache
 D:\Global_Accounting_API\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\obj\Debug\net8.0\ref\Kapil_Group_ERP_API.dll
+E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\appsettings.Development.json
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\appsettings.json
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\Kapil_Group_ERP_API.exe
@@ -1090,7 +1091,6 @@ E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ko\Micros
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\karthik\GLOBAL_ACCOUNTS_LATEST\Kapil_Group_ERP_API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll

@@ -6880,5 +6880,118 @@ public List<PendingTransferDTO> GetPendingTransferDetails(string connectionStrin
 }
 
 
+
+
+public long GetTDSJVDetailsDuplicateCheck(string connectionString, string globalSchema, string branchschema, string jVType, string monthYear,string CompanyCode,string branchcode)
+{
+    long count = 0;
+    bool IsCheck = false;
+    string _Query = string.Empty;
+    StringBuilder sbQuery = new StringBuilder();
+
+    NpgsqlConnection con = new NpgsqlConnection(connectionString);
+
+    try
+    {
+        if (con.State != ConnectionState.Open)
+            con.Open();
+
+        // ---- Duplicate Check Flag ----
+        _Query = "select duplicatetdsjvcheck from " + AddDoubleQuotes(globalSchema) + ".vw_branch_duplicatetdsjvcheck where branch_code='" + branchcode + "'";
+      //  select duplicatetdsjvcheck from " + AddDoubleQuotes(globalSchema) + ".vw_branch_duplicatetdsjvcheck where branch_code='" + branchschema + "'
+
+        using (NpgsqlCommand cmd = new NpgsqlCommand(_Query, con))
+        {
+            object result = cmd.ExecuteScalar();
+            IsCheck = result != null && result != DBNull.Value && Convert.ToBoolean(result);
+        }
+
+        // ---- Main Count Query ----
+        if (IsCheck == true)
+        {
+            _Query = "select count(1) from " + AddDoubleQuotes(branchschema) + ".tbl_trans_journal_voucher where narration like '%" + jVType + " JV PASSED FOR THE MONTH OF " + monthYear + "' and company_code='" + CompanyCode + "' and branch_code='" + branchcode + "'";
+           // select count(1) from " + AddDoubleQuotes(branchschema) + ".tbl_trans_journal_voucher where narration like '%" + jVType + " JV PASSED FOR THE MONTH OF " + monthYear + "'
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(_Query, con))
+            {
+                object result = cmd.ExecuteScalar();
+                count = result != null && result != DBNull.Value ? Convert.ToInt64(result) : 0;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    return count;
+}
+
+
+
+
+
+public List<AccountReportsDTO> GetPartyLedgerDetails(string con, string fromDate, string toDate, long pAccountId, long pSubAccountId, string pPartyRefId, string BranchSchema, string GlobalSchema, string branchCode, string companyCode)
+{
+    string Query = string.Empty;
+    string pQuery = string.Empty;
+
+   List<AccountReportsDTO> lstcashbook = new List<AccountReportsDTO>();
+
+    try
+    {
+        if (pSubAccountId > 0)
+        {
+            pQuery = " and parentid=" + pAccountId + " and accountid=" + pSubAccountId;
+        }
+        else if (pAccountId > 0)
+        {
+            pQuery = " and parentid=" + pAccountId;
+        }
+
+        Query =
+        "select recordid,transactiondate,transaction_no,particulars,description,contactname,debitamount,abs(creditamount) as creditamount,abs(balance) as balance,case when balance>0 then 'Dr' else 'Cr' end as balancetype from (select *,sum(debitamount+creditamount) OVER(ORDER BY transactiondate,recordid) as balance from (SELECT 0 AS recordid,CAST('" + FormatDate(fromDate) + "' AS DATE) AS transactiondate,'0' AS transaction_no,'Opening Balance' AS particulars,CASE WHEN COALESCE(SUM(debitamount)-SUM(creditamount),0)>0 THEN COALESCE(SUM(debitamount)-SUM(creditamount),0) ELSE 0 END AS debitamount,CASE WHEN COALESCE(SUM(debitamount)-SUM(creditamount),0)<0 THEN COALESCE(SUM(debitamount)-SUM(creditamount),0) ELSE 0 END AS creditamount,'' AS description,'' AS contactname FROM accounts.tbl_trans_total_transactions WHERE transaction_date < '" + FormatDate(fromDate) + "' AND company_code = '" + companyCode + "' AND branch_code = '" + branchCode + "') a) b" +
+        pQuery + " and contact_id='" + pPartyRefId + "' UNION ALL SELECT row_number() over (order by transaction_no) as recordid, transaction_date as transactiondate, transaction_no, particulars, sum(COALESCE(debitamount,0.00)) as DEBITAMOUNT, -sum(COALESCE(creditamount,0.00)) as CREDITAMOUNT, narration as DESCRIPTION, contactname FROM accounts.tbl_trans_total_transactions WHERE transaction_date BETWEEN '" + FormatDate(fromDate) + "' AND '" + FormatDate(toDate) + "' and company_code ='" + companyCode + "' and branch_code ='" + branchCode + "' " +
+        //"and company_code='" + companyCode + "' and branch_code='" + branchCode + "'" +
+        pQuery + " AND contact_id='" + pPartyRefId + "' GROUP BY transaction_date, transaction_no, particulars, narration, contactname ) AS D ) x WHERE company_code = '" + companyCode + "' AND branch_code = '" + branchCode + "' AND (debitamount<>0 OR creditamount<>0)";
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(con))
+        {
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(Query, connection))
+            {
+                cmd.CommandType = CommandType.Text;
+
+                using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        AccountReportsDTO _ObjBank = new AccountReportsDTO();
+
+                        _ObjBank.precordid = Convert.ToInt64(dr["RECORDID"]);
+                        _ObjBank.ptransactiondate = Convert.ToDateTime(dr["transactiondate"]).ToString("dd/MM/yyyy");
+                        _ObjBank.pdebitamount = Convert.ToDouble(dr["DEBITAMOUNT"]);
+                        _ObjBank.pcreditamount = Convert.ToDouble(dr["CREDITAMOUNT"]);
+                        _ObjBank.pparticulars = Convert.ToString(dr["PARTICULARS"]);
+                        _ObjBank.pdescription = Convert.ToString(dr["DESCRIPTION"]);
+                        _ObjBank.ptransactionno = Convert.ToString(dr["TRANSACTIONNO"]);
+                        _ObjBank.popeningbal = Convert.ToDouble(dr["BALANCE"]);
+                        _ObjBank.pBalanceType = Convert.ToString(dr["balancetype"]);
+
+                        lstcashbook.Add(_ObjBank);
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+
+    return lstcashbook;
+}
+
     }
 }
