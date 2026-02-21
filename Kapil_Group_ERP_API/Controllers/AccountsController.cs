@@ -1878,25 +1878,182 @@ namespace Kapil_Group_ERP_API.Controllers
 
 
 
+        [HttpGet]
+        [Route("api/ChequesOnHand/GetClearedReturnedCheques_Newubi")]
+        public IActionResult GetClearedReturnedCheques_Newubi(string BrsFromDate, string BrsTodate, long depositedBankid, string BranchSchema, string BranchCode, string CompanyCode, string GlobalSchema)
+        {
+            ChequesOnHandDTO _ChequesInBankDTO = new ChequesOnHandDTO();
+            try
+            {
+                _ChequesInBankDTO.pchequesclearreturnlist = _accountDal.GetClearedReturnedChequesubi(_con, BrsFromDate, BrsTodate, depositedBankid, GlobalSchema, BranchSchema, BranchCode, CompanyCode);
+
+                return Ok(_ChequesInBankDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+
+        }
 
 
 
+        [HttpGet("getPartyDetailsbyid")]
+        public IActionResult getPartyDetailsbyid(long ppartyid, string BranchSchema, string BranchCode, string CompanyCode, string GlobalSchema,string TaxSchema)
+        {
+
+            AccountsMasterDTO _accountsmasterdto = new AccountsMasterDTO();
+            try
+            {
+
+                _accountsmasterdto.statelist = _accountDal.getStatesbyPartyid(ppartyid, _con, 1, GlobalSchema, BranchSchema, BranchCode, CompanyCode);
+                _accountsmasterdto.lstTdsSectionDetails = _accountDal.getTdsSectionsbyPartyid(ppartyid, _con, GlobalSchema, BranchCode, CompanyCode,TaxSchema);
+                _accountsmasterdto.accountbalance = _accountDal.getpartyAccountbalance(ppartyid, _con, BranchSchema, BranchCode, CompanyCode);
+                return Ok(_accountsmasterdto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+         [HttpGet("GetSubLedgerRestrictedStatus")]
+        public  IActionResult GetSubLedgerRestrictedStatus(long pledgerid, string BranchSchema,string GlobalSchema,string branchcode,string companycode)
+        {
+
+            List<AccountCreationDTO> accountslist = new List<AccountCreationDTO>();
+            try
+            {
+                accountslist = _accountDal.GetSubLedgerRestrictedStatus(pledgerid, _con, GlobalSchema, BranchSchema,branchcode,companycode);
+                return Ok(accountslist);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
+
+        
+
+
+        [HttpGet("GetTDSJVDetails")]
+        public  IActionResult GetTDSJVDetails(string Branchschema, string creditledger, string monthYear, string debitledger,string GlobalSchema,string branchCode,string companyCode)
+        {
+            List<TDSJVDetails> _tdsjvDetails = new List<TDSJVDetails>();
+            try
+            {
+                _tdsjvDetails = _accountDal.GetTDSJVDetails(_con, GlobalSchema, Branchschema, creditledger, monthYear, debitledger,branchCode,companyCode);
+                return Ok(_tdsjvDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
 
 
+         [HttpGet("GetReceiptsandPaymentsLoadingDatapettycash")]
+
+        public IActionResult GetReceiptsandPaymentsLoadingDatapettycash(string formname, string BranchSchema,string companyCode,string branchCode,string GlobalSchema,string TaxesSchema)
+        {
+
+            AccountsMasterDTO _accountsmasterdto = new AccountsMasterDTO();
+            try
+            {
+                _accountsmasterdto.banklist = _accountDal.GetBankntList(_con, GlobalSchema, BranchSchema,companyCode,branchCode);
+                _accountsmasterdto.modeofTransactionslist = _accountDal.GetModeoftransactions(_con, GlobalSchema,companyCode,branchCode); 
+                _accountsmasterdto.accountslist = _accountDal.GetLedgerAccountList(_con, formname, GlobalSchema, BranchSchema,companyCode,branchCode);
+                 _accountsmasterdto.partylist = _accountDal.GetPartyList(_con, GlobalSchema, BranchSchema,companyCode,branchCode);
+                _accountsmasterdto.Gstlist = _accountDal.GetGstPercentages(_con, GlobalSchema,companyCode,branchCode, TaxesSchema);
+                _accountsmasterdto.bankdebitcardslist = _accountDal.GetDebitCardNumbers(_con, GlobalSchema, BranchSchema,companyCode,branchCode);
+                _accountsmasterdto.cashbalance = _accountDal.getpettycashbalance(_con, BranchSchema,companyCode,branchCode);
+                _accountsmasterdto.bankbalance = _accountDal.GetBankBalance(0, _con, BranchSchema,companyCode,branchCode);
+                return Ok(_accountsmasterdto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
 
+           [HttpGet("GetBrsReportBankDebitsBankCredits")]
+        public IActionResult GetBrsReportBankDebitsBankCredits(string branchschema, string transtype, string bankid, string fromdate, string todate,string GlobalSchema,string Branchcode,string companycode)
+        {
+            List<GetBrsDebitCreditDTO> lstBrsList=new List<GetBrsDebitCreditDTO>();
+            try
+            {
+                lstBrsList =  _accountDal.GetBrsReportBankDebitsBankCredits(_con, GlobalSchema, branchschema, transtype, bankid, fromdate, todate,Branchcode,companycode);
+                return Ok(lstBrsList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
 
+         [HttpGet("GetCashOnHandData")]
+        public IActionResult GetCashOnHandData(string BranchSchema,string caoBranch, string fromDate, string todate, string AsOnDate,string CompanyCode,string BranchCode,string GlobalSchema)
+        {
+           ChequesOnHandDTO _ChequesOnHandDTO = new ChequesOnHandDTO();
+            try
+            {
+                _ChequesOnHandDTO.pchequesOnHandlist = _accountDal.GetCashOnHandDetails(_con, GlobalSchema, BranchSchema, caoBranch, fromDate, todate, AsOnDate,CompanyCode,BranchCode);
+               // _ChequesOnHandDTO._CashBalance = _accountDal.GetCashBalance(_con, GlobalSchema, BranchSchema,CompanyCode,BranchCode);
+                _ChequesOnHandDTO._CashBalance = _accountDal.getcashbalance(_con, BranchSchema, CompanyCode, BranchCode);
+
+                return Ok(_ChequesOnHandDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+
+        }
+
+         [HttpGet("getDaybook")]
+        public IActionResult getDaybook(string fromdate, string todate, string Ason, string BranchSchema,string branchCode,string companyCode,string GlobalSchema)
+        {
+           DayBookDto _DaybookDTO = new DayBookDto();
+            try
+            {
+                _DaybookDTO.plstdaybookdata = _accountDal.getDaybook(_con, fromdate, todate, Ason, BranchSchema, GlobalSchema, branchCode, companyCode);
+                _DaybookDTO.plstdaybooktotals = _accountDal.getDaybookTotals(_con, fromdate, todate, Ason, BranchSchema, GlobalSchema, branchCode, companyCode);
+
+                return Ok(_DaybookDTO);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
 
+[HttpGet("GetPendingTransferDetails")]
+        public IActionResult GetPendingTransferDetails(string BranchSchema, string Caoschema, string ptypeofpayment,string CompanyCode,string BranchCode,string GlobalSchema)
+        {
+            List<PendingTransferDTO> lstPendingTransferDetails=new List<PendingTransferDTO>();
+            try
+            {
 
+                lstPendingTransferDetails = _accountDal.GetPendingTransferDetails(_con, GlobalSchema, BranchSchema, Caoschema, ptypeofpayment,CompanyCode,BranchCode);
 
+                return Ok(lstPendingTransferDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
 
-
-
-
-
+            }
+        }
 
     }
 }

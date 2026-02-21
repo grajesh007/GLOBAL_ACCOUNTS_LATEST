@@ -471,12 +471,62 @@ string connectionString);
 
 
 
+List<ReceiptReferenceDTO> GetClearedReturnedChequesubi(
+    string ConnectionString,
+    string BrsFromDate,
+    string BrsTodate,
+    long DepositedBankId,
+    string GlobalSchema,
+    string BranchSchema,string BranchCode ,string CompanyCode );
+
+
+   
+
+    List<TdsSectionDTO> getTdsSectionsbyPartyid(long ppartyid, string ConnectionString, string GlobalSchema,string BranchCode,string CompanyCode,string TaxSchema);
+
+
+    decimal getpartyAccountbalance(long ppartyid, string ConnectionString, string BranchSchema, string BranchCode, string CompanyCode);
+
+List<AccountCreationDTO> GetSubLedgerRestrictedStatus(long subledgerid, string ConnectionString, string GlobalSchema, string BranchSchema,string branchcode,string companycode);
 
 
 
+ List<TDSJVDetails> GetTDSJVDetails(string connectionString, string globalSchema, string branchschema, string creditledger, string monthYear, string debitledger,string branchCode,string companyCode);
+
+decimal getpettycashbalance(string ConnectionString, string BranchSchema,string companyCode,string branchCode);
 
 
 
+List<GetBrsDebitCreditDTO> GetBrsReportBankDebitsBankCredits(
+    string ConnectionString,
+    string GlobalSchema,
+    string branchschema,
+    string transtype,
+    string bankid,
+    string fromdate,
+    string todate,string Branchcode,string companycode);
+
+
+//List<ReceiptReferenceDTO> GetCashOnHandDetails(string ConnectionString, string GlobalSchema, string BranchSchema, string caoBranch, string fromDate, string todate, string AsOnDate,string CompanyCode,string BranchCode);
+
+List<ReceiptReferenceDTO> GetCashOnHandDetails(
+    string ConnectionString,
+    string GlobalSchema,
+    string BranchSchema,
+    string caoBranch,
+    string fromDate,
+    string todate,
+    string AsOnDate,
+    string CompanyCode,
+    string BranchCode);
+
+
+    List<DayBookDto> getDaybook(string ConnectionString, string fromdate, string todate, string Ason, string BranchSchema, string GlobalSchema,string branchCode,string companyCode);
+
+
+    List<DayBookDto> getDaybookTotals(string ConnectionString, string fromdate, string todate, string Ason, string BranchSchema, string GlobalSchema,string branchCode,string companyCode);
+
+     List<PendingTransferDTO> GetPendingTransferDetails(string connectionString, string GlobalSchema, string BranchSchema, string Caoschema, string ptypeofpayment,string CompanyCode,string BranchCode);
   }
 }
 

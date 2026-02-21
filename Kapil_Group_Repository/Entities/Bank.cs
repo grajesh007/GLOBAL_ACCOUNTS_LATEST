@@ -1283,4 +1283,79 @@ namespace Kapil_Group_Repository.Entities
     public decimal with_pan_percentage { get; set; }
 }
         #endregion getTdsSectionNo	
+
+            public class AccountCreationDTO 
+    {
+        public object pRecordId { get; set; }
+        public object pAccountid { set; get; }
+        public object pAccountname { set; get; }
+        public object pParentId { set; get; }
+        public object pParrentAccountname { set; get; }
+        public object pAcctType { set; get; }
+        public object pChracctype { set; get; }
+        public object pOpeningamount { set; get; }
+        public object? pPartyname { set; get; }
+        public object pFormtype { set; get; }
+        public object pOpeningdate { set; get; }
+        public object pOpeningBalanceType { set; get; }
+
+        public object schema { set; get; }
+
+        public object pistdsapplicable { get; set; }
+        public object ptdscalculationtype { get; set; }
+        public object pisgstapplicable { get; set; }
+        public object pgsttype { get; set; }
+        public object pgstpercentage { get; set; }
+        public object debit_restriction_status { get; set; }
+        public object credit_restriction_status { get; set; }
+
+    }
+
+     public class GetBrsDebitCreditDTO
+    {
+        public object pclearDate { set; get; }
+        public object preferencenumber { set; get; }
+        public object pissuedate { set; get; }
+        public object ptotalamount { set; get; }
+        public object pdepositdate { set; get; }
+        public object ptransactionno { set; get; }
+        public object pparticulars  { set; get; }
+        
+    }
+
+
+public class DayBookDto : AccountReportsDTO
+    {
+        public object prcpttransactiondate { get; set; }
+        public string prcptaccountname { get; set; }
+        public string prcpttransactionno { get; set; }
+        public double? prcptdebitamount { get; set; }
+        public string prcptparticulars { get; set; }
+        public List<DayBookDto> plstdaybookdata { get; set; }
+        public List<DayBookDto> plstdaybooktotals { get; set; }
+        public object pdatdate { get; set; }
+    }
+
+      public  class PendingTransferDTO
+    {
+        public object branchName { get; set; }
+        public object receiptNo { get; set; }
+        public object date { get; set; }
+        public object groupcode { get; set; }
+        public object ticketNo { get; set; }
+        public object chitNo { get; set; }
+        public object subscriberName { get; set; }
+        public object modeofreceipt { get; set; }
+        public object Amount { get; set; }
+
+        public object totaldays { get; set; }
+        public object reference_number { get; set; }
+        public object chitstatus { get; set; }
+        public object cheque_date { get; set; }
+        public object bankName { get; set; }
+        public object pduemonths { get; set; }
+        public object trdate { get; set; }
+
+    }
+
 }
